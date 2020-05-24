@@ -4,7 +4,8 @@
     "module": "commonjs",
     "declaration": true,
     "outDir": "./dist/<your_mod_name>",
-    "strict": true
+    "strict": true,
+    "removeComments": true
   },
   "include": ["./src"],
   "exclude": ["node_modules", "**/__tests__/*"]
