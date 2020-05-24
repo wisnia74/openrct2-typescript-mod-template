@@ -28,11 +28,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 
 ## Usage
 
-<iframe width="560" height="315"
-src="https://www.youtube.com/embed/jXORMxoQmwU" 
-frameborder="0" 
-allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-allowfullscreen></iframe>
+[See template in action - YouTube video](https://www.youtube.com/watch?v=jXORMxoQmwU)
 
 - run `npm start` - it will launch`nodemon` server that will start to monitor any changes you make to `.ts` files in `./src` directory
 - start OpenRCT2 using `openrct2.com` - it will start along with a console
