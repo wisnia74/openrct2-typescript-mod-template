@@ -1,29 +1,38 @@
 
+
 # openrct2-mod-template
 Template repository for OpenRCT2 mods written in TypeScript.
 
 ## About
-This repository was created to serve as a template mod repository for OpenRCT2.
-OpenRCT2 gives you `hot reload` feature ([OpenRCT2 hot reload](https://github.com/OpenRCT2/OpenRCT2/blob/develop/distribution/scripting.md#writing-scripts)). I wanted to leverage that using `nodemon` to start a local server (that's why empty `app.js` in root dir, as an entry point) that will watch your `.ts` files in `src` directory, and everytime you save them, it will convert them to `.js` files and place them in a specified location.
+This repository was created to serve as a template TypeScript mod repository for OpenRCT2.
+
+I wanted to leverage [OpenRCT2 hot reload](https://github.com/OpenRCT2/OpenRCT2/blob/develop/distribution/scripting.md#writing-scripts) to make it even more painless to write and debug mods in real time.
+
+This template repository comes with [Nodemon](https://nodemon.io/), [ESLint](https://eslint.org/) and [TypeScript](https://www.typescriptlang.org/) on board.
+
+The idea was to use Nodemon to start a local server that will be watching your mod files, then on each save make it build `.ts` files to `.js`, place them inside OpenRCT2 `plugin` directory, and let hot reload feature do the rest (i.e. reload the mod in-game).
+
+## Configuration
+- create your own mod repository that will use this one as a template
+- clone it to your PC
+- go inside your repository folder and open `package.json`
+- copy `scripts` and `devDependencies` property contents (i.e. everything between `{}` curly braces)
+- run `npm init` and go through the init process, to create your own package
+- replace `scripts` in newly generated `package.json` with the ones you copied earlier
+- add copied earlier `devDependencies`, below `homepage` property
+- open `tsconfig-develop.json` and replace `<path_to_OpenRCT2_plugin_folder>/<your_mod_folder>`
+- open `tsconfig-prod.json` and replace `<your_mod_name>` with... your mod name :)
+- if you want to start right off the bat, open `./src/temp.ts` and replace `<reference path="<path>" />` with an actual path to `openrct2.d.ts` that lives in OpenRCT2 `bin` folder (or your OpenRCT2 folder, if you've installed just OpenRCT2, not OpenRCT2 launcher) - this is needed to have a code reference to OpenRCT2 JavaScript APIs
+- run `npm install` and you should be good to go
 
 ## Usage
-- edit `tsconfig.json` - specify `outDir` (preferably set it as your OpenRCT2 `plugin` folder path, as `hot reload` watches exactly that directory)
-- edit/create your `.ts` file/-s in `src` - I've included a template file there, though if you want to import OpenRCT2 APIs, you need to replace `<path>` with path to `openrct2.d.ts` in `<reference path="<path>" />`
-- run `npm run develop` - it will start a local server that will be watching changes in all of your `.ts` files in `src`
+- run `npm start` - it will launch`nodemon` server that will start to monitor any changes you make to `.ts` files in `./src` directory
 - start OpenRCT2 using `openrct2.com` - it will start along with a console
-- start a new park/load your save - mods start/reload only when you have a running park in game
-- write your code and save the file/-s
-- each time you save, `nodemon` will run `typescript` to compile files to `.js`, and OpenRCT2 `hot reload` feature will reload them in real time
-
-Voila! You can now write your mods in real time, wasting little to no time for building, giving you more time to debug :)
-
-Note: After cloning your own repository, that was based on this one, I recommend deleting `package.json` and `package-lock.json` and running `npm init` on your own. In case of installation errors related to `syscall rename`, just run `npm install` a couple times.
-
-## Known issues
-- If you are having problems with running `npm run build` or `npm run build-develop` (related to `tsc` not being recognized as a command), refer to [this](https://code.visualstudio.com/docs/typescript/typescript-compiling#_compiler-versus-language-service) article.
-
-## Notes
-I've included `npm run build` feature that will first lint your code, and then compile all the files. That might come in handy when you want to generate final version of your mod files. To suit your needs, just modify the behavior of `nodemon`, `eslint` and `typescript`.
+- start/load park - plugins start/reload only when there's an active park in-game
+- write your code and save
+- upon saving, `nodemon` will restart the server, thus triggering `npm run build:develop` that will compile your files and send them to the path you've specified in `tsconfig-develop.json` (`OpenRCT2/plugin/<your_mod_folder>`)
+- OpenRCT2 hot reload feature will notice changes you've made to `.js` files in this directory and it will reload all the mods - this will allow you to write mods nearly in real time, you'll just need to hit `ctrl+s` from time to time
+- once you've finished writing your mod, close `nodemon` server and run `npm run build` - this one will lint your code, and if everything's good it will compile your mod files to `./dist/<your_mod_name>`
 
 ### Useful links
 - [OpenRCT2 on GitHub](https://github.com/OpenRCT2)
