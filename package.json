@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "develop": "nodemon --watch ./src--ext ts",
-    "build": "tsc --project tsconfig.json"
+    "develop-build": "tsc --project tsconfig.json",
+    "build": "npm run lint && tsc --project tsconfig.json",
+    "lint": "eslint ./src/*.ts"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,11 @@
   },
   "homepage": "https://github.com/wisnia74/openrct2-mod-template#readme",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.0.0",
+    "@typescript-eslint/parser": "^3.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
     "nodemon": "^2.0.4",
     "typescript": "^3.9.3"
   }
