@@ -4,7 +4,7 @@
   "description": "My template repo for OpenRCT2 mods.",
   "main": "app.js",
   "scripts": {
-    "develop": "nodemon --watch ./src--ext ts",
+    "develop": "nodemon --watch ./src --ext ts",
     "develop-build": "tsc --project tsconfig.json",
     "build": "npm run lint && tsc --project tsconfig.json",
     "lint": "eslint ./src/*.ts"
