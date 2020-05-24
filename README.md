@@ -16,10 +16,10 @@ The idea was to use Nodemon to start a local server that will be watching your m
 - create your own mod repository that will use this one as a template
 - clone it to your PC
 - go inside your repository folder and open `package.json`
-- copy `scripts` and `devDependencies` property contents (i.e. everything between `{}` curly braces, for these properties)
+- copy `scripts` and `devDependencies`
 - run `npm init` and go through the init process, to create your own package
 - replace `scripts` in newly generated `package.json` with the ones you copied earlier
-- add copied earlier `devDependencies`, below `homepage` property
+- add copied earlier `devDependencies`
 - open `tsconfig-develop.json` and replace `<path_to_OpenRCT2_plugin_folder>/<your_mod_folder>`
 - open `tsconfig-prod.json` and replace `<your_mod_name>` with... your mod name :)
 - if you want to start right off the bat, open `./src/temp.ts` and replace `<reference path="<path>" />` with an actual path to `openrct2.d.ts` that lives in OpenRCT2 `bin` folder (or your OpenRCT2 folder, if you've installed just OpenRCT2, not OpenRCT2 launcher) - this is needed to have a code reference to OpenRCT2 JavaScript APIs
