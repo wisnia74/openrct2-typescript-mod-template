@@ -1,0 +1,29 @@
+{
+  "name": "openrct2-mod-template",
+  "version": "1.0.0",
+  "description": "My template repo for OpenRCT2 mods.",
+  "main": "app.js",
+  "scripts": {
+    "develop": "nodemon --watch ./src--ext ts",
+    "build": "tsc --project tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wisnia74/openrct2-mod-template.git"
+  },
+  "keywords": [
+    "openrct2",
+    "mods",
+    "game"
+  ],
+  "author": "wisnia74",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wisnia74/openrct2-mod-template/issues"
+  },
+  "homepage": "https://github.com/wisnia74/openrct2-mod-template#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "typescript": "^3.9.3"
+  }
+}
