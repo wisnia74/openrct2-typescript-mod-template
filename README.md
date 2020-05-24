@@ -1,6 +1,6 @@
 
 # openrct2-mod-template
-Template repository for OpenRCT2 mods.
+Template repository for OpenRCT2 mods written in TypeScript.
 
 ## About
 This repository was created to serve as a template mod repository for OpenRCT2.
