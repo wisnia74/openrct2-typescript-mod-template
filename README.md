@@ -19,6 +19,9 @@ Voila! You can now write your mods in real time, wasting little to no time for b
 
 Note: After cloning your own repository, that was based on this one, I recommend deleting `package.json` and `package-lock.json` and running `npm init` on your own.
 
+## Known issues
+- If you are having problem with running `npm run build` or `npm run build-develop` (related to `tsc` not being recognized), refer to [this](https://code.visualstudio.com/docs/typescript/typescript-compiling#_compiler-versus-language-service) article.
+
 ## Notes
 I've included `npm run build` feature that will first lint your code, and then compile all the files. That might come in handy when you want to generate final version of your mod files. To suit your needs, just modify the behavior of `nodemon`, `eslint` and `typescript`.
 
