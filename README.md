@@ -17,7 +17,7 @@ OpenRCT2 gives you `hot reload` feature ([OpenRCT2 hot reload](https://github.co
 
 Voila! You can now write your mods in real time, wasting little to no time for building, giving you more time to debug :)
 
-Note: After cloning your own repository, that was based on this one, I recommend deleting `package.json` and `package-lock.json` and running `npm init` on your own.
+Note: After cloning your own repository, that was based on this one, I recommend deleting `package.json` and `package-lock.json` and running `npm init` on your own. In case of installation errors related to `syscall rename`, just run `npm install` a couple times.
 
 ## Known issues
 - If you are having problem with running `npm run build` or `npm run build-develop` (related to `tsc` not being recognized), refer to [this](https://code.visualstudio.com/docs/typescript/typescript-compiling#_compiler-versus-language-service) article.
