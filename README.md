@@ -30,7 +30,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 - run `npm start` - it will launch`nodemon` server that will start to monitor any changes you make to `.ts` files in `./src` directory
 - start OpenRCT2 using `openrct2.com` - it will start along with a console
 - start/load park - plugins start/reload only when there's an active park in-game
-- write your code and save
+- write code - `nodemon` watches `src` directory and all `.ts` files inside it
 - upon saving, `nodemon` will restart the server, thus triggering `npm run build:develop` that will compile your files and send them to the path you've specified in `tsconfig-develop.json` (`OpenRCT2/plugin/<your_mod_folder>`)
 - OpenRCT2 hot reload feature will notice changes you've made to `.js` files in this directory and it will reload all the mods - this will allow you to write mods nearly in real time, you'll just need to hit `ctrl+s` from time to time
 - once you've finished writing your mod, close `nodemon` server and run `npm run build` - this one will lint your code, and if everything's good it will compile your mod files to `./dist/<your_mod_name>`
