@@ -16,13 +16,14 @@ The idea was to use Nodemon to start a local server that will be watching your m
 - create your own mod repository that will use this one as a template
 - clone it to your PC
 - go inside your repository folder and open `package.json`
-- copy `scripts` and `devDependencies` property contents (i.e. everything between `{}` curly braces)
+- copy `scripts` and `devDependencies` property contents (i.e. everything between `{}` curly braces, for these properties)
 - run `npm init` and go through the init process, to create your own package
 - replace `scripts` in newly generated `package.json` with the ones you copied earlier
 - add copied earlier `devDependencies`, below `homepage` property
 - open `tsconfig-develop.json` and replace `<path_to_OpenRCT2_plugin_folder>/<your_mod_folder>`
 - open `tsconfig-prod.json` and replace `<your_mod_name>` with... your mod name :)
 - if you want to start right off the bat, open `./src/temp.ts` and replace `<reference path="<path>" />` with an actual path to `openrct2.d.ts` that lives in OpenRCT2 `bin` folder (or your OpenRCT2 folder, if you've installed just OpenRCT2, not OpenRCT2 launcher) - this is needed to have a code reference to OpenRCT2 JavaScript APIs
+- also in `temp.ts`, replace placeholders in `registerPlugin` function call (`type` needs to be set to `remote` if your mod is going to alter the game state, `local` if it will not - read more in [scripting guide linked at the bottom](https://github.com/wisnia74/openrct2-typescript-mod-template#useful-links))
 - run `npm install` and you should be good to go
 
 ## Usage
@@ -33,6 +34,9 @@ The idea was to use Nodemon to start a local server that will be watching your m
 - upon saving, `nodemon` will restart the server, thus triggering `npm run build:develop` that will compile your files and send them to the path you've specified in `tsconfig-develop.json` (`OpenRCT2/plugin/<your_mod_folder>`)
 - OpenRCT2 hot reload feature will notice changes you've made to `.js` files in this directory and it will reload all the mods - this will allow you to write mods nearly in real time, you'll just need to hit `ctrl+s` from time to time
 - once you've finished writing your mod, close `nodemon` server and run `npm run build` - this one will lint your code, and if everything's good it will compile your mod files to `./dist/<your_mod_name>`
+
+### Notes
+If you've added a new mod folder to `plugin`, and the OpenRCT2 didn't seem likt it registered it (and you had a running park), just load the save/quit to menu and load the save/start a new park, so OpenRCT2 loads the mods again. Now when you overwrite them during development, there shouldn't be any problems with hot reload noticing file changes.
 
 ### Useful links
 - [OpenRCT2 on GitHub](https://github.com/OpenRCT2)
