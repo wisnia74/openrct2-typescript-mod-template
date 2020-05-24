@@ -18,7 +18,7 @@ OpenRCT2 gives you `hot reload` feature ([OpenRCT2 hot reload](https://github.co
 Voila! You can now write your mods in real time, wasting little to no time for building, giving you more time to debug :)
 
 ## Notes
-I've included `npm run build` feature that will first lint your code, and them compile all the files. That might come in handy when you want to generate final version of your mod files. To suit your needs, just modify the behavior of `nodemon`, `eslint` and `typescript`.
+I've included `npm run build` feature that will first lint your code, and then compile all the files. That might come in handy when you want to generate final version of your mod files. To suit your needs, just modify the behavior of `nodemon`, `eslint` and `typescript`.
 
 ### Useful links
 - [OpenRCT2 on GitHub](https://github.com/OpenRCT2)
