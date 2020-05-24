@@ -28,7 +28,9 @@ The idea was to use Nodemon to start a local server that will be watching your m
 
 ## Usage
 
-[See template in action - YouTube video](https://www.youtube.com/watch?v=jXORMxoQmwU)
+Click image below to see YouTube video showing this template in action.
+
+[![OpenRCT2 TypeScript mod template presentation](http://img.youtube.com/vi/jXORMxoQmwU/0.jpg)](http://www.youtube.com/watch?v=jXORMxoQmwU "OpenRCT2 TypeScript mod template presentation")
 
 - run `npm start` - it will launch`nodemon` server that will start to monitor any changes you make to `.ts` files in `./src` directory
 - start OpenRCT2 using `openrct2.com` - it will start along with a console
