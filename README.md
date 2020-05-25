@@ -21,7 +21,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 - `cd` into it
 - edit `init.json` and replace the following:
 	- `userName` and `modName` - self explanatory, though it's worth noting, that these will land in OpenRCT2 `registerPlugin()` function call
-	- `openrct2ApiFilePath` - full path to `openrct2.d.ts` TypeScript API declaration file
+	- `openrct2ApiFilePath` - full path to `openrct2.d.ts` TypeScript API declaration file (more info about it in [OpenRCT2 scripting guide](https://github.com/OpenRCT2/OpenRCT2/blob/develop/distribution/scripting.md)
 	- `openrct2PluginFolderPath` - full path to OpenRCT2 `plugin` folder
 	- **NOTE**: I left my own paths there for reference, yours might be different - just replace them
 - run `node init.js` in console
