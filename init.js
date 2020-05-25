@@ -11,7 +11,9 @@ const saveJSON = (pathname, data) => fs.writeFileSync(pathname, JSON.stringify(d
 
 (async () => {
   // load necessary scripts and devDependencies from template npm package files
-  const { userName, modName, modType, openrct2ApiFilePath, openrct2PluginFolderPath } = readJSON('./init.json');
+  const {
+    userName, modName, modType, openrct2ApiFilePath, openrct2PluginFolderPath,
+  } = readJSON('./init.json');
   const { scripts, devDependencies } = readJSON('./package.json');
 
   // remove template npm package files
@@ -40,81 +42,81 @@ const saveJSON = (pathname, data) => fs.writeFileSync(pathname, JSON.stringify(d
 
   // create TypeScript develop config
   const tsDevelopConfig = {
-    "compilerOptions": {
-      "target": "es5",
-      "module": "commonjs",
-      "declaration": true,
-      "outDir": `${openrct2PluginFolderPath}/${modName}`,
-      "strict": true
+    compilerOptions: {
+      target: 'es5',
+      module: 'commonjs',
+      declaration: true,
+      outDir: `${openrct2PluginFolderPath}/${modName}`,
+      strict: true,
     },
-    "include": ["./src"],
-    "exclude": ["node_modules", "**/__tests__/*"]
-  }
+    include: ['./src'],
+    exclude: ['node_modules', '**/__tests__/*'],
+  };
 
   // create TypeScript prod config
   const tsProdConfig = {
-    "compilerOptions": {
-      "target": "es5",
-      "module": "commonjs",
-      "declaration": true,
-      "outDir": `./dist/${modName}`,
-      "strict": true,
-      "removeComments": true
+    compilerOptions: {
+      target: 'es5',
+      module: 'commonjs',
+      declaration: true,
+      outDir: `./dist/${modName}`,
+      strict: true,
+      removeComments: true,
     },
-    "include": ["./src"],
-    "exclude": ["node_modules", "**/__tests__/*"]
-  }
-  
+    include: ['./src'],
+    exclude: ['node_modules', '**/__tests__/*'],
+  };
+
   // save both TypeScript configs
   saveJSON('./tsconfig-develop.json', tsDevelopConfig);
   saveJSON('./tsconfig-prod.json', tsProdConfig);
 
   // create Nodemon config
   const nodemonConfig = {
-    "events": {
-      "restart": "npm run build:develop"
-    }
-  }
-  
+    events: {
+      restart: 'npm run build:develop',
+    },
+  };
+
   // save Nodemon config
   saveJSON('./nodemon.json', nodemonConfig);
 
   // create ESLint config
   const eslintConfig = {
-    "env": {
-        "browser": true,
-        "es6": true,
-        "node": true
+    env: {
+      browser: true,
+      es6: true,
+      node: true,
     },
-    "extends": [
-        "airbnb-base"
+    extends: [
+      'airbnb-base',
     ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
+    globals: {
+      Atomics: 'readonly',
+      SharedArrayBuffer: 'readonly',
     },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaVersion": 11,
-        "sourceType": "module"
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+      ecmaVersion: 11,
+      sourceType: 'module',
     },
-    "plugins": [
-        "@typescript-eslint"
+    plugins: [
+      '@typescript-eslint',
     ],
-    "rules": {
-        "no-undef": 0,
-        "spaced-comment": 0,
-        "max-len": ["error", { "code": 120 }]
-    }
-  }
+    rules: {
+      'no-undef': 0,
+      'spaced-comment': 0,
+      'max-len': ['error', { code: 120 }],
+    },
+  };
 
   // save ESLint config
   saveJSON('./.eslintrc.json', eslintConfig);
 
   // create VSCode config
   const vsCodeConfig = {
-    "typescript.tsdk": "node_modules/typescript/lib"
-  }
+    'typescript.tsdk': 'node_modules/typescript/lib',
+  };
 
   // save VSCode config
   createFolder('./.vscode');
@@ -135,15 +137,15 @@ const saveJSON = (pathname, data) => fs.writeFileSync(pathname, JSON.stringify(d
     main,
   });
   
-  `
+  `;
 
   // save temporary mod file
   createFolder('./src');
   createFile('./src/mod.ts', modFile);
-  
+
   // create README.md text
-  const text = `# ${path.basename(__dirname)}`
-  
+  const text = `# ${path.basename(__dirname)}`;
+
   // create README.md file
   createFile('./README.md', text);
 
