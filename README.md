@@ -24,12 +24,13 @@ The idea was to use Nodemon to start a local server that will be watching your m
 	- `openrct2ApiFilePath` - full path to `openrct2.d.ts` TypeScript API declaration file (more info about it in [OpenRCT2 scripting guide](https://github.com/OpenRCT2/OpenRCT2/blob/develop/distribution/scripting.md))
 	- `openrct2PluginFolderPath` - full path to OpenRCT2 `plugin` folder
 	- **NOTE**: I left my own paths there for reference, yours might be different - just replace them
-- run `node init.js` in console
-	- it will run `npm init` for you
-	- **IMPORTANT**: leave `entry` as `init.js` - at the end of a script run it will be recreated as an empty file and it well serve as an entry point for Nodemon server
-	- you can `enter` through the rest, if you want to be fancy, specify `license` as `MIT` because `LICENSE` file will get copied from this template repo and will be included in yours (`npm init` doesn't generate `LICENSE` file)
-	- after `npm init` is done, the script will create Nodemon and TypeScript config files, as well as `./src/mod.ts` as an example mod file with imported OpenRCT2 TypeScript API declaration and then, it will run `npm install` to install all dependencies
-	- last but not least, it will `git add .`, `git commit` and `git push` to your repository
+- run `node init.js`
+	- it will run `npm init` that you have to complete
+	- **IMPORTANT**: leave `entry` as `init.js`
+	- you can `enter` through the rest, if you fancy, you can specify `license` to be `MIT` instead of `ISC`
+	- after `npm init` finishes, the script will create Nodemon and TypeScript config files, as well as `./src/mod.ts` as an example mod file with imported OpenRCT2 TypeScript API declaration and then
+	- it will also run `npm install` to install dependencies
+	- at the end it will `git add .`, `git commit` and `git push` to your repository
 - you now have a clean repository and npm package configured, so you can start modding
 
 ## Usage
@@ -38,9 +39,9 @@ Click image below to see YouTube video showing this template in action.
 
 [![OpenRCT2 TypeScript mod template presentation](http://img.youtube.com/vi/jXORMxoQmwU/0.jpg)](http://www.youtube.com/watch?v=jXORMxoQmwU "OpenRCT2 TypeScript mod template presentation")
 
-- `npm start` starts Nodemon server that will watch for any changes you make to your `.ts` files inside `./src` directory (i.e. it will detect when you save a file)
-	- once it detects them, it will build `.ts` files to ES5 `.js` files and place them inside `<openrct2PluginFolderPath>/<modName>` that you've specified in `init.json` before running `init.js`
-	- OpenRCT2 hot reload feature will detect changes to files in this directory and it will reload your mods in real time (assuming that you have a running park)
+- `npm start` starts Nodemon server that will watch for any changes you make to your `.ts` files inside `./src` directory
+	- once it detects them, it will build `.ts` files to ES5 `.js` files and place them inside `<openrct2PluginFolderPath>/<modName>` that you've specified in at the beggining in `init.json`
+	- OpenRCT2 hot reload feature will detect changes to files in it's `plugin` directory and it will reload mods in real time (assuming that you have a running park in-game)
 - `npm run build:develop` will only compile `.ts` files and place them inside `<openrct2PluginFolderPath>/<modName>`
 - `npm run build` will run `npm run lint` to lint your code and then, if linting succeeds, it will compile `.ts` files from `./src`, and place them all in `./dist` directory - those are the final mod files that you can share with others
 
