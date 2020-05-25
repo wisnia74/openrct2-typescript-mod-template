@@ -39,11 +39,17 @@ Click image below to see YouTube video showing this template in action.
 
 [![OpenRCT2 TypeScript mod template presentation](http://img.youtube.com/vi/jXORMxoQmwU/0.jpg)](http://www.youtube.com/watch?v=jXORMxoQmwU "OpenRCT2 TypeScript mod template presentation")
 
-- `npm start` starts Nodemon server that will watch for any changes you make to your `.ts` files inside `./src` directory
-	- once it detects them, it will build `.ts` files to ES5 `.js` files and place them inside `<openrct2PluginFolderPath>/<modName>` that you've specified in at the beggining in `init.json`
-	- OpenRCT2 hot reload feature will detect changes to files in it's `plugin` directory and it will reload mods in real time (assuming that you have a running park in-game)
+NPM scripts:
+- `npm start` starts Nodemon server that will watch for any changes you make to your `.ts` files inside `./src` directory and once it detects them, it will build `.ts` files to ES5 `.js` files and place them inside `<openrct2PluginFolderPath>/<modName>`
 - `npm run build:develop` will only compile `.ts` files and place them inside `<openrct2PluginFolderPath>/<modName>`
 - `npm run build` will run `npm run lint` to lint your code and then, if linting succeeds, it will compile `.ts` files from `./src`, and place them all in `./dist` directory - those are the final mod files that you can share with others
+
+Modding:
+- run `npm start`
+- launch OpenRCT2 using `.com` file, not `.exe` (this way it will start along with the console)
+- start a park/load save
+- write code then save the file
+- OpenRCT2 hot reload feature will reload mods in real time, once it detects changes to files in `plugin` directory
 
 ### Notes
 If you've added a new mod folder to `plugin`, and the OpenRCT2 didn't seem likt it registered it (and you had a running park), just load the save/quit to menu and load the save/start a new park, so OpenRCT2 loads the mods again. Now when you overwrite them during development, there shouldn't be any problems with hot reload noticing file changes.
