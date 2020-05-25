@@ -25,12 +25,12 @@ The idea was to use Nodemon to start a local server that will be watching your m
 	- `openrct2PluginFolderPath` - full path to OpenRCT2 `plugin` folder
 	- **NOTE**: I left my own paths there for reference, yours might be different - just replace them
 - run `node init.js`
-	- it will run `npm init` that you have to complete
+	- it'll `npm init` that you have to complete
 	- **IMPORTANT**: leave `entry` as `init.js`
-	- you can `enter` through the rest, if you fancy, you can specify `license` to be `MIT` instead of `ISC`
-	- after `npm init` finishes, the script will create Nodemon and TypeScript config files, as well as `./src/mod.ts` as an example mod file with imported OpenRCT2 TypeScript API declaration and then
+	- you can `enter` through the rest, if you fancy though, you can specify `license` to be `MIT` instead of `ISC`
+	- after `npm init` finishes, the script will create Nodemon and TypeScript config files, as well as `./src/mod.ts` as an example mod file with imported OpenRCT2 TypeScript API declaration
 	- it will also run `npm install` to install dependencies
-	- at the end it will `git add .`, `git commit` and `git push` to your repository
+	- at the end it'll `git add .`, `git commit` and `git push` to your repository
 - you now have a clean repository and npm package configured, so you can start modding
 
 ## Usage
@@ -40,9 +40,9 @@ Click image below to see YouTube video showing this template in action.
 [![OpenRCT2 TypeScript mod template presentation](http://img.youtube.com/vi/jXORMxoQmwU/0.jpg)](http://www.youtube.com/watch?v=jXORMxoQmwU "OpenRCT2 TypeScript mod template presentation")
 
 NPM scripts:
-- `npm start` starts Nodemon server that will watch for any changes you make to your `.ts` files inside `./src` directory and once it detects them, it will build `.ts` files to ES5 `.js` files and place them inside `<openrct2PluginFolderPath>/<modName>`
+- `npm start` starts Nodemon server that will watch `.ts` files inside `./src` directory and once it detects changes, it'll build `.ts` files to ES5 `.js` files and place them inside `<openrct2PluginFolderPath>/<modName>`
 - `npm run build:develop` will only compile `.ts` files and place them inside `<openrct2PluginFolderPath>/<modName>`
-- `npm run build` will run `npm run lint` to lint your code and then, if linting succeeds, it will compile `.ts` files from `./src`, and place them all in `./dist` directory - those are the final mod files that you can share with others
+- `npm run build` will run `npm run lint` to lint your code and then, if linting succeeds, it'll compile `.ts` files from `./src`, and place them all in `./dist` directory - those are the final mod files that you can share with others
 
 Modding:
 - run `npm start`
