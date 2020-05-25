@@ -17,15 +17,6 @@ const saveJSON = (pathname, data) => fs.writeFileSync(pathname, JSON.stringify(d
   removeFile('./package.json');
   removeFile('./package-lock.json');
   removeFile('./README.md');
-  removeFile('./LICENSE');
-
-  // save these changes to GitHub
-  // because otherwise, when running git add . later
-  // it will record deleting LICENSE and README.md
-  // and it will remove the newly generated ones
-  exec('git add .');
-  exec('git commit -m "Remove template LICENSE and README.md"');
-  exec('git push');
 
   // run npm init
   exec('npm init');
