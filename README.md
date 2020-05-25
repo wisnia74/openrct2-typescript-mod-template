@@ -29,7 +29,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 	- **IMPORTANT**: leave `entry` as `init.js`
 	- you can `enter` through the rest, if you fancy though, you can specify `license` to be `MIT` instead of `ISC`
 	- after `npm init` finishes, the script will create Nodemon and TypeScript config files, as well as `./src/mod.ts` as an example mod file with imported OpenRCT2 TypeScript API declaration
-	- it will also run `npm install` to install dependencies
+	- it'll also run `npm install` to install dependencies
 	- at the end it'll `git add .`, `git commit` and `git push` to your repository
 - you now have a clean repository and npm package configured, so you can start modding
 
