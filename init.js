@@ -6,7 +6,7 @@ const createFile = (pathname, data) => fs.writeFileSync(pathname, data);
 const removeFile = (pathname) => fs.unlinkSync(pathname);
 const createFolder = (pathname) => fs.mkdirSync(pathname);
 const readJSON = (pathname) => JSON.parse(fs.readFileSync(pathname));
-const saveJSON = (pathname, data) => fs.writeFileSync(pathname, JSON.stringify(data));
+const saveJSON = (pathname, data) => fs.writeFileSync(pathname, JSON.stringify(data, undefined, 2));
 
 (async () => {
   // load necessary scripts and devDependencies from template npm package files
