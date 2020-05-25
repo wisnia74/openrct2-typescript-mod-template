@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const { execSync } = require('child_process');
 
 const exec = (cmd, opts = { stdio: [0, 1, 2] }) => execSync(cmd, opts);
@@ -139,6 +140,12 @@ const saveJSON = (pathname, data) => fs.writeFileSync(pathname, JSON.stringify(d
   // save temporary mod file
   createFolder('./src');
   createFile('./src/mod.ts', modFile);
+  
+  // create README.md text
+  const text = `# ${path.basename(__dirname)}`
+  
+  // create README.md file
+  createFile('./README.md', text);
 
   // save everything to GitHub and remove init files, leaving empty init.js behind
   createFile('./init.js', '');
