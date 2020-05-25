@@ -51,10 +51,10 @@ Click image below to see YouTube video showing this template in action.
 - write code then save the file
 - OpenRCT2 hot reload feature will reload mods in real time, once it detects changes to files in `plugin` directory
 
-### Notes
+## Notes
 If you've added a new mod folder to `plugin`, and the OpenRCT2 didn't seem likt it registered it (and you had a running park), just load the save/quit to menu and load the save/start a new park, so OpenRCT2 loads the mods again. Now when you overwrite them during development, there shouldn't be any problems with hot reload noticing file changes.
 
-### Useful links
+## Useful links
 - [OpenRCT2 website](https://openrct2.io/)
 - [OpenRCT2 on GitHub](https://github.com/OpenRCT2)
 - [OpenRCT2 on Reddit](https://www.reddit.com/r/openrct2)
