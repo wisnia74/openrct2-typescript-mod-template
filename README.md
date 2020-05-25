@@ -25,7 +25,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 	- `openrct2PluginFolderPath` - full path to OpenRCT2 `plugin` folder
 	- **NOTE**: I left my own paths there for reference, yours might be different - just replace them
 - run `node init.js`
-	- it'll `npm init` that you have to complete
+	- it'll run `npm init` that you have to complete
 	- **IMPORTANT**: leave `entry` as `init.js`
 	- you can `enter` through the rest, if you fancy though, you can specify `license` to be `MIT` instead of `ISC`
 	- after `npm init` finishes, the script will create Nodemon and TypeScript config files, as well as `./src/mod.ts` as an example mod file with imported OpenRCT2 TypeScript API declaration
