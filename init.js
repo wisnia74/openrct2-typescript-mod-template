@@ -124,19 +124,19 @@ const saveJSON = (pathname, data) => fs.writeFileSync(pathname, JSON.stringify(d
   // create temporary mod file
   const modFile = `/// <reference path="${openrct2ApiFilePath}" />
 
-  const main = () => {
-    console.log('Your plug-in has started!');
-  };
+const main = () => {
+  console.log('Your plug-in has started!');
+};
 
-  registerPlugin({
-    name: '${modName}',
-    version: '1.0',
-    authors: ['${userName}'],
-    type: '${modType}',
-    main,
-  });
-  
-  `;
+registerPlugin({
+  name: '${modName}',
+  version: '1.0',
+  authors: ['${userName}'],
+  type: '${modType}',
+  main,
+});
+
+`;
 
   // save temporary mod file
   createFolder('./src');
