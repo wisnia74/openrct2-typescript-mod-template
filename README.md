@@ -11,7 +11,7 @@ I wanted to leverage [OpenRCT2 hot reload](https://github.com/OpenRCT2/OpenRCT2/
 
 This template repository comes with [Nodemon](https://nodemon.io/), [ESLint](https://eslint.org/) and [TypeScript](https://www.typescriptlang.org/) on board.
 
-The idea was to use Nodemon to start a local server that will be watching your mod files, then on each save make it build `.ts` files to `.js`, place them inside OpenRCT2 `plugin` directory, and let hot reload feature do the rest (i.e. reload the mod in-game).
+The idea was to use Nodemon to start a local server that will be watching your mod files, then on each save make it build `.ts` files to ES5 `.js` files, place them inside OpenRCT2 `plugin` directory, and let hot reload feature do the rest (i.e. reload the mod in-game).
 
 ## Configuration
 - install [Node](https://nodejs.org/en/)
@@ -39,10 +39,10 @@ Click image below to see YouTube video showing this template in action.
 [![OpenRCT2 TypeScript mod template presentation](http://img.youtube.com/vi/jXORMxoQmwU/0.jpg)](http://www.youtube.com/watch?v=jXORMxoQmwU "OpenRCT2 TypeScript mod template presentation")
 
 - `npm start` starts Nodemon server that will watch for any changes you make to your `.ts` files inside `./src` directory (i.e. it will detect when you save a file)
-	- once it detects them, it will build `.ts` files to ES5 `.js` files and place them inside `<openrct2PluginFolderPath>/<modName>` that you've specified before running `node init.js`
+	- once it detects them, it will build `.ts` files to ES5 `.js` files and place them inside `<openrct2PluginFolderPath>/<modName>` that you've specified in `init.json` before running `init.js`
 	- OpenRCT2 hot reload feature will detect changes to files in this directory and it will reload your mods in real time (assuming that you have a running park)
-- `npm run build:develop` will perform just the `.ts` -> `.js` compilation step of `npm run start` (i.e. will not start a server)
-- `npm run build` will run `npm run lint` to lint your code and then build `.ts` files from `./src` to `.js` files, and place them all in `./dist` directory - those are the final mod files that you can share with others
+- `npm run build:develop` will only compile `.ts` files and place them inside `<openrct2PluginFolderPath>/<modName>`
+- `npm run build` will run `npm run lint` to lint your code and then, if linting succeeds, it will compile `.ts` files from `./src`, and place them all in `./dist` directory - those are the final mod files that you can share with others
 
 ### Notes
 If you've added a new mod folder to `plugin`, and the OpenRCT2 didn't seem likt it registered it (and you had a running park), just load the save/quit to menu and load the save/start a new park, so OpenRCT2 loads the mods again. Now when you overwrite them during development, there shouldn't be any problems with hot reload noticing file changes.
