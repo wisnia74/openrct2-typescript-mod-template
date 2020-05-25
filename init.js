@@ -18,7 +18,6 @@ const saveJSON = (pathname, data) => fs.writeFileSync(pathname, JSON.stringify(d
 
   // remove template npm package files
   removeFile('./package.json');
-  removeFile('./package-lock.json');
   removeFile('./README.md');
 
   // run npm init
