@@ -142,6 +142,7 @@ const saveJSON = (pathname, data) => fs.writeFileSync(pathname, JSON.stringify(d
     type: '${modType}',
     main,
   });
+  
   `
 
   // save temporary mod file
