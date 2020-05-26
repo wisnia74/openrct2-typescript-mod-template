@@ -35,12 +35,8 @@ The idea was to use Nodemon to start a local server that will be watching your m
 **NOTE**: I left my own paths in `openrct2ApiFilePath` and `openrct2PluginFolderPath` for reference - in case yours are entirely different, just replace them.
 
 - run `node init.js`
-
-It will run `npm init` for you, so you can generate your own npm package.
-During the process, **leave `entry` as `init.js`**! After you're finished with configuration steps, it'll be replaced with an empty file and it will serve as an entry file for Nodemon server.
-Feel free to `enter` through the rest, if you fancy though, you can specify `license` as `MIT` instead of `ISC`, as the `license` file from this repository (which is `MIT`) will get carried over to your repository.
-
-After the npm package generation process is finished, the script will run `npm install` to install dependencies and at the end, it will `git add .`, ` git commit -m "Initialize mod file and folder structure"` and `git push` to your repository.
+    - leave `entry` as `init.js`
+    - the script will push all the changes to your repository at the end
 
 - you now have a clean repository and npm package configured, so you can start modding :)
 
