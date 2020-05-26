@@ -32,7 +32,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 |`openrct2ApiFilePath`|full path to `openrct2.d.ts` OpenRCT2 TypeScript API declaration file|`<reference />` tag in `./src/mod.ts` example TypeScript mod file|
 |`openrct2PluginFolderPath`|full path to OpenRCT2 `plugin` folder|TypeScript config files (`tsconfig-develop.json` and `tsconfig-prod.json`)|
 
-**NOTE**: I left my own paths in `openrct2ApiFilePath` and `openrct2PluginFolderPath` for reference - in case yours are entirely different, just replace them.
+I left my own paths in `openrct2ApiFilePath` and `openrct2PluginFolderPath` for reference - in case yours are entirely different, just replace them.
 
 - run `node init.js`
     - when the script runs `npm init` to generate your npm package, leave `entry` as `init.js`
