@@ -80,38 +80,6 @@ const saveJSON = (pathname, data) => fs.writeFileSync(pathname, JSON.stringify(d
   // save Nodemon config
   saveJSON('./nodemon.json', nodemonConfig);
 
-  // create ESLint config
-  const eslintConfig = {
-    env: {
-      browser: true,
-      es6: true,
-      node: true,
-    },
-    extends: [
-      'airbnb-base',
-    ],
-    globals: {
-      Atomics: 'readonly',
-      SharedArrayBuffer: 'readonly',
-    },
-    parser: '@typescript-eslint/parser',
-    parserOptions: {
-      ecmaVersion: 11,
-      sourceType: 'module',
-    },
-    plugins: [
-      '@typescript-eslint',
-    ],
-    rules: {
-      'no-undef': 0,
-      'spaced-comment': 0,
-      'max-len': ['error', { code: 120 }],
-    },
-  };
-
-  // save ESLint config
-  saveJSON('./.eslintrc.json', eslintConfig);
-
   // create VSCode config
   const vsCodeConfig = {
     'typescript.tsdk': 'node_modules/typescript/lib',
@@ -143,12 +111,15 @@ registerPlugin({
   createFile('./src/mod.ts', modFile);
 
   // create README.md text
-  const text = `# ${path.basename(__dirname)}`;
+  const text = `# ${path.basename(__dirname)}
+
+Happy modding!
+`;
 
   // create README.md file
   createFile('./README.md', text);
 
-  // save everything to GitHub and remove init files, leaving empty init.js behind
+  // replace init.js with an empty file and save everything to GitHub
   createFile('./init.js', '');
   exec('git add .');
   exec('git commit -m "Initialize mod file and folder structure"');
