@@ -1,9 +1,4 @@
 
-
-
-
-
-
 # 🎢 openrct2-typescript-mod-template
 
 Template repository for OpenRCT2 mods written in TypeScript.
@@ -44,6 +39,7 @@ I left my own paths in `openrct2ApiFilePath` and `openrct2PluginFolderPath` for 
 ## Usage
 
 #### npm scripts:
+
 |script|function|
 |--|--|
 |`npm start`|starts Nodemon server that will be watching `./src` folder for any changes you make to `.ts` files inside it|
@@ -52,6 +48,7 @@ I left my own paths in `openrct2ApiFilePath` and `openrct2PluginFolderPath` for 
 |`npm run build`|runs `npm run lint` and if no linting errors are found, compiles your `.ts` files to ES5 `.js` files and places them inside `./dist` folder - those are your final mod files|
 
 #### Modding:
+
 - run `npm start`
 - launch OpenRCT2 (using `.com` file if you're on Windows, so it will start along with the console)
 - start a park/load save
@@ -60,14 +57,17 @@ I left my own paths in `openrct2ApiFilePath` and `openrct2PluginFolderPath` for 
 - OpenRCT2 hot reload feature will reload mods in real time, once it detects changes to files in `plugin` folder
 
 #### Template presentation
+
 Click on the image below to see a YouTube video.
 
 [![OpenRCT2 TypeScript mod template presentation](http://img.youtube.com/vi/XV6IDEebZXA/0.jpg)](http://www.youtube.com/watch?v=XV6IDEebZXA "OpenRCT2 TypeScript mod template presentation")
 
 ## Notes
+
 If you've added a new mod folder to `plugin`, and the OpenRCT2 didn't seem likt it registered it (and you had a running park), just load the save/quit to menu and load the save/start a new park, so OpenRCT2 loads the mods again. Now when you overwrite them during development, there shouldn't be any problems with hot reload noticing file changes.
 
 ## Useful links
+
 - [OpenRCT2 website](https://openrct2.io/)
 - [OpenRCT2 on GitHub](https://github.com/OpenRCT2)
 - [OpenRCT2 on Reddit](https://www.reddit.com/r/openrct2)
