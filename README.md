@@ -24,7 +24,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 - create your own repository using this one as a template and clone it anywhere to your PC
 - `cd` into it and edit `init.json`:
 
-|variable to edit|description|where it will be used|
+|variable to edit|description|used in|
 |--|--|--|
 |`userName`|self explanatory|OpenRCT2 `registerPlugin()` function call in `./src/mod.ts`|
 |`modName`|self explanatory|OpenRCT2 `registerPlugin()` function call in `./src/mod.ts` and in TypeScript config files (`tsconfig-develop.json` and `tsconfig-prod.json`)|
