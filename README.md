@@ -56,7 +56,8 @@ I left my own paths in `openrct2ApiFilePath` and `openrct2PluginFolderPath` for 
 - launch OpenRCT2 (using `.com` file if you're on Windows, so it will start along with the console)
 - start a park/load save
 - write code then save the file
-- OpenRCT2 hot reload feature will reload mods in real time, once it detects changes to files in `plugin` directory
+- Nodemon will trigger building process when it detects that you've saved a file
+- OpenRCT2 hot reload feature will reload mods in real time, once it detects changes to files in `plugin` folder
 
 #### Template presentation
 Click on the image below to see a YouTube video.
