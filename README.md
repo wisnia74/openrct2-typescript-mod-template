@@ -35,7 +35,8 @@ The idea was to use Nodemon to start a local server that will be watching your m
 **NOTE**: I left my own paths in `openrct2ApiFilePath` and `openrct2PluginFolderPath` for reference - in case yours are entirely different, just replace them.
 
 - run `node init.js`
-    - leave `entry` as `init.js`
+    - when the script runs `npm init` to generate your npm package, leave `entry` as `init.js`
+    - everything else is optional
     - the script will push all the changes to your repository at the end
 
 - you now have a clean repository and npm package configured, so you can start modding :)
