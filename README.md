@@ -41,9 +41,10 @@ Click image below to see YouTube video showing this template in action.
 [![OpenRCT2 TypeScript mod template presentation](http://img.youtube.com/vi/jXORMxoQmwU/0.jpg)](http://www.youtube.com/watch?v=jXORMxoQmwU "OpenRCT2 TypeScript mod template presentation")
 
 **NPM scripts**:
-- `npm start` starts Nodemon server that will watch `.ts` files inside `./src` directory and once it detects changes, it'll build `.ts` files to ES5 `.js` files and place them inside `<openrct2PluginFolderPath>/<modName>`
-- `npm run build:develop` will only compile `.ts` files and place them inside `<openrct2PluginFolderPath>/<modName>`
-- `npm run build` will run `npm run lint` to lint your code and then, if linting succeeds, it'll compile `.ts` files from `./src`, and place them all in `./dist` directory - those are the final mod files that you can share with others
+- `npm start` - starts Nodemon server that will watch `.ts` files inside `./src` directory and once it detects changes, it'll build `.ts` files to ES5 `.js` files and place them inside `<openrct2PluginFolderPath>/<modName>`
+- `npm run build:develop` - compiles `.ts` files and place them inside `<openrct2PluginFolderPath>/<modName>`
+- `npm run build` - runs `npm run lint` to lint your code and then, if linting succeeds, it'll compile `.ts` files from `./src`, and place them all in `./dist` directory - those are the final mod files that you can share with others
+- `npm run lint` - checks your code for linting errors
 
 **Modding**:
 - run `npm start`
