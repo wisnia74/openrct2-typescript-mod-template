@@ -62,6 +62,7 @@ After the npm package generation process is finished, the script will run `npm i
 - OpenRCT2 hot reload feature will reload mods in real time, once it detects changes to files in `plugin` directory
 
 #### Template presentation
+Click on the image below to see a YouTube video.
 [![OpenRCT2 TypeScript mod template presentation](http://img.youtube.com/vi/jXORMxoQmwU/0.jpg)](http://www.youtube.com/watch?v=jXORMxoQmwU "OpenRCT2 TypeScript mod template presentation")
 
 ## Notes
