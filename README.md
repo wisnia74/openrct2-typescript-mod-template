@@ -1,7 +1,7 @@
 
 
 
-# 📁 openrct2-typescript-mod-template
+# 🔧 openrct2-typescript-mod-template
 Template repository for OpenRCT2 mods written in TypeScript.
 
 ## About
