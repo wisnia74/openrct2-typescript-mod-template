@@ -29,7 +29,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 |`userName`|self explanatory|OpenRCT2 `registerPlugin()` function call in `./src/mod.ts`|
 |`modName`|self explanatory|OpenRCT2 `registerPlugin()` function call in `./src/mod.ts` and in TypeScript config files (`tsconfig-develop.json` and `tsconfig-prod.json`)|
 |`modType`|set as `remote` if your mod will alter the game state, otherwise to `local` - refer to [OpenRCT2 scripting guide](https://github.com/OpenRCT2/OpenRCT2/blob/develop/distribution/scripting.md) for more info|OpenRCT2 `registerPlugin()` function call in `./src/mod.ts`|
-|`openrct2ApiFilePath`|full path to `openrct2.d.ts` OpenRCT2 TypeScript declaration file|`<reference />` tag in `./src/mod.ts` example TypeScript mod file|
+|`openrct2ApiFilePath`|full path to `openrct2.d.ts` OpenRCT2 TypeScript API declaration file|`<reference />` tag in `./src/mod.ts` example TypeScript mod file|
 |`openrct2PluginFolderPath`|full path to OpenRCT2 `plugin` folder|TypeScript config files (`tsconfig-develop.json` and `tsconfig-prod.json`)|
 
 **NOTE**: I left my own paths in `openrct2ApiFilePath` and `openrct2PluginFolderPath` for reference - in case yours are entirely different, just replace them.
@@ -56,7 +56,7 @@ After the npm package generation process is finished, the script will run `npm i
 
 #### Modding:
 - run `npm start`
-- launch OpenRCT2 using `.com` file, not `.exe` (this way it will start along with the console)
+- launch OpenRCT2 (using `.com` file if you're on Windows, so it will start along with the console)
 - start a park/load save
 - write code then save the file
 - OpenRCT2 hot reload feature will reload mods in real time, once it detects changes to files in `plugin` directory
