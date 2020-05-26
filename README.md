@@ -64,7 +64,7 @@ After the npm package generation process is finished, the script will run `npm i
 #### Template presentation
 Click on the image below to see a YouTube video.
 
-[![OpenRCT2 TypeScript mod template presentation](http://img.youtube.com/vi/jXORMxoQmwU/0.jpg)](http://www.youtube.com/watch?v=jXORMxoQmwU "OpenRCT2 TypeScript mod template presentation")
+[![OpenRCT2 TypeScript mod template presentation](http://img.youtube.com/vi/XV6IDEebZXA/0.jpg)](http://www.youtube.com/watch?v=XV6IDEebZXA "OpenRCT2 TypeScript mod template presentation")
 
 ## Notes
 If you've added a new mod folder to `plugin`, and the OpenRCT2 didn't seem likt it registered it (and you had a running park), just load the save/quit to menu and load the save/start a new park, so OpenRCT2 loads the mods again. Now when you overwrite them during development, there shouldn't be any problems with hot reload noticing file changes.
