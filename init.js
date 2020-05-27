@@ -116,5 +116,6 @@ if (pushToGithub === true) {
 
 if (compileTemplateMod === true) {
   // compile template mod and place it in OpenRCT2 plugin folder
+  createFolder(`${openrct2PluginFolderPath}/${modName}`);
   exec('npm run build:develop');
 }
