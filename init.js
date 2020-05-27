@@ -12,6 +12,7 @@ const {
   createTypeScriptConfig,
   createNodemonConfig,
   createVsCodeConfig,
+  createEslintConfig,
   createTemplateModFile,
   createTemplateReadmeMd,
 } = require('./utils/generators');
@@ -64,6 +65,11 @@ const vsCodeConfig = createVsCodeConfig();
 
 createFolder('./.vscode');
 createJSON('./.vscode/settings.json', vsCodeConfig);
+
+// create ESLint config and save it
+const eslintConfig = createEslintConfig();
+
+createJSON('./.eslintrc.json', eslintConfig);
 
 // create temporary mod file and save it to ./src
 const modFile = createTemplateModFile(openrct2ApiFilePath, modName, userName, modType);
