@@ -48,8 +48,18 @@ exports.createEslintConfig = () => ({
   }
 });
 
-exports.createTemplateModFile = (apiPath, modName, userName, modType) => `/// <reference path="${apiPath}" />
+exports.createTemplateModFile = (modName, userName, modType, apiPath = null) => {
+  let apiLine;
 
+  if (apiPath) {
+    apiLine = `/// <reference path="${apiPath}" />
+
+`;
+  } else {
+    apiLine = '';
+  }
+
+  return `${apiline}
 const main = () => {
   console.log('Your plug-in has started!');
 };
@@ -60,9 +70,9 @@ registerPlugin({
   authors: ['${userName}'],
   type: '${modType}',
   main,
-});
-  
+});  
 `;
+};
 
 exports.createTemplateReadmeMd = (heading, text) => `# ${heading}
 

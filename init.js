@@ -23,7 +23,23 @@ const {
   modType,
   openrct2ApiFilePath,
   openrct2PluginFolderPath,
+  config: {
+    pushToGithub,
+    importOpenrct2Api,
+    compileTemplateMod,
+  }
 } = readJSON('./init.json');
+
+// perform checks
+if (modType !== 'local' || modType !== 'remote') {
+  throw new Error('Mod type has to be set to remote or local');
+}
+
+[pushToGithub, importOpenrct2Api, compileTemplateMod].some((attr) => {
+  if (typeof attr !== boolean) {
+    throw new Error(`${attr} has to be a boolean (true/false)`);
+  }
+});
 
 // load necessary scripts and devDependencies from template npm package files
 const { scripts, devDependencies } = readJSON('./package.json');
@@ -72,7 +88,9 @@ const eslintConfig = createEslintConfig();
 createJSON('./.eslintrc.json', eslintConfig);
 
 // create temporary mod file and save it to ./src
-const modFile = createTemplateModFile(openrct2ApiFilePath, modName, userName, modType);
+const modFile = importOpenrct2Api
+  ? createTemplateModFile(modName, userName, modType, openrct2ApiFilePath)
+  : createTemplateModFile(modName, userName, modType);
 
 createFolder('./src');
 createFile('./src/mod.ts', modFile);
@@ -89,7 +107,14 @@ removeFile('./init.json');
 // replace init.js with an empty file
 createFile('./init.js', '');
 
-// save everything to GitHub
-exec('git add .');
-exec('git commit -m "Initialize mod file and folder structure"');
-exec('git push');
+if (pushToGithub === true) {
+  // save everything to GitHub
+  exec('git add .');
+  exec('git commit -m "Initialize mod file and folder structure"');
+  exec('git push');
+}
+
+if (compileTemplateMod === true) {
+  // compile template mod and place it in OpenRCT2 plugin folder
+  exec('npm run build:develop');
+}

@@ -1,23 +1,27 @@
 const fs = require('fs');
 const { execSync } = require('child_process');
 
-exports.exec = function exec(cmd, opts = { stdio: [0, 1, 2] }) {
+exports.exec = (cmd, opts = { stdio: [0, 1, 2] }) => {
   execSync(cmd, opts);
+  return undefined;
 };
 
-exports.createFile = function createFile(pathname, data) {
+exports.createFile = (pathname, data) => {
   fs.writeFileSync(pathname, data);
+  return undefined;
 };
 
-exports.removeFile = function removeFile(pathname) {
+exports.removeFile = (pathname) => {
   fs.unlinkSync(pathname);
+  return undefined;
 };
 
-exports.createFolder = function createFolder(pathname) {
+exports.createFolder = (pathname) => {
   fs.mkdirSync(pathname);
+  return undefined;
 };
 
-exports.removeFolder = function removeFolder(pathname) {
+exports.removeFolder = (pathname) => {
   if (fs.existsSync(pathname)) {
     fs.readdirSync(pathname).forEach((file) => {
       const currPath = `${pathname}/${file}`;
@@ -33,8 +37,9 @@ exports.removeFolder = function removeFolder(pathname) {
 
 exports.readJSON = (pathname) => JSON.parse(fs.readFileSync(pathname));
 
-exports.createJSON = function createJSON(pathname, data) {
+exports.createJSON = (pathname, data) => {
   fs.writeFileSync(pathname, JSON.stringify(data, undefined, 2));
+  return undefined;
 };
 
 module.exports = exports;
