@@ -17,6 +17,10 @@ exports.createNodemonConfig = () => ({
 });
 
 exports.createVsCodeConfig = () => ({
+    "typescript.tsdk": "node_modules/typescript/lib",
+});
+
+exports.createEslintConfig = () => ({
   "env": {
       "browser": true,
       "es6": true,
