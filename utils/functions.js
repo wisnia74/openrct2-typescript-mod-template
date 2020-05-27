@@ -31,9 +31,7 @@ exports.removeFolder = function removeFolder(pathname) {
   }
 };
 
-exports.readJSON = function readJSON(pathname) {
-  JSON.parse(fs.readFileSync(pathname));
-};
+exports.readJSON = (pathname) => JSON.parse(fs.readFileSync(pathname));
 
 exports.createJSON = function createJSON(pathname, data) {
   fs.writeFileSync(pathname, JSON.stringify(data, undefined, 2));
