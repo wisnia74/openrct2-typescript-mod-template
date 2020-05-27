@@ -31,13 +31,13 @@ const {
 } = readJSON('./init.json');
 
 // perform checks
-if (modType !== 'local' || modType !== 'remote') {
+if (modType !== 'local' && modType !== 'remote') {
   throw new Error('Mod type has to be set to remote or local');
 }
 
 [pushToGithub, importOpenrct2Api, compileTemplateMod].some((attr) => {
   if (typeof attr !== boolean) {
-    throw new Error(`${attr} has to be a boolean (true/false)`);
+    throw new Error(`All config variables in init.json have to be of type boolean (true/false, no quotes)`);
   }
 });
 
