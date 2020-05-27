@@ -59,7 +59,7 @@ exports.createTemplateModFile = (modName, userName, modType, apiPath = null) => 
     apiLine = '';
   }
 
-  return `${apiline}
+  return `${apiLine}
 const main = () => {
   console.log('Your plug-in has started!');
 };
