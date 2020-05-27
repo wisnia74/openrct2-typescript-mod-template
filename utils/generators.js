@@ -69,7 +69,7 @@ registerPlugin({
   authors: ['${userName}'],
   type: '${modType}',
   main,
-});  
+});
 `;
 };
 
