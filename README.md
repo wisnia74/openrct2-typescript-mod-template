@@ -56,7 +56,7 @@ I left my own paths in `openrct2ApiFilePath` and `openrct2PluginFolderPath` for 
 - Nodemon will trigger building process when it detects that you've saved a file
 - OpenRCT2 hot reload feature will reload mods in real time, once it detects changes to files in `plugin` folder
 
-#### Template presentation
+#### Template setup presentation
 
 Click on the image below to see a YouTube video.
 
