@@ -1,127 +1,87 @@
-const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const {
+  exec,
+  createFile,
+  removeFile,
+  createFolder,
+  removeFolder,
+  readJSON,
+  createJSON,
+} = require('./utils/functions');
+const {
+  createTypeScriptConfig,
+  createNodemonConfig,
+  createVsCodeConfig,
+  createTemplateModFile,
+  createTemplateReadmeMd,
+} = require('./utils/generators');
 
-const exec = (cmd, opts = { stdio: [0, 1, 2] }) => execSync(cmd, opts);
-const createFile = (pathname, data) => fs.writeFileSync(pathname, data);
-const removeFile = (pathname) => fs.unlinkSync(pathname);
-const createFolder = (pathname) => fs.mkdirSync(pathname);
-const readJSON = (pathname) => JSON.parse(fs.readFileSync(pathname));
-const saveJSON = (pathname, data) => fs.writeFileSync(pathname, JSON.stringify(data, undefined, 2));
+const {
+  userName,
+  modName,
+  modType,
+  openrct2ApiFilePath,
+  openrct2PluginFolderPath,
+} = readJSON('./init.json');
 
-(async () => {
-  // load necessary scripts and devDependencies from template npm package files
-  const {
-    userName, modName, modType, openrct2ApiFilePath, openrct2PluginFolderPath,
-  } = readJSON('./init.json');
-  const { scripts, devDependencies } = readJSON('./package.json');
+// load necessary scripts and devDependencies from template npm package files
+const { scripts, devDependencies } = readJSON('./package.json');
 
-  // remove template npm package files
-  removeFile('./package.json');
-  removeFile('./README.md');
+// remove template npm package files and README.md
+removeFile('./package.json');
+removeFile('./README.md');
 
-  // run npm init
-  exec('npm init');
+// run npm init
+exec('npm init');
 
-  // read generated package.json
-  const newPackageJson = readJSON('./package.json');
+// read generated package.json, append scripts and devDependencies to new package.json and save it
+const newPackageJson = readJSON('./package.json');
 
-  // append scripts and devDependencies to new package.json
-  newPackageJson.scripts = scripts;
-  newPackageJson.devDependencies = devDependencies;
+newPackageJson.scripts = scripts;
+newPackageJson.devDependencies = devDependencies;
 
-  // save new package.json
-  saveJSON('./package.json', newPackageJson);
+createJSON('./package.json', newPackageJson);
 
-  // install dependencies
-  exec('npm install');
+// install dependencies
+exec('npm install');
 
-  // remove init configuration file
-  removeFile('./init.json');
+// create TypeScript develop and prod config and save them
+const tsDevelopConfig = createTypeScriptConfig(`${openrct2PluginFolderPath}/${modName}`);
+const tsProdConfig = createTypeScriptConfig(`./dist/${modName}`);
 
-  // create TypeScript develop config
-  const tsDevelopConfig = {
-    compilerOptions: {
-      target: 'es5',
-      module: 'commonjs',
-      declaration: true,
-      outDir: `${openrct2PluginFolderPath}/${modName}`,
-      strict: true,
-    },
-    include: ['./src'],
-    exclude: ['node_modules', '**/__tests__/*'],
-  };
+createJSON('./tsconfig-develop.json', tsDevelopConfig);
+createJSON('./tsconfig-prod.json', tsProdConfig);
 
-  // create TypeScript prod config
-  const tsProdConfig = {
-    compilerOptions: {
-      target: 'es5',
-      module: 'commonjs',
-      declaration: true,
-      outDir: `./dist/${modName}`,
-      strict: true,
-      removeComments: true,
-    },
-    include: ['./src'],
-    exclude: ['node_modules', '**/__tests__/*'],
-  };
+// create and save Nodemon config
+const nodemonConfig = createNodemonConfig();
 
-  // save both TypeScript configs
-  saveJSON('./tsconfig-develop.json', tsDevelopConfig);
-  saveJSON('./tsconfig-prod.json', tsProdConfig);
+createJSON('./nodemon.json', nodemonConfig);
 
-  // create Nodemon config
-  const nodemonConfig = {
-    events: {
-      restart: 'npm run build:develop',
-    },
-  };
+// create VSCode config and save it to its folder
+const vsCodeConfig = createVsCodeConfig();
 
-  // save Nodemon config
-  saveJSON('./nodemon.json', nodemonConfig);
+createFolder('./.vscode');
+createJSON('./.vscode/settings.json', vsCodeConfig);
 
-  // create VSCode config
-  const vsCodeConfig = {
-    'typescript.tsdk': 'node_modules/typescript/lib',
-  };
+// create temporary mod file and save it to ./src
+const modFile = createTemplateModFile(openrct2ApiFilePath, modName, userName, modType);
 
-  // save VSCode config
-  createFolder('./.vscode');
-  saveJSON('./.vscode/settings.json', vsCodeConfig);
+createFolder('./src');
+createFile('./src/mod.ts', modFile);
 
-  // create temporary mod file
-  const modFile = `/// <reference path="${openrct2ApiFilePath}" />
+// create template README.md and save it
+const readmeMdText = createTemplateReadmeMd(path.basename(__dirname), 'Happy modding!');
 
-const main = () => {
-  console.log('Your plug-in has started!');
-};
+createFile('./README.md', readmeMdText);
 
-registerPlugin({
-  name: '${modName}',
-  version: '1.0',
-  authors: ['${userName}'],
-  type: '${modType}',
-  main,
-});
+// remove utils folder and init configuration file
+removeFolder('./utils');
+removeFile('./init.json');
 
-`;
+// replace init.js with an empty file
+createFile('./init.js', '');
 
-  // save temporary mod file
-  createFolder('./src');
-  createFile('./src/mod.ts', modFile);
-
-  // create README.md text
-  const text = `# ${path.basename(__dirname)}
-
-Happy modding!
-`;
-
-  // create README.md file
-  createFile('./README.md', text);
-
-  // replace init.js with an empty file and save everything to GitHub
-  createFile('./init.js', '');
-  exec('git add .');
-  exec('git commit -m "Initialize mod file and folder structure"');
-  exec('git push');
-})();
+// save everything to GitHub
+exec('git add .');
+exec('git commit -m "Initialize mod file and folder structure"');
+exec('git push');
