@@ -41,14 +41,13 @@ I left my own paths in `openrct2ApiFilePath` and `openrct2PluginFolderPath` for 
 
 ## Usage
 
-#### npm scripts:
+#### How it works
+After the `node init.js` script finishes, you are left with a fully functioning npm package, Nodemon, ESLint and TypeScript configured, and also working npm scripts. All changes made by the script got pushed to your repository if you've set `pushToGithub` to `true` before running it.
 
-|script|function|
-|--|--|
-|`npm start`|starts Nodemon server that will be watching `./src` folder for any changes you make to `.ts` files inside it|
-|`npm run lint`|lints your `.ts` files from `./src` directory|
-|`npm run build:develop`|compiles all `.ts` files from `./src` to ES5 `.js` files, and places them inside `<openrct2PluginFolderPath>/<modName>`|
-|`npm run build`|runs `npm run lint` and if no linting errors are found, compiles your `.ts` files to ES5 `.js` files and places them inside `./dist` folder - those are your final mod files|
+Your mod files live in `./src` directory. That's the ones you will be writing code in. 
+Upon starting Nodemon server, it will start watching changes you make to files in `./src`, and it will build them accordingly.
+
+To see how to start writing mods and load/debug them in real time, see `Modding` section below.
 
 #### Modding:
 
@@ -65,6 +64,15 @@ If you've set it as `false` you will need to run `npm run build:develop` first, 
 - to stop Nodemon server, hit `ctrl+c` when in the console
 - to generate files that can be shared with others, as a standalone mod, run `npm run build` and copy all files you need from `./dist`
 - if you have some existing files in OpenRCT2 `plugin` folder, but you've decided to remove them from `./src` and then compiled files, files removed `./src` will still be in `plugin` folder, so you have to remove them manually to get rid of them
+
+#### npm scripts:
+
+|script|function|
+|--|--|
+|`npm start`|starts Nodemon server that will be watching `./src` folder for any changes you make to `.ts` files inside it|
+|`npm run lint`|lints your `.ts` files from `./src` directory|
+|`npm run build:develop`|compiles all `.ts` files from `./src` to ES5 `.js` files, and places them inside `<openrct2PluginFolderPath>/<modName>`|
+|`npm run build`|runs `npm run lint` and if no linting errors are found, compiles your `.ts` files to ES5 `.js` files and places them inside `./dist` folder - those are your final mod files|
 
 ## Notes
 
