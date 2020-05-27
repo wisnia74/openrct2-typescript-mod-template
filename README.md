@@ -53,7 +53,7 @@ I left my own paths in `openrct2ApiFilePath` and `openrct2PluginFolderPath` for 
 
 #### Modding:
 
-If you've left/set `compileTemplateMod` as `true`, template mod file (`mod.js`) will be placed in OpenRCT2 `plugin` folder (full path: `plugin/<modName>`).
+If you've left/set `compileTemplateMod` as `true`, template mod file (`mod.js`) will be placed in OpenRCT2 `plugin` folder (full path: `plugin/<modName>/mod.js`).
 
 If you've set it as `false` you will need to run `npm run build:develop` first, so the mod gets placed there, and OpenRCT2 detects it upon park start/save load.
 
