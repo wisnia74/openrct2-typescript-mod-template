@@ -53,18 +53,18 @@ I left my own paths in `openrct2ApiFilePath` and `openrct2PluginFolderPath` for 
 
 #### Modding:
 
+If you've left/set `compileTemplateMod` as `true`, template mod file (`mod.js`) will be placed in OpenRCT2 `plugin` folder (full path: `plugin/<modName>`).
+
+If you've set it as `false` you will need to run `npm run build:develop` first, so the mod gets placed there, and OpenRCT2 detects it upon park start/save load.
+
 - run `npm start`
 - launch OpenRCT2 (using `.com` file if you're on Windows, so it will start along with the console)
 - start a park/load save
 - write code then save the file
 - Nodemon will trigger building process when it detects that you've saved a file
 - OpenRCT2 hot reload feature will reload mods in real time, once it detects changes to files in `plugin` folder
-
-#### Template setup presentation
-
-Click on the image below to see a YouTube video.
-
-[![OpenRCT2 TypeScript mod template presentation](http://img.youtube.com/vi/XV6IDEebZXA/0.jpg)](http://www.youtube.com/watch?v=XV6IDEebZXA "OpenRCT2 TypeScript mod template presentation")
+- to stop Nodemon server, hit `ctrl+c` when in the console
+- to generate files that can be shared with others, as a standalone mod, run `npm run build` and copy all files you need from `./dist`
 
 ## Notes
 
