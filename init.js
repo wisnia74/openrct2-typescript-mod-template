@@ -36,7 +36,7 @@ if (modType !== 'local' && modType !== 'remote') {
 }
 
 [pushToGithub, importOpenrct2Api, compileTemplateMod].some((attr) => {
-  if (typeof attr !== boolean) {
+  if (typeof attr !== 'boolean') {
     throw new Error(`All config variables in init.json have to be of type boolean (true/false, no quotes)`);
   }
 });
