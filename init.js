@@ -29,7 +29,9 @@ const { scripts, devDependencies } = readJSON('./package.json');
 
 // remove template npm package files and README.md
 removeFile('./package.json');
+removeFile('./package-lock.json');
 removeFile('./README.md');
+removeFile('./LICENSE');
 
 // run npm init
 exec('npm init');
