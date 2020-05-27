@@ -65,6 +65,7 @@ If you've set it as `false` you will need to run `npm run build:develop` first, 
 - OpenRCT2 hot reload feature will reload mods in real time, once it detects changes to files in `plugin` folder
 - to stop Nodemon server, hit `ctrl+c` when in the console
 - to generate files that can be shared with others, as a standalone mod, run `npm run build` and copy all files you need from `./dist`
+- if you have some existing files in OpenRCT2 `plugin` folder, but you've decided to remove it from `./src` and then compiled files, files removed from OpenRCT2 `plugin` folder will still be there, so you have to remove them manually
 
 ## Notes
 
