@@ -36,7 +36,6 @@ I left my own paths in `openrct2ApiFilePath` and `openrct2PluginFolderPath` for 
 - run `node init.js`
     - when the script runs `npm init` to generate your npm package, leave `entry` as `init.js`
     - everything else is optional
-    - the script will push all the changes to your repository at the end
 
 - you now have a clean repository and npm package configured, so you can start modding :)
 
