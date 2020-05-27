@@ -55,10 +55,10 @@ const main = () => {
 };
 
 registerPlugin({
-  "name": '${modName}',
-  "version": '1.0',
-  "authors": ['${userName}'],
-  "type": '${modType}',
+  name: '${modName}',
+  version: '1.0',
+  authors: ['${userName}'],
+  type: '${modType}',
   main,
 });
   
