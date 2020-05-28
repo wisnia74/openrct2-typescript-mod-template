@@ -63,7 +63,7 @@ If you've set it as `false` you will need to run `npm run build:develop` first, 
 - OpenRCT2 hot reload feature will reload mods in real time, once it detects changes to files in `plugin` folder
 - to stop Nodemon server, hit `ctrl+c` when in the console
 - to generate files that can be shared with others, as a standalone mod, run `npm run build` and copy all files you need from `./dist`
-- if you have some existing mod files in OpenRCT2 `plugin` folder, but you've decided to remove them from `./src` folder and then compiled files, files removed from `./src` will still be in `plugin` folder, so you have to remove them manually to get rid of them
+- if you want to add new mod files or remove existing ones form OpenRCT2 `plugin` folder, you will need to restart the game/load a save/start a park for OpenRCT2 to reload all the files. By default, when starting a park it watches changes only in already existing files in `plugin` folder.
 
 #### npm scripts:
 
