@@ -32,12 +32,24 @@ const {
 
 // perform checks
 if (modType !== 'local' && modType !== 'remote') {
-  throw new Error('Mod type has to be set to remote or local');
+  throw new Error('config variable modType has to be set to "remote" or "local"');
+}
+
+if (typeof userName !== 'string') throw new Error('config variable userName has to be a string');
+
+if (typeof modName !== 'string') throw new Error('config variable modName has to be a string');
+
+if (typeof openrct2ApiFilePath !== 'string') {
+  throw new Error('config variable openrct2ApiFilePath has to be a string');
+}
+
+if (typeof openrct2PluginFolderPath !== 'string'){
+  throw new Error('config variable openrct2PluginFolderPath has to be a string');
 }
 
 [pushToGithub, importOpenrct2Api, compileTemplateMod].some((attr) => {
   if (typeof attr !== 'boolean') {
-    throw new Error(`All config variables in init.json have to be of type boolean (true/false, no quotes)`);
+    throw new Error(`all config variables in init.json have to be of type boolean (true/false, no quotes)`);
   }
 });
 
