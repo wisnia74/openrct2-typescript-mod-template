@@ -93,7 +93,7 @@ const modFile = importOpenrct2Api
   : createTemplateModFile(modName, userName, modType);
 
 createFolder('./src');
-createFile('./src/mod.ts', modFile);
+createFile(`./src/${modName}.ts`, modFile);
 
 // create template README.md and save it
 const readmeMdText = createTemplateReadmeMd(path.basename(__dirname), 'Happy modding!');
