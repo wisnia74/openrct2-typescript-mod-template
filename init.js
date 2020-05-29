@@ -17,19 +17,6 @@ const {
   createTemplateReadmeMd,
 } = require('./utils/generators');
 
-const {
-  userName,
-  modName,
-  modType,
-  openrct2ApiFilePath,
-  openrct2PluginFolderPath,
-  config: {
-    pushToGithub,
-    importOpenrct2Api,
-    compileTemplateMod,
-  }
-} = readJSON('./init.json');
-
 // perform checks
 if (modType !== 'local' && modType !== 'remote') {
   throw new Error('config variable modType has to be set to "remote" or "local"');
@@ -52,6 +39,20 @@ if (typeof openrct2PluginFolderPath !== 'string'){
     throw new Error(`all config variables in init.json have to be of type boolean (true/false, no quotes)`);
   }
 });
+
+// load config data from init.json
+const {
+  userName,
+  modName,
+  modType,
+  openrct2ApiFilePath,
+  openrct2PluginFolderPath,
+  config: {
+    pushToGithub,
+    importOpenrct2Api,
+    compileTemplateMod,
+  }
+} = readJSON('./init.json');
 
 // load necessary scripts and devDependencies from template npm package files
 const { scripts, devDependencies } = readJSON('./package.json');
