@@ -1,5 +1,6 @@
 
 
+
 # 🎢 openrct2-typescript-mod-template
 
 Template repository for OpenRCT2 mods written in TypeScript.
@@ -18,9 +19,11 @@ The idea was to use Nodemon to start a local server that will be watching your m
 
 - install [Node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/get-npm)
 - create your own repository using this one as a template and clone it anywhere to your PC
-- `cd` into it and edit `init.json`:
+- `cd` into it and edit `init.json`
+	- below there's a list of editable variables and what they do
+	- `userName`, `modName`, `modType`, `openrct2ApiFilepath` and `openrct2PluginFolderPath` are required to be edited, rest is optional and comes with defaults
 
-|variable to edit|description|used in|
+|variable|description|used in|
 |--|--|--|
 |`userName`|self explanatory|OpenRCT2 `registerPlugin()` function call in `./src/<modName>.ts`|
 |`modName`|self explanatory|OpenRCT2 `registerPlugin()` function call in `./src/<modName>.ts` and in TypeScript config files (`tsconfig-develop.json` and `tsconfig-prod.json`)|
