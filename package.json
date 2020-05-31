@@ -7,7 +7,9 @@
     "start": "nodemon --watch ./src --ext ts",
     "build:develop": "tsc --project tsconfig-develop.json",
     "build": "npm run lint && tsc --project tsconfig-prod.json",
-    "lint": "eslint ./src/*.ts"
+    "lint": "eslint ./src/*.ts",
+    "test": "jest",
+    "test:dev": "jest --onlyChanged --verbose --collectCoverage"
   },
   "repository": {
     "type": "git",
