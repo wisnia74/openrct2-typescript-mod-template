@@ -64,8 +64,11 @@ exports.init = (pathname) => {
   removeFile(`${pathname}/README.md`);
   removeFile(`${pathname}/LICENSE`);
 
+  // clean npm cache
+  exec('npm cache clean --force');
+
   // run npm init
-  exec('npm init');
+  exec('npm init --force');
 
   // read generated package.json, append scripts and devDependencies to new package.json and save it
   const newPackageJson = readJSON(`${pathname}/package.json`);
@@ -76,7 +79,7 @@ exports.init = (pathname) => {
   createJSON(`${pathname}/package.json`, newPackageJson);
 
   // install dependencies
-  exec('npm install');
+  exec('npm install --force');
 
   // create TypeScript develop and prod config and save them
   const tsDevelopConfig = createTypeScriptConfig(`${openrct2PluginFolderPath}/${modName}`);
