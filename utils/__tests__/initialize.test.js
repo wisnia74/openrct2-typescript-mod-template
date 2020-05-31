@@ -3,12 +3,12 @@ beforeEach(() => {
   createFolder(`${__dirname}/test`);
 });
 
-describe('initialize function', () => {
-  describe('when init.json doesn\'t exist', () => {
-    it('should throw an error', () => {
+describe('init function', () => {
+  describe('invoked when init.json doesn\'t exist', () => {
+    it('should throw', () => {
       const { init } = require('../initialize');
       expect(() => {
-        init(`__dirname/test`);
+        init(`${__dirname}/test`);
       }).toThrow();
     });
   });
