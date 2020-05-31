@@ -1,15 +1,20 @@
-beforeAll(() => {
+beforeEach(() => {
   const { createFolder } = require('../functions');
   createFolder(`${__dirname}/test`);
 });
 
-// describe('', () => {
-//   describe('', () => {
-//     it();
-//   });
-// });
+describe('initialize function', () => {
+  describe('when init.json doesn\'t exist', () => {
+    it('should throw an error', () => {
+      const { init } = require('../initialize');
+      expect(() => {
+        init(`__dirname/test`);
+      }).toThrow();
+    });
+  });
+});
 
-afterAll(() => {
+afterEach(() => {
   const { removeFolder } = require('../functions');
   removeFolder(`${__dirname}/test`);
 });
