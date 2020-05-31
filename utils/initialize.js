@@ -58,7 +58,7 @@ exports.init = (pathname) => {
   // load necessary scripts and devDependencies from template npm package files
   const { scripts, devDependencies } = readJSON(`${pathname}/package.json`);
 
-  // remove template npm package files and README.md
+  // remove template files
   removeFile(`${pathname}/package.json`);
   removeFile(`${pathname}/package-lock.json`);
   removeFile(`${pathname}/README.md`);
