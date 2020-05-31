@@ -17,7 +17,7 @@ const {
   createTemplateReadmeMd,
 } = require('./generators');
 
-exports.init = (path) => {
+exports.init = (pathname) => {
   // load config data from init.json
   const {
     userName,
@@ -30,7 +30,7 @@ exports.init = (path) => {
       importOpenrct2Api,
       compileTemplateMod,
     }
-  } = readJSON(`${path}/init.json`);
+  } = readJSON(`${pathname}/init.json`);
 
   // perform checks
   if (modType !== 'local' && modType !== 'remote') {
@@ -56,70 +56,70 @@ exports.init = (path) => {
   });
 
   // load necessary scripts and devDependencies from template npm package files
-  const { scripts, devDependencies } = readJSON(`${path}/package.json`);
+  const { scripts, devDependencies } = readJSON(`${pathname}/package.json`);
 
   // remove template npm package files and README.md
-  removeFile(`${path}/package.json`);
-  removeFile(`${path}/package-lock.json`);
-  removeFile(`${path}/README.md`);
-  removeFile(`${path}/LICENSE`);
+  removeFile(`${pathname}/package.json`);
+  removeFile(`${pathname}/package-lock.json`);
+  removeFile(`${pathname}/README.md`);
+  removeFile(`${pathname}/LICENSE`);
 
   // run npm init
   exec('npm init');
 
   // read generated package.json, append scripts and devDependencies to new package.json and save it
-  const newPackageJson = readJSON(`${path}/package.json`);
+  const newPackageJson = readJSON(`${pathname}/package.json`);
 
   newPackageJson.scripts = scripts;
   newPackageJson.devDependencies = devDependencies;
 
-  createJSON(`${path}/package.json`, newPackageJson);
+  createJSON(`${pathname}/package.json`, newPackageJson);
 
   // install dependencies
   exec('npm install');
 
   // create TypeScript develop and prod config and save them
   const tsDevelopConfig = createTypeScriptConfig(`${openrct2PluginFolderPath}/${modName}`);
-  const tsProdConfig = createTypeScriptConfig(`${path}/dist/${modName}`);
+  const tsProdConfig = createTypeScriptConfig(`${pathname}/dist/${modName}`);
 
-  createJSON(`${path}/tsconfig-develop.json`, tsDevelopConfig);
-  createJSON(`${path}/tsconfig-prod.json`, tsProdConfig);
+  createJSON(`${pathname}/tsconfig-develop.json`, tsDevelopConfig);
+  createJSON(`${pathname}/tsconfig-prod.json`, tsProdConfig);
 
   // create and save Nodemon config
   const nodemonConfig = createNodemonConfig();
 
-  createJSON(`${path}/nodemon.json`, nodemonConfig);
+  createJSON(`${pathname}/nodemon.json`, nodemonConfig);
 
   // create VSCode config and save it to its folder
   const vsCodeConfig = createVsCodeConfig();
 
-  createFolder(`${path}/.vscode`);
-  createJSON(`${path}/.vscode/settings.json`, vsCodeConfig);
+  createFolder(`${pathname}/.vscode`);
+  createJSON(`${pathname}/.vscode/settings.json`, vsCodeConfig);
 
   // create ESLint config and save it
   const eslintConfig = createEslintConfig();
 
-  createJSON(`${path}/.eslintrc.json`, eslintConfig);
+  createJSON(`${pathname}/.eslintrc.json`, eslintConfig);
 
-  // create temporary mod file and save it to ${path}/src
+  // create temporary mod file and save it to ${pathname}/src
   const modFile = importOpenrct2Api
     ? createTemplateModFile(modName, userName, modType, openrct2ApiFilePath)
     : createTemplateModFile(modName, userName, modType);
 
-  createFolder(`${path}/src`);
-  createFile(`${path}/src/${modName}.ts`, modFile);
+  createFolder(`${pathname}/src`);
+  createFile(`${pathname}/src/${modName}.ts`, modFile);
 
   // create template README.md and save it
   const readmeMdText = createTemplateReadmeMd(path.basename(__dirname), 'Happy modding!');
 
-  createFile(`${path}/README.md`, readmeMdText);
+  createFile(`${pathname}/README.md`, readmeMdText);
 
   // remove utils folder and init configuration file
-  removeFolder(`${path}/utils`);
-  removeFile(`${path}/init.json`);
+  removeFolder(`${pathname}/utils`);
+  removeFile(`${pathname}/init.json`);
 
   // replace init.js with an empty file
-  createFile(`${path}/init.js`, '');
+  createFile(`${pathname}/init.js`, '');
 
   if (pushToGithub === true) {
     // save everything to GitHub
