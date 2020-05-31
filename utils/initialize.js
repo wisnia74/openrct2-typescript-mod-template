@@ -29,6 +29,7 @@ exports.init = (pathname) => {
       pushToGithub,
       importOpenrct2Api,
       compileTemplateMod,
+      useStrictMode,
     }
   } = readJSON(`${pathname}/init.json`);
 
@@ -49,7 +50,7 @@ exports.init = (pathname) => {
     throw new Error('config variable openrct2PluginFolderPath has to be a string');
   }
 
-  [pushToGithub, importOpenrct2Api, compileTemplateMod].some((attr) => {
+  [pushToGithub, importOpenrct2Api, compileTemplateMod, useStrictMode].some((attr) => {
     if (typeof attr !== 'boolean') {
       throw new Error(`all config variables in init.json have to be of type boolean (true/false, no quotes)`);
     }
@@ -82,8 +83,12 @@ exports.init = (pathname) => {
   exec('npm install --force');
 
   // create TypeScript develop and prod config and save them
-  const tsDevelopConfig = createTypeScriptConfig(`${openrct2PluginFolderPath}/${modName}`);
-  const tsProdConfig = createTypeScriptConfig(`${pathname}/dist/${modName}`);
+  const tsDevelopConfig = useStrictMode
+    ? createTypeScriptConfig(`${openrct2PluginFolderPath}/${modName}`, useStrictMode)
+    : createTypeScriptConfig(`${openrct2PluginFolderPath}/${modName}`);
+  const tsProdConfig = useStrictMode
+    ? createTypeScriptConfig(`${pathname}/dist/${modName}`, useStrictMode)
+    : createTypeScriptConfig(`${pathname}/dist/${modName}`);
 
   createJSON(`${pathname}/tsconfig-develop.json`, tsDevelopConfig);
   createJSON(`${pathname}/tsconfig-prod.json`, tsProdConfig);

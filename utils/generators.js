@@ -1,10 +1,10 @@
-exports.createTypeScriptConfig = (outDir) => ({
+exports.createTypeScriptConfig = (outDir, useStrictMode = false) => ({
   "compilerOptions": {
     "target": 'es5',
     "module": 'commonjs',
     "declaration": true,
     outDir,
-    "strict": false,
+    "strict": useStrictMode,
   },
   "include": ['./src'],
   "exclude": ['node_modules', '**/__tests__/*'],
