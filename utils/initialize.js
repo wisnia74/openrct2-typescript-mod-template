@@ -7,7 +7,7 @@ const {
   removeFolder,
   readJSON,
   createJSON,
-} = require('./utils/functions');
+} = require('./functions');
 const {
   createTypeScriptConfig,
   createNodemonConfig,
@@ -15,9 +15,9 @@ const {
   createEslintConfig,
   createTemplateModFile,
   createTemplateReadmeMd,
-} = require('./utils/generators');
+} = require('./generators');
 
-exports.init = () => {
+exports.init = (path) => {
   // load config data from init.json
   const {
     userName,
@@ -30,7 +30,7 @@ exports.init = () => {
       importOpenrct2Api,
       compileTemplateMod,
     }
-  } = readJSON('./init.json');
+  } = readJSON(`${path}/init.json`);
 
   // perform checks
   if (modType !== 'local' && modType !== 'remote') {
@@ -56,70 +56,70 @@ exports.init = () => {
   });
 
   // load necessary scripts and devDependencies from template npm package files
-  const { scripts, devDependencies } = readJSON('./package.json');
+  const { scripts, devDependencies } = readJSON(`${path}/package.json`);
 
   // remove template npm package files and README.md
-  removeFile('./package.json');
-  removeFile('./package-lock.json');
-  removeFile('./README.md');
-  removeFile('./LICENSE');
+  removeFile(`${path}/package.json`);
+  removeFile(`${path}/package-lock.json`);
+  removeFile(`${path}/README.md`);
+  removeFile(`${path}/LICENSE`);
 
   // run npm init
   exec('npm init');
 
   // read generated package.json, append scripts and devDependencies to new package.json and save it
-  const newPackageJson = readJSON('./package.json');
+  const newPackageJson = readJSON(`${path}/package.json`);
 
   newPackageJson.scripts = scripts;
   newPackageJson.devDependencies = devDependencies;
 
-  createJSON('./package.json', newPackageJson);
+  createJSON(`${path}/package.json`, newPackageJson);
 
   // install dependencies
   exec('npm install');
 
   // create TypeScript develop and prod config and save them
   const tsDevelopConfig = createTypeScriptConfig(`${openrct2PluginFolderPath}/${modName}`);
-  const tsProdConfig = createTypeScriptConfig(`./dist/${modName}`);
+  const tsProdConfig = createTypeScriptConfig(`${path}/dist/${modName}`);
 
-  createJSON('./tsconfig-develop.json', tsDevelopConfig);
-  createJSON('./tsconfig-prod.json', tsProdConfig);
+  createJSON(`${path}/tsconfig-develop.json`, tsDevelopConfig);
+  createJSON(`${path}/tsconfig-prod.json`, tsProdConfig);
 
   // create and save Nodemon config
   const nodemonConfig = createNodemonConfig();
 
-  createJSON('./nodemon.json', nodemonConfig);
+  createJSON(`${path}/nodemon.json`, nodemonConfig);
 
   // create VSCode config and save it to its folder
   const vsCodeConfig = createVsCodeConfig();
 
-  createFolder('./.vscode');
-  createJSON('./.vscode/settings.json', vsCodeConfig);
+  createFolder(`${path}/.vscode`);
+  createJSON(`${path}/.vscode/settings.json`, vsCodeConfig);
 
   // create ESLint config and save it
   const eslintConfig = createEslintConfig();
 
-  createJSON('./.eslintrc.json', eslintConfig);
+  createJSON(`${path}/.eslintrc.json`, eslintConfig);
 
-  // create temporary mod file and save it to ./src
+  // create temporary mod file and save it to ${path}/src
   const modFile = importOpenrct2Api
     ? createTemplateModFile(modName, userName, modType, openrct2ApiFilePath)
     : createTemplateModFile(modName, userName, modType);
 
-  createFolder('./src');
-  createFile(`./src/${modName}.ts`, modFile);
+  createFolder(`${path}/src`);
+  createFile(`${path}/src/${modName}.ts`, modFile);
 
   // create template README.md and save it
   const readmeMdText = createTemplateReadmeMd(path.basename(__dirname), 'Happy modding!');
 
-  createFile('./README.md', readmeMdText);
+  createFile(`${path}/README.md`, readmeMdText);
 
   // remove utils folder and init configuration file
-  removeFolder('./utils');
-  removeFile('./init.json');
+  removeFolder(`${path}/utils`);
+  removeFile(`${path}/init.json`);
 
   // replace init.js with an empty file
-  createFile('./init.js', '');
+  createFile(`${path}/init.js`, '');
 
   if (pushToGithub === true) {
     // save everything to GitHub
