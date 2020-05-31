@@ -77,6 +77,7 @@ exports.init = (pathname) => {
   newPackageJson.scripts = scripts;
   newPackageJson.devDependencies = devDependencies;
 
+  removeFile(`${pathname}/package.json`);
   createJSON(`${pathname}/package.json`, newPackageJson);
 
   // install dependencies
