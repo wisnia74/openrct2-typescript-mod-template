@@ -68,7 +68,7 @@ exports.init = (pathname) => {
   exec('npm cache clean --force');
 
   // run npm init
-  exec('npm init --force');
+  exec('npm init');
 
   // read generated package.json, append scripts and devDependencies to new package.json and save it
   const newPackageJson = readJSON(`${pathname}/package.json`);
