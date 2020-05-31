@@ -1,3 +1,5 @@
 const { init } = require('./utils/initialize');
 
-init(__dirname);
+const rootDir = __dirname.replace(/\\+/g, '/');
+
+init(rootDir);
