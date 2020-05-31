@@ -4,7 +4,7 @@ exports.createTypeScriptConfig = (outDir) => ({
     "module": 'commonjs',
     "declaration": true,
     outDir,
-    "strict": true,
+    "strict": false,
   },
   "include": ['./src'],
   "exclude": ['node_modules', '**/__tests__/*'],
