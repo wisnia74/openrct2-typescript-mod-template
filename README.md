@@ -21,7 +21,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 - create your own repository using this one as a template and clone it anywhere to your PC
 - `cd` into it and edit `init.json`
 	- below there's a list of editable variables and what they do
-	- `userName`, `modName`, `modType`, `openrct2ApiFilepath` and `openrct2PluginFolderPath` are required to be edited, rest is optional and comes with defaults
+	- `userName`, `modName`, `modType`, `openrct2ApiFilepath` and `openrct2PluginFolderPath` are required to be edited, the rest is optional and comes with defaults
 
 |variable|description|used in|
 |--|--|--|
