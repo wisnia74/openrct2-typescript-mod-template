@@ -2,7 +2,7 @@
   "name": "openrct2-mod-template",
   "version": "1.0.0",
   "description": "My template repo for OpenRCT2 mods.",
-  "main": "app.js",
+  "main": "init.js",
   "scripts": {
     "start": "nodemon --watch ./src --ext ts",
     "build:develop": "tsc --project tsconfig-develop.json",
