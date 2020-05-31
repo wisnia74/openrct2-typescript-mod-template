@@ -134,6 +134,9 @@ exports.init = (pathname) => {
     exec('npm run build:develop');
   }
 
+  // remove leftover template utilities
+  removeFolder(`${pathname}/utils`);
+
   return undefined;
 };
 
