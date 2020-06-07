@@ -375,7 +375,7 @@ describe('init function', () => {
       });
     });
 
-    it('should create TypeScript config', () => {
+    it('should create develop TypeScript config', () => {
       const { init } = require('../initialize');
       const { createJSON, readJSON, removeFolder } = require('../functions');
 
@@ -386,7 +386,7 @@ describe('init function', () => {
 
       init(testPath);
 
-      const file = readJSON(`${testPath}/package.json`);
+      const file = readJSON(`${testPath}/tsconfig-develop.json`);
 
       expect(file).toStrictEqual({
         name: 'test',

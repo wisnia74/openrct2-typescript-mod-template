@@ -13,6 +13,8 @@ exports.removeFile = (pathname) => {
   fs.unlinkSync(pathname);
 };
 
+exports.readFile = (pathname) => fs.readFileSync(pathname, 'utf8');
+
 exports.createFolder = (pathname) => {
   fs.mkdirSync(pathname);
 };
