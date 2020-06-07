@@ -92,7 +92,7 @@ exports.init = (pathname) => {
   // install dependencies
   exec('npm install --force');
 
-  // create TypeScript develop and prod config and save them
+  // create TypeScript develop and prod configs and save them
   const tsDevelopConfig = createTypeScriptConfig(`${openrct2PluginFolderPath}/${modName}`, useStrictMode);
   const tsProdConfig = createTypeScriptConfig(`${pathname}/dist/${modName}`, useStrictMode);
 
