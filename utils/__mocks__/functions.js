@@ -43,7 +43,7 @@ exports.createFolder = (pathname) => {
   fs.mkdirSync(pathname);
 };
 
-exports.exists = (pathname) => fs.existsSync(pathname);
+exports.fileExists = (pathname) => fs.existsSync(pathname);
 
 exports.removeFolder = (pathname) => {
   if (fs.existsSync(pathname)) {

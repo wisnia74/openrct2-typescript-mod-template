@@ -1,6 +1,37 @@
 jest.mock('../functions');
 
 const testPath = `${__dirname}/test`;
+const expectedModFileContentWithoutApi = `const main = () => {
+  console.log('Your plug-in has started!');
+};
+
+registerPlugin({
+  name: 'test',
+  version: '1.0',
+  authors: ['test'],
+  type: 'local',
+  main,
+});
+`;
+const expectedModFileContentWithApi = `/// <reference path="${testPath}/api/openrct2.d.ts" />
+
+const main = () => {
+  console.log('Your plug-in has started!');
+};
+
+registerPlugin({
+  name: 'test',
+  version: '1.0',
+  authors: ['test'],
+  type: 'local',
+  main,
+});
+`;
+const expectedReadmeContent = `# utils
+
+Happy modding!
+`;
+
 let packageJsonData;
 let initJsonData;
 
@@ -321,14 +352,19 @@ describe('init function', () => {
   });
 
   describe('when given all required data in correct format', () => {
-    it('should not throw', () => {
-      const { init } = require('../initialize');
+    const setup = () => {
       const { createJSON, removeFolder } = require('../functions');
 
       createJSON(`${testPath}/init.json`, initJsonData);
       createJSON(`${testPath}/package.json`, packageJsonData);
 
       removeFolder(`${testPath}/src`);
+    };
+
+    it('should not throw', () => {
+      const { init } = require('../initialize');
+
+      setup();
 
       expect(() => {
         init(testPath);
@@ -337,18 +373,15 @@ describe('init function', () => {
 
     it('should create new package.json', () => {
       const { init } = require('../initialize');
-      const { createJSON, readJSON, removeFolder } = require('../functions');
+      const { readJSON } = require('../functions');
 
-      createJSON(`${testPath}/init.json`, initJsonData);
-      createJSON(`${testPath}/package.json`, packageJsonData);
-
-      removeFolder(`${testPath}/src`);
+      setup();
 
       init(testPath);
 
-      const file = readJSON(`${testPath}/package.json`);
+      const content = readJSON(`${testPath}/package.json`);
 
-      expect(file).toStrictEqual({
+      expect(content).toStrictEqual({
         name: 'test',
         description: 'test',
         version: '1.0.0',
@@ -377,41 +410,246 @@ describe('init function', () => {
 
     it('should create develop TypeScript config', () => {
       const { init } = require('../initialize');
-      const { createJSON, readJSON, removeFolder } = require('../functions');
+      const { readJSON } = require('../functions');
 
-      createJSON(`${testPath}/init.json`, initJsonData);
-      createJSON(`${testPath}/package.json`, packageJsonData);
-
-      removeFolder(`${testPath}/src`);
+      setup();
 
       init(testPath);
 
-      const file = readJSON(`${testPath}/tsconfig-develop.json`);
+      const content = readJSON(`${testPath}/tsconfig-develop.json`);
 
-      expect(file).toStrictEqual({
-        name: 'test',
-        description: 'test',
-        version: '1.0.0',
-        main: 'index.js',
-        scripts: {
-          test1: 'test1',
-          test2: 'test2',
+      expect(content).toStrictEqual({
+        "compilerOptions": {
+          "target": 'es5',
+          "module": 'commonjs',
+          "declaration": true,
+          "outDir": "E:\\IT\\Moje\\openrct2-typescript-mod-template\\utils\\__tests__/test/plugin/test",
+          "strict": false,
         },
-        repository: {
-          type: 'git',
-          url: 'test'
+        "include": ['./src'],
+        "exclude": ['node_modules', '**/__tests__/*'],
+      });
+    });
+
+    it('should create prod TypeScript config', () => {
+      const { init } = require('../initialize');
+      const { readJSON } = require('../functions');
+
+      setup();
+
+      init(testPath);
+
+      const content = readJSON(`${testPath}/tsconfig-prod.json`);
+
+      expect(content).toStrictEqual({
+        "compilerOptions": {
+          "target": 'es5',
+          "module": 'commonjs',
+          "declaration": true,
+          "outDir": "E:\\IT\\Moje\\openrct2-typescript-mod-template\\utils\\__tests__/test/dist/test",
+          "strict": false,
         },
-        keywords: ['test'],
-        author: 'test',
-        license: 'ISC',
-        bugs: {
-          url: 'test'
+        "include": ['./src'],
+        "exclude": ['node_modules', '**/__tests__/*'],
+      });
+    });
+
+    it('should create Nodemon config', () => {
+      const { init } = require('../initialize');
+      const { readJSON, fileExists } = require('../functions');
+
+      setup();
+
+      init(testPath);
+
+      const exists = fileExists(`${testPath}/.vscode`);
+      const content = readJSON(`${testPath}/.vscode/settings.json`);
+
+      expect(exists).toStrictEqual(true);
+      expect(content).toStrictEqual({
+        "typescript.tsdk": "node_modules/typescript/lib",
+    });
+    });
+
+    it('should create VSCode config', () => {
+      const { init } = require('../initialize');
+      const { readJSON } = require('../functions');
+
+      setup();
+
+      init(testPath);
+
+      const content = readJSON(`${testPath}/nodemon.json`);
+
+      expect(content).toStrictEqual({
+        "events": {
+          "restart": 'npm run build:develop',
         },
-        homepage: 'test',
-        devDependencies: {
-          test1: 'test1',
-          test2: 'test2',
+      });
+    });
+
+    it('should create ESLint config', () => {
+      const { init } = require('../initialize');
+      const { readJSON } = require('../functions');
+
+      setup();
+
+      init(testPath);
+
+      const content = readJSON(`${testPath}/.eslintrc.json`);
+
+      expect(content).toStrictEqual({
+        "env": {
+            "browser": true,
+            "es6": true,
+            "node": true
         },
+        "extends": [
+            "airbnb-base"
+        ],
+        "globals": {
+            "Atomics": "readonly",
+            "SharedArrayBuffer": "readonly"
+        },
+        "parser": "@typescript-eslint/parser",
+        "parserOptions": {
+            "ecmaVersion": 11,
+            "sourceType": "module"
+        },
+        "plugins": [
+            "@typescript-eslint"
+        ],
+        "rules": {
+            "no-undef": 0,
+            "spaced-comment": 0,
+            "max-len": ["error", { "code": 120 }]
+        }
+      });
+    });
+
+    describe('if importOpenrct2Api was set to false', () => {
+      it('it should create template mod file in ./src, that doesn\'t have API imported', () => {
+        const { init } = require('../initialize');
+        const { readFile, fileExists } = require('../functions');
+
+        setup();
+
+        init(testPath);
+
+        const exists = fileExists(`${testPath}/src`);
+        const content = readFile(`${testPath}/src/test.ts`);
+
+        expect(exists).toStrictEqual(true);
+        expect(content).toStrictEqual(expectedModFileContentWithoutApi);
+      });
+
+      it('it should create template mod file in ./src, that has API imported', () => {
+        const { init } = require('../initialize');
+        const { readFile, fileExists } = require('../functions');
+
+        initJsonData.config.importOpenrct2Api = true;
+
+        setup();
+
+        init(testPath);
+
+        const exists = fileExists(`${testPath}/src`);
+        const content = readFile(`${testPath}/src/test.ts`);
+
+        expect(exists).toStrictEqual(true);
+        expect(content).toStrictEqual(expectedModFileContentWithApi);
+      });
+    });
+
+    it('should create template README.md file', () => {
+      const { init } = require('../initialize');
+      const { readFile } = require('../functions');
+
+      setup();
+
+      init(testPath);
+
+      const content = readFile(`${testPath}/README.md`);
+
+      expect(content).toStrictEqual(expectedReadmeContent);
+    });
+
+    it('should remove utils folder', () => {
+      const { init } = require('../initialize');
+      const { fileExists } = require('../functions');
+
+      setup();
+
+      const existsBefore = fileExists(`${testPath}/utils`);
+
+      init(testPath);
+
+      const existsAfter = fileExists(`${testPath}/utils`);
+
+      expect(existsBefore).toStrictEqual(true);
+      expect(existsAfter).toStrictEqual(false);
+    });
+
+    it('should remove init.json file', () => {
+      const { init } = require('../initialize');
+      const { fileExists } = require('../functions');
+
+      setup();
+
+      const existsBefore = fileExists(`${testPath}/init.json`);
+
+      init(testPath);
+
+      const existsAfter = fileExists(`${testPath}/init.json`);
+
+      expect(existsBefore).toStrictEqual(true);
+      expect(existsAfter).toStrictEqual(false);
+    });
+
+    it('should replace init.js with empty file', () => {
+      const { init } = require('../initialize');
+      const { readFile } = require('../functions');
+
+      setup();
+
+      const contentBefore = readFile(`${testPath}/init.js`);
+
+      init(testPath);
+
+      const contentAfter = readFile(`${testPath}/init.js`);
+
+      expect(contentBefore).toStrictEqual('const test = () => \'test\'');
+      expect(contentAfter).toStrictEqual('');
+    });
+
+    describe('if pushToGithub was set to true', () => {
+      it('should run without errors and push changes to GitHub at the end', () => {
+        const { init } = require('../initialize');
+
+        initJsonData.config.pushToGithub = true;
+
+        setup();
+
+        expect(() => {
+          init(testPath);
+        }).not.toThrow();
+      });
+    });
+
+    describe('if compileTemplateMod was set to true', () => {
+      it('should run without errors, create mod folder in OpenRCT2 plugin folder, and run npm build:develop script', () => {
+        const { init } = require('../initialize');
+        const { fileExists } = require('../functions');
+
+        initJsonData.config.compileTemplateMod = true;
+
+        setup();
+
+        init(testPath);
+
+        const exists = fileExists(`${testPath}/plugin/test`);
+
+        expect(exists).toStrictEqual(true);
       });
     });
   });

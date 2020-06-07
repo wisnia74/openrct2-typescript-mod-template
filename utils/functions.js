@@ -33,7 +33,7 @@ exports.removeFolder = (pathname) => {
   }
 };
 
-exports.exists = (pathname) => fs.existsSync(pathname);
+exports.fileExists = (pathname) => fs.existsSync(pathname);
 
 exports.readJSON = (pathname) => JSON.parse(fs.readFileSync(pathname));
 

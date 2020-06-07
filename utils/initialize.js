@@ -93,12 +93,8 @@ exports.init = (pathname) => {
   exec('npm install --force');
 
   // create TypeScript develop and prod config and save them
-  const tsDevelopConfig = useStrictMode
-    ? createTypeScriptConfig(`${openrct2PluginFolderPath}/${modName}`, useStrictMode)
-    : createTypeScriptConfig(`${openrct2PluginFolderPath}/${modName}`);
-  const tsProdConfig = useStrictMode
-    ? createTypeScriptConfig(`${pathname}/dist/${modName}`, useStrictMode)
-    : createTypeScriptConfig(`${pathname}/dist/${modName}`);
+  const tsDevelopConfig = createTypeScriptConfig(`${openrct2PluginFolderPath}/${modName}`, useStrictMode);
+  const tsProdConfig = createTypeScriptConfig(`${pathname}/dist/${modName}`, useStrictMode);
 
   createJSON(`${pathname}/tsconfig-develop.json`, tsDevelopConfig);
   createJSON(`${pathname}/tsconfig-prod.json`, tsProdConfig);
@@ -151,9 +147,6 @@ exports.init = (pathname) => {
     createFolder(`${openrct2PluginFolderPath}/${modName}`);
     exec('npm run build:develop');
   }
-
-  // remove leftover template utilities
-  removeFolder(`${pathname}/utils`);
 };
 
 module.exports = exports;
