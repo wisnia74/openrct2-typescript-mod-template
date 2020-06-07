@@ -8,7 +8,7 @@
     "build:develop": "tsc --project tsconfig-develop.json",
     "build": "npm run lint && tsc --project tsconfig-prod.json",
     "lint": "eslint ./src/*.ts",
-    "test": "jest",
+    "test": "jest --verbose=false",
     "test:dev": "jest --onlyChanged --verbose --collectCoverage"
   },
   "repository": {
