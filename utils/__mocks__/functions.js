@@ -1,8 +1,32 @@
 const fs = require('fs');
-const { execSync } = require('child_process');
 
-exports.exec = (cmd, opts = { stdio: [0, 1, 2] }) => {
-  execSync(cmd, opts);
+exports.exec = (cmd) => {
+  switch (cmd) {
+    case 'npm init':
+      fs.writeFileSync(`${__dirname}/../__tests__/test/package.json`, JSON.stringify({
+        name: 'test',
+        description: 'test',
+        version: '1.0.0',
+        main: 'index.js',
+        scripts: {
+          test: 'echo \'Error: no test specified\' && exit 1'
+        },
+        repository: {
+          type: 'git',
+          url: 'test'
+        },
+        keywords: ['test'],
+        author: 'test',
+        license: 'ISC',
+        bugs: {
+          url: 'test'
+        },
+        homepage: 'test'
+      } , undefined, 2));
+      return undefined;
+    default:
+      return `executed ${cmd}`;
+  }
 };
 
 exports.createFile = (pathname, data) => {
@@ -19,6 +43,8 @@ exports.createFolder = (pathname) => {
   fs.mkdirSync(pathname);
 };
 
+exports.fileExists = (pathname) => fs.existsSync(pathname);
+
 exports.removeFolder = (pathname) => {
   if (fs.existsSync(pathname)) {
     fs.readdirSync(pathname).forEach((file) => {
@@ -32,8 +58,6 @@ exports.removeFolder = (pathname) => {
     fs.rmdirSync(pathname);
   }
 };
-
-exports.fileExists = (pathname) => fs.existsSync(pathname);
 
 exports.readJSON = (pathname) => JSON.parse(fs.readFileSync(pathname));
 

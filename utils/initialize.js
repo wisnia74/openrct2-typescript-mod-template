@@ -35,19 +35,19 @@ exports.init = (pathname) => {
 
   // perform checks
   if (modType !== 'local' && modType !== 'remote') {
-    throw new Error('config variable modType has to be set to "remote" or "local"');
+    throw new Error('variable modType has to be set to "remote" or "local"');
   }
 
-  if (typeof userName !== 'string') throw new Error('config variable userName has to be a string');
+  if (typeof userName !== 'string') throw new Error('variable userName has to be a string');
 
-  if (typeof modName !== 'string') throw new Error('config variable modName has to be a string');
+  if (typeof modName !== 'string') throw new Error('variable modName has to be a string');
 
   if (typeof openrct2ApiFilePath !== 'string') {
-    throw new Error('config variable openrct2ApiFilePath has to be a string');
+    throw new Error('variable openrct2ApiFilePath has to be a string');
   }
 
   if (typeof openrct2PluginFolderPath !== 'string'){
-    throw new Error('config variable openrct2PluginFolderPath has to be a string');
+    throw new Error('variable openrct2PluginFolderPath has to be a string');
   }
 
   [pushToGithub, importOpenrct2Api, compileTemplateMod, useStrictMode].some((attr) => {
@@ -58,6 +58,16 @@ exports.init = (pathname) => {
 
   // load necessary scripts and devDependencies from template npm package files
   const { scripts, devDependencies } = readJSON(`${pathname}/package.json`);
+
+  // check if they are objects
+  if (scripts instanceof Object === false || devDependencies instanceof Object === false) {
+    throw new Error('both scripts and devDependencies have to be instances of objects');
+  }
+
+  // remove test scripts and dependencies
+  delete scripts.test;
+  delete scripts['test:dev'];
+  delete devDependencies.jest
 
   // remove template files
   removeFile(`${pathname}/package.json`);
@@ -83,13 +93,9 @@ exports.init = (pathname) => {
   // install dependencies
   exec('npm install --force');
 
-  // create TypeScript develop and prod config and save them
-  const tsDevelopConfig = useStrictMode
-    ? createTypeScriptConfig(`${openrct2PluginFolderPath}/${modName}`, useStrictMode)
-    : createTypeScriptConfig(`${openrct2PluginFolderPath}/${modName}`);
-  const tsProdConfig = useStrictMode
-    ? createTypeScriptConfig(`${pathname}/dist/${modName}`, useStrictMode)
-    : createTypeScriptConfig(`${pathname}/dist/${modName}`);
+  // create TypeScript develop and prod configs and save them
+  const tsDevelopConfig = createTypeScriptConfig(`${openrct2PluginFolderPath}/${modName}`, useStrictMode);
+  const tsProdConfig = createTypeScriptConfig(`${pathname}/dist/${modName}`, useStrictMode);
 
   createJSON(`${pathname}/tsconfig-develop.json`, tsDevelopConfig);
   createJSON(`${pathname}/tsconfig-prod.json`, tsProdConfig);
@@ -142,11 +148,6 @@ exports.init = (pathname) => {
     createFolder(`${openrct2PluginFolderPath}/${modName}`);
     exec('npm run build:develop');
   }
-
-  // remove leftover template utilities
-  removeFolder(`${pathname}/utils`);
-
-  return undefined;
 };
 
 module.exports = exports;
