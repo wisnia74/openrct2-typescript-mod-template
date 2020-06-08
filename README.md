@@ -4,7 +4,7 @@
 
 # 🎢 openrct2-typescript-mod-template
 # Template:
-[![wisnia74](https://circleci.com/gh/wisnia74/openrct2-typescript-mod-template.svg?style=shield)](https://app.circleci.com/pipelines/github/wisnia74/openrct2-typescript-mod-template)
+[![wisnia74](https://circleci.com/gh/wisnia74/openrct2-typescript-mod-template/tree/master.svg?style=shield)](https://app.circleci.com/pipelines/github/wisnia74/openrct2-typescript-mod-template?branch=master)
 
 Template repository for OpenRCT2 mods written in TypeScript.
 
