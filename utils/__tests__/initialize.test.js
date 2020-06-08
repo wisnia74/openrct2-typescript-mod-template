@@ -1,4 +1,5 @@
 jest.mock('../functions');
+
 const { 
   describe,
   beforeEach,
@@ -42,51 +43,54 @@ Happy modding!
 let packageJsonData;
 let initJsonData;
 
+beforeEach(() => {
+  const { createFolder, createFile } = require('../functions');
+
+  createFolder(testPath);
+  createFolder(`${testPath}/src`);
+  createFolder(`${testPath}/utils`);
+  createFolder(`${testPath}/api`);
+  createFolder(`${testPath}/plugin`);
+  createFolder(`${testPath}/.circleci`);
+
+  createFile(`${testPath}/package-lock.json`, {});
+  createFile(`${testPath}/README.md`, '');
+  createFile(`${testPath}/LICENSE`, '');
+
+  createFile(`${testPath}/init.js`, 'const test = () => \'test\'');
+  createFile(`${testPath}/api/openrct2.d.ts`, '');
+  createFile(`${testPath}/.circleci/config.yml`, '');
+
+  initJsonData = {
+    userName: 'test',
+    modName: 'test',
+    modType: 'local',
+    openrct2ApiFilePath: `${testPath}/api/openrct2.d.ts`,
+    openrct2PluginFolderPath: `${testPath}/plugin`,
+    config: {
+      pushToGithub: false,
+      importOpenrct2Api: false,
+      compileTemplateMod: false,
+      useStrictMode: false,
+    },
+  };
+
+  packageJsonData = {
+    scripts: {
+      test: 'test',
+      'test:dev': 'test',
+      test1: 'test1',
+      test2: 'test2',
+    },
+    devDependencies: {
+      jest: 'jest',
+      test1: 'test1',
+      test2: 'test2',
+    }
+  };
+});
+
 describe('init function', () => {
-  beforeEach(() => {
-    const { createFolder, createFile } = require('../functions');
-  
-    createFolder(testPath);
-    createFolder(`${testPath}/src`);
-    createFolder(`${testPath}/utils`);
-    createFolder(`${testPath}/api`);
-    createFolder(`${testPath}/plugin`);
-  
-    createFile(`${testPath}/package-lock.json`);
-    createFile(`${testPath}/README.md`);
-    createFile(`${testPath}/LICENSE`);
-  
-    createFile(`${testPath}/init.js`, 'const test = () => \'test\'');
-    createFile(`${testPath}/api/openrct2.d.ts`);
-  
-    initJsonData = {
-      userName: 'test',
-      modName: 'test',
-      modType: 'local',
-      openrct2ApiFilePath: `${testPath}/api/openrct2.d.ts`,
-      openrct2PluginFolderPath: `${testPath}/plugin`,
-      config: {
-        pushToGithub: false,
-        importOpenrct2Api: false,
-        compileTemplateMod: false,
-        useStrictMode: false,
-      },
-    };
-  
-    packageJsonData = {
-      scripts: {
-        test: 'test',
-        'test:dev': 'test',
-        test1: 'test1',
-        test2: 'test2',
-      },
-      devDependencies: {
-        jest: 'jest',
-        test1: 'test1',
-        test2: 'test2',
-      }
-    };
-  });
 
   describe('invoked when init.json doesn\'t exist', () => {
     it('should throw', () => {
@@ -632,6 +636,22 @@ describe('init function', () => {
       expect(contentAfter).toStrictEqual('');
     });
 
+    it('should remove CircleCI folder', () => {
+      const { init } = require('../initialize');
+      const { fileExists } = require('../functions');
+
+      setup();
+
+      const existsBefore = fileExists(`${testPath}/.circleci`);
+
+      init(testPath);
+
+      const existsAfter = fileExists(`${testPath}/.circleci`);
+
+      expect(existsBefore).toStrictEqual(true);
+      expect(existsAfter).toStrictEqual(false);
+    });
+
     describe('if pushToGithub was set to true', () => {
       it('should run without errors and push changes to GitHub at the end', () => {
         const { init } = require('../initialize');
@@ -663,10 +683,10 @@ describe('init function', () => {
       });
     });
   });
+});
 
-  afterEach(() => {
-    const { removeFolder } = require('../functions');
+afterEach(() => {
+  const { removeFolder } = require('../functions');
 
-    removeFolder(testPath);
-  });
+  removeFolder(testPath);
 });
