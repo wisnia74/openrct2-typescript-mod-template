@@ -53,13 +53,13 @@ beforeEach(() => {
   createFolder(`${testPath}/plugin`);
   createFolder(`${testPath}/.circleci`);
 
-  createFile(`${testPath}/package-lock.json`);
-  createFile(`${testPath}/README.md`);
-  createFile(`${testPath}/LICENSE`);
+  createFile(`${testPath}/package-lock.json`, {});
+  createFile(`${testPath}/README.md`, '');
+  createFile(`${testPath}/LICENSE`, '');
 
   createFile(`${testPath}/init.js`, 'const test = () => \'test\'');
-  createFile(`${testPath}/api/openrct2.d.ts`);
-  createFile(`${testPath}/.circleci/config.yml`);
+  createFile(`${testPath}/api/openrct2.d.ts`, '');
+  createFile(`${testPath}/.circleci/config.yml`, '');
 
   initJsonData = {
     userName: 'test',

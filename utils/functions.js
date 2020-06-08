@@ -6,7 +6,15 @@ exports.exec = (cmd, opts = { stdio: [0, 1, 2] }) => {
 };
 
 exports.createFile = (pathname, data) => {
-  fs.writeFileSync(pathname, data);
+  let content;
+
+  if (data instanceof Object) {
+    content = JSON.stringify(data, undefined, 2);
+  } else {
+    content = data;
+  }
+
+  fs.writeFileSync(pathname, content);
 };
 
 exports.removeFile = (pathname) => {
