@@ -1,4 +1,11 @@
 jest.mock('../functions');
+const { 
+  describe,
+  beforeEach,
+  afterEach,
+  expect,
+  it
+} = require('@jest/globals');
 
 const testPath = `${__dirname}/test`;
 const expectedModFileContentWithoutApi = `const main = () => {
@@ -35,49 +42,52 @@ Happy modding!
 let packageJsonData;
 let initJsonData;
 
-beforeEach(() => {
-  const { createFolder, createFile } = require('../functions');
-
-  createFolder(testPath);
-  createFolder(`${testPath}/src`);
-  createFolder(`${testPath}/utils`);
-  createFolder(`${testPath}/api`);
-  createFolder(`${testPath}/plugin`);
-
-  createFile(`${testPath}/package-lock.json`);
-  createFile(`${testPath}/README.md`);
-  createFile(`${testPath}/LICENSE`);
-
-  createFile(`${testPath}/init.js`, 'const test = () => \'test\'');
-  createFile(`${testPath}/api/openrct2.d.ts`);
-
-  initJsonData = {
-    userName: 'test',
-    modName: 'test',
-    modType: 'local',
-    openrct2ApiFilePath: `${testPath}/api/openrct2.d.ts`,
-    openrct2PluginFolderPath: `${testPath}/plugin`,
-    config: {
-      pushToGithub: false,
-      importOpenrct2Api: false,
-      compileTemplateMod: false,
-      useStrictMode: false,
-    },
-  };
-
-  packageJsonData = {
-    scripts: {
-      test1: 'test1',
-      test2: 'test2',
-    },
-    devDependencies: {
-      test1: 'test1',
-      test2: 'test2',
-    }
-  };
-});
-
 describe('init function', () => {
+  beforeEach(() => {
+    const { createFolder, createFile } = require('../functions');
+  
+    createFolder(testPath);
+    createFolder(`${testPath}/src`);
+    createFolder(`${testPath}/utils`);
+    createFolder(`${testPath}/api`);
+    createFolder(`${testPath}/plugin`);
+  
+    createFile(`${testPath}/package-lock.json`);
+    createFile(`${testPath}/README.md`);
+    createFile(`${testPath}/LICENSE`);
+  
+    createFile(`${testPath}/init.js`, 'const test = () => \'test\'');
+    createFile(`${testPath}/api/openrct2.d.ts`);
+  
+    initJsonData = {
+      userName: 'test',
+      modName: 'test',
+      modType: 'local',
+      openrct2ApiFilePath: `${testPath}/api/openrct2.d.ts`,
+      openrct2PluginFolderPath: `${testPath}/plugin`,
+      config: {
+        pushToGithub: false,
+        importOpenrct2Api: false,
+        compileTemplateMod: false,
+        useStrictMode: false,
+      },
+    };
+  
+    packageJsonData = {
+      scripts: {
+        test: 'test',
+        'test:dev': 'test',
+        test1: 'test1',
+        test2: 'test2',
+      },
+      devDependencies: {
+        jest: 'jest',
+        test1: 'test1',
+        test2: 'test2',
+      }
+    };
+  });
+
   describe('invoked when init.json doesn\'t exist', () => {
     it('should throw', () => {
       const { init } = require('../initialize');
@@ -423,7 +433,7 @@ describe('init function', () => {
           "target": 'es5',
           "module": 'commonjs',
           "declaration": true,
-          "outDir": "E:\\IT\\Moje\\openrct2-typescript-mod-template\\utils\\__tests__/test/plugin/test",
+          "outDir": `${testPath}/plugin/test`,
           "strict": false,
         },
         "include": ['./src'],
@@ -446,7 +456,7 @@ describe('init function', () => {
           "target": 'es5',
           "module": 'commonjs',
           "declaration": true,
-          "outDir": "E:\\IT\\Moje\\openrct2-typescript-mod-template\\utils\\__tests__/test/dist/test",
+          "outDir": `${testPath}/dist/test`,
           "strict": false,
         },
         "include": ['./src'],
@@ -653,10 +663,10 @@ describe('init function', () => {
       });
     });
   });
-});
 
-afterEach(() => {
-  const { removeFolder } = require('../functions');
+  afterEach(() => {
+    const { removeFolder } = require('../functions');
 
-  removeFolder(testPath);
+    removeFolder(testPath);
+  });
 });

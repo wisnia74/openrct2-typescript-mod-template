@@ -64,9 +64,10 @@ exports.init = (pathname) => {
     throw new Error('both scripts and devDependencies have to be instances of objects');
   }
 
-  // remove test scripts
+  // remove test scripts and dependencies
   delete scripts.test;
   delete scripts['test:dev'];
+  delete devDependencies.jest
 
   // remove template files
   removeFile(`${pathname}/package.json`);
