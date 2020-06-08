@@ -133,6 +133,9 @@ exports.init = (pathname) => {
   removeFolder(`${pathname}/utils`);
   removeFile(`${pathname}/init.json`);
 
+  // remove CircleCI folder
+  removeFolder(`${pathname}/.circleci`);
+
   // replace init.js with an empty file
   createFile(`${pathname}/init.js`, '');
 
