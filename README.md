@@ -18,7 +18,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 
 ## Configuration
 
-- install [Node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/get-npm)
+- install latest versions of [Node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/get-npm)
 - create your own repository using this one as a template and clone it anywhere to your PC
 - `cd` into it and edit `init.json`
 	- below there's a list of editable variables and what they do
