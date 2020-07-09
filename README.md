@@ -38,17 +38,15 @@ If you've set `compileTemplateMod` in `config/init.json` as `true`:
 
 If you've set `compileTemplateMod` in `config/init.json` as `false`:
 - you still follow all the above steps, but before them you need to
-		- `cd` into repo
-		- run `npm run build:develop`
-- this will place compiled `./src/<modName>.ts` inside `<openrct2PluginFolderPath>/<modName>/`
+	- `cd` into repo
+	- run `npm run build:develop`
+- this will place compiled `./src/<modName>.ts` inside `<openrct2PluginFolderPath>/<modName>/` directory
 
 #### How it works
 After the `node init.js` script finishes, you are left with a fully functioning npm package, Nodemon, ESLint and TypeScript configured, and also working npm scripts. All changes made by the script got pushed to your repository if you've set `pushToGithub` to `true` before running it.
 
 Your mod files live in `./src` directory. That's the ones you will be writing code in. 
 Upon starting Nodemon server, it will start watching changes you make to files in `./src`, and it will build them accordingly.
-
-To see how to start writing mods and load/debug them in real time, see `Modding` section below.
 
 #### npm scripts:
 
