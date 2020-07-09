@@ -55,7 +55,7 @@ Upon starting Nodemon server, it will start watching changes you make to files i
 |--|--|
 |`npm start`|starts Nodemon server that will be watching `./src` folder for any changes you make to `.ts` files inside it|
 |`npm run lint`|lints your `.ts` files from `./src` directory|
-|`npm run build:develop`|compiles all `.ts` files from `./src` to ES5 `.js` files, and places them inside `<openrct2PluginFolderPath>/<modName>`|
+|`npm run build:develop`|compiles all `.ts` files from `./src` to ES5 `.js` files, and places them inside `<openrct2PluginFolderPath>/<modName>/` directory|
 |`npm run build`|runs `npm run lint` and if no linting errors are found, compiles your `.ts` files to ES5 `.js` files and places them inside `./dist` folder - those are your final mod files|
 
 ## Notes
