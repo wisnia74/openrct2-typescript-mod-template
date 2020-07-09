@@ -4,6 +4,8 @@ The variables you **have** to specify yourself are:
 - `userName`
 - `modName`
 - `modType`
+- `openrct2ApiFilePath` if you will set `importOpenrct2Api` to `true`
+- `openrct2PluginFolderPath`
 
 You can leave the rest as they come with defaults. All of the variables are described below.
 
