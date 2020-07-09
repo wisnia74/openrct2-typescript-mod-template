@@ -3,6 +3,10 @@
 
 Template repository for OpenRCT2 mods written in TypeScript.
 
+## Demo
+
+![](demo.gif)
+
 ## About
 
 This repository was created to serve as a template TypeScript mod repository for OpenRCT2.
@@ -12,10 +16,6 @@ I wanted to leverage [OpenRCT2 hot reload feature](https://github.com/OpenRCT2/O
 This template repository comes with [Nodemon](https://nodemon.io/), [ESLint](https://eslint.org/) and [TypeScript](https://www.typescriptlang.org/) on board.
 
 The idea was to use Nodemon to start a local server that will be watching your mod files, then on each save make it build `.ts` files to ES5 `.js` files, place them inside OpenRCT2 `plugin` directory, and let hot reload feature do the rest (i.e. reload the mod in-game).
-
-## Demo
-
-![](demo.gif)
 
 ## Installation
 
