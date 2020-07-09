@@ -1,4 +1,4 @@
-exports.createTypeScriptConfig = (outDir, useStrictMode = false) => ({
+exports.createTypeScriptConfig = (outDir, useStrictMode) => ({
   "compilerOptions": {
     "target": 'es5',
     "module": 'commonjs',
@@ -48,7 +48,7 @@ exports.createEslintConfig = () => ({
   }
 });
 
-exports.createTemplateModFile = (modName, userName, modType, apiPath = null) => {
+exports.createTemplateModFile = (modName, userName, modType, license, apiPath = null) => {
   let apiLine;
 
   if (apiPath) {
@@ -68,6 +68,7 @@ registerPlugin({
   version: '1.0',
   authors: ['${userName}'],
   type: '${modType}',
+  license: '${license}',
   main,
 });
 `;
