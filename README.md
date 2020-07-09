@@ -48,8 +48,6 @@ After the `node init.js` script finishes, you are left with a fully functioning 
 Your mod files live in `./src` directory. That's the ones you will be writing code in. 
 Upon starting Nodemon server, it will start watching changes you make to files in `./src`, and it will build them accordingly.
 
-To see how to start writing mods and load/debug them in real time, see `Modding` section below.
-
 #### npm scripts:
 
 |script|function|
