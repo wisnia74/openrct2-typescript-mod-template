@@ -15,7 +15,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 
 ## Demo
 
-TBA
+![](demo.gif)
 
 ## Installation
 
