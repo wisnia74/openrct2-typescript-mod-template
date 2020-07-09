@@ -59,6 +59,7 @@ beforeEach(() => {
   createFile(`${testPath}/package-lock.json`, {});
   createFile(`${testPath}/README.md`, '');
   createFile(`${testPath}/LICENSE`, '');
+  createFile(`${testPath}/demo.gif`);
 
   createFile(`${testPath}/init.js`, 'const test = () => \'test\'');
   createFile(`${testPath}/api/openrct2.d.ts`, '');
@@ -738,6 +739,22 @@ describe('init function', () => {
       init(testPath);
 
       const existsAfter = fileExists(`${testPath}/.circleci`);
+
+      expect(existsBefore).toStrictEqual(true);
+      expect(existsAfter).toStrictEqual(false);
+    });
+
+    it('should remove demo.gif file', () => {
+      const { init } = require('../initialize');
+      const { fileExists } = require('../functions');
+
+      setup();
+
+      const existsBefore = fileExists(`${testPath}/demo.gif`);
+
+      init(testPath);
+
+      const existsAfter = fileExists(`${testPath}/demo.gif`);
 
       expect(existsBefore).toStrictEqual(true);
       expect(existsAfter).toStrictEqual(false);

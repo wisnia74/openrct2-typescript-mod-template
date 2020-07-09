@@ -85,6 +85,7 @@ exports.init = (pathname) => {
   removeFile(`${pathname}/package-lock.json`);
   removeFile(`${pathname}/README.md`);
   removeFile(`${pathname}/LICENSE`);
+  removeFile(`${pathname}/demo.gif`);
 
   // clean npm cache
   exec('npm cache clean --force');
