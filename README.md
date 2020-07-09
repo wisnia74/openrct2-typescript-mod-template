@@ -38,8 +38,8 @@ If you've set `compileTemplateMod` in `config/init.json` as `true`:
 
 If you've set `compileTemplateMod` in `config/init.json` as `false`:
 - you still follow all the above steps, but before them you need to
-		- `cd` into repo
-		- run `npm run build:develop`
+	- `cd` into repo
+	- run `npm run build:develop`
 - this will place compiled `./src/<modName>.ts` inside `<openrct2PluginFolderPath>/<modName>/`
 
 #### How it works
