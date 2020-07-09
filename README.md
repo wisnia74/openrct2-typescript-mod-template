@@ -5,6 +5,7 @@ Template repository for OpenRCT2 mods written in TypeScript.
 
 ## Demo
 Upon saving the file, it gets compiled, placed in OpenRCT2 `plugin` folder and then OpenRCT2 hot reload feature does the rest.
+
 ![](demo.gif)
 
 ## About
