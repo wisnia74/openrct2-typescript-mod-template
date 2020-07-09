@@ -1,9 +1,11 @@
-This configuration is intended to be edited before you run `node init.js` in repo root directory.
+Configuration in `init.json` is intended to be edited before you run `node init.js` in repo root directory.
 
 The variables you **have** to specify yourself are:
 - `userName`
 - `modName`
 - `modType`
+- `openrct2ApiFilePath` if you will set `importOpenrct2Api` to `true`
+- `openrct2PluginFolderPath`
 
 You can leave the rest as they come with defaults. All of the variables are described below.
 
@@ -14,6 +16,7 @@ You can leave the rest as they come with defaults. All of the variables are desc
 |`userName`|-|yes|string|any
 |`modName`|-|yes|string|any
 |`modType`|refer to [OpenRCT2 scripting guide](https://github.com/OpenRCT2/OpenRCT2/blob/develop/distribution/scripting.md) for more info|yes|string|`remote` or `local`
+|`license`|-|no (default: `'MIT'`)|string|any
 |`openrct2ApiFilePath`|full path to `openrct2.d.ts` OpenRCT2 TypeScript API declaration file|yes, if `config/importOpenrct2Api` set to `true`|string|any (it needs to be a valid path for it to work)
 |`openrct2PluginFolderPath`|full path to OpenRCT2 `plugin` folder|yes|string|any (it needs to be a valid path for it to work)|
 `config/pushToGithub`|if set as `true`, after finishing `node init.js` all the changes made by the script will get pushed to your GitHub repository|no (default: `false`)|boolean|`true` or `false`|
