@@ -1,4 +1,4 @@
-This configuration is intended to be edited before you run `node init.js` in repo root directory.
+Configuration in `init.json` is intended to be edited before you run `node init.js` in repo root directory.
 
 The variables you **have** to specify yourself are:
 - `userName`
