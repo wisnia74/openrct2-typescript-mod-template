@@ -59,7 +59,7 @@ beforeEach(() => {
   createFile(`${testPath}/package-lock.json`, {});
   createFile(`${testPath}/README.md`, '');
   createFile(`${testPath}/LICENSE`, '');
-  createFile(`${testPath}/demo.gif`);
+  createFile(`${testPath}/demo.gif`, '');
 
   createFile(`${testPath}/init.js`, 'const test = () => \'test\'');
   createFile(`${testPath}/api/openrct2.d.ts`, '');
