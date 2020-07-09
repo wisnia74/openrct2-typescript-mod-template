@@ -23,7 +23,6 @@ exports.init = (pathname) => {
     userName,
     modName,
     modType,
-    openrct2ApiFilePath,
     openrct2PluginFolderPath,
     config: {
       pushToGithub,
@@ -31,7 +30,8 @@ exports.init = (pathname) => {
       compileTemplateMod,
       useStrictMode,
     }
-  } = readJSON(`${pathname}/init.json`);
+  } = readJSON(`${pathname}/config/init.json`);
+  let { openrct2ApiFilePath } = readJSON(`${pathname}/config/init.json`);
 
   // perform checks
   if (modType !== 'local' && modType !== 'remote') {
@@ -42,12 +42,12 @@ exports.init = (pathname) => {
 
   if (typeof modName !== 'string') throw new Error('variable modName has to be a string');
 
-  if (typeof openrct2ApiFilePath !== 'string') {
-    throw new Error('variable openrct2ApiFilePath has to be a string');
-  }
-
   if (typeof openrct2PluginFolderPath !== 'string'){
     throw new Error('variable openrct2PluginFolderPath has to be a string');
+  }
+
+  if (typeof openrct2ApiFilePath !== 'string') {
+    throw new Error('variable openrct2ApiFilePath has to be a string');
   }
 
   [pushToGithub, importOpenrct2Api, compileTemplateMod, useStrictMode].some((attr) => {
@@ -55,6 +55,14 @@ exports.init = (pathname) => {
       throw new Error(`all config variables in init.json have to be of type boolean (true/false, no quotes)`);
     }
   });
+
+  if (importOpenrct2Api) {
+    if (!openrct2ApiFilePath || openrct2ApiFilePath === 'C:/Users/<user>/Documents/OpenRCT2/bin/openrct2.d.ts') {
+      throw new Error('when importOpenrct2Api is set to true, openrct2ApiFilePath has to be defined too');
+    }
+  } else if (openrct2ApiFilePath === 'C:/Users/<user>/Documents/OpenRCT2/bin/openrct2.d.ts') {
+    openrct2ApiFilePath = '';
+  }
 
   // load necessary scripts and devDependencies from template npm package files
   const { scripts, devDependencies } = readJSON(`${pathname}/package.json`);
@@ -131,7 +139,7 @@ exports.init = (pathname) => {
 
   // remove utils folder and init configuration file
   removeFolder(`${pathname}/utils`);
-  removeFile(`${pathname}/init.json`);
+  removeFolder(`${pathname}/config`);
 
   // remove CircleCI folder
   removeFolder(`${pathname}/.circleci`);

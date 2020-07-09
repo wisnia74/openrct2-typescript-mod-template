@@ -7,6 +7,7 @@ const {
   expect,
   it
 } = require('@jest/globals');
+const { createFolder } = require('../__mocks__/functions');
 
 const testPath = `${__dirname}/test`;
 const expectedModFileContentWithoutApi = `const main = () => {
@@ -98,7 +99,7 @@ describe('init function', () => {
 
       expect(() => {
         init(testPath);
-      }).toThrow(new Error(`ENOENT: no such file or directory, open '${testPath}/init.json'`));
+      }).toThrow(new Error(`ENOENT: no such file or directory, open '${testPath}/config/init.json'`));
     });
   });
 
@@ -107,7 +108,8 @@ describe('init function', () => {
       const { init } = require('../initialize');
       const { createJSON } = require('../functions');
 
-      createJSON(`${testPath}/init.json`, {});
+      createFolder(`${testPath}/config`);
+      createJSON(`${testPath}/config/init.json`, {});
 
       expect(() => {
         init(testPath);
@@ -126,7 +128,8 @@ describe('init function', () => {
           
           initJsonData.modType = val;
 
-          createJSON(`${testPath}/init.json`, initJsonData);
+          createFolder(`${testPath}/config`);
+          createJSON(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -145,7 +148,8 @@ describe('init function', () => {
           
           initJsonData.userName = val;
 
-          createJSON(`${testPath}/init.json`, initJsonData);
+          createFolder(`${testPath}/config`);
+          createJSON(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -164,7 +168,8 @@ describe('init function', () => {
           
           initJsonData.modName = val;
 
-          createJSON(`${testPath}/init.json`, initJsonData);
+          createFolder(`${testPath}/config`);
+          createJSON(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -183,7 +188,8 @@ describe('init function', () => {
           
           initJsonData.openrct2ApiFilePath = val;
 
-          createJSON(`${testPath}/init.json`, initJsonData);
+          createFolder(`${testPath}/config`);
+          createJSON(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -202,7 +208,8 @@ describe('init function', () => {
           
           initJsonData.openrct2PluginFolderPath = val;
 
-          createJSON(`${testPath}/init.json`, initJsonData);
+          createFolder(`${testPath}/config`);
+          createJSON(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -221,7 +228,8 @@ describe('init function', () => {
 
           initJsonData.config.pushToGithub = val;
 
-          createJSON(`${testPath}/init.json`, initJsonData);
+          createFolder(`${testPath}/config`);
+          createJSON(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -240,7 +248,8 @@ describe('init function', () => {
 
           initJsonData.config.importOpenrct2Api = val;
 
-          createJSON(`${testPath}/init.json`, initJsonData);
+          createFolder(`${testPath}/config`);
+          createJSON(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -259,7 +268,8 @@ describe('init function', () => {
 
           initJsonData.config.compileTemplateMod = val;
 
-          createJSON(`${testPath}/init.json`, initJsonData);
+          createFolder(`${testPath}/config`);
+          createJSON(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -278,7 +288,8 @@ describe('init function', () => {
 
           initJsonData.config.useStrictMode = val;
 
-          createJSON(`${testPath}/init.json`, initJsonData);
+          createFolder(`${testPath}/config`);
+          createJSON(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -292,8 +303,9 @@ describe('init function', () => {
     it('should throw', () => {
       const { init } = require('../initialize');
       const { createJSON } = require('../functions');
-      
-      createJSON(`${testPath}/init.json`, initJsonData);
+
+      createFolder(`${testPath}/config`);
+      createJSON(`${testPath}/config/init.json`, initJsonData);
 
       expect(() => {
         init(testPath);
@@ -306,8 +318,9 @@ describe('init function', () => {
       it('should throw', () => {
         const { init } = require('../initialize');
         const { createJSON } = require('../functions');
-        
-        createJSON(`${testPath}/init.json`, initJsonData);
+
+        createFolder(`${testPath}/config`);
+        createJSON(`${testPath}/config/init.json`, initJsonData);
         createJSON(`${testPath}/package.json`, {});
 
         expect(() => {
@@ -321,8 +334,9 @@ describe('init function', () => {
     it('should throw', () => {
       const { init } = require('../initialize');
       const { createJSON, removeFile } = require('../functions');
-      
-      createJSON(`${testPath}/init.json`, initJsonData);
+
+      createFolder(`${testPath}/config`);
+      createJSON(`${testPath}/config/init.json`, initJsonData);
       createJSON(`${testPath}/package.json`, packageJsonData);
 
       removeFile(`${testPath}/package-lock.json`);
@@ -337,8 +351,9 @@ describe('init function', () => {
     it('should throw', () => {
       const { init } = require('../initialize');
       const { createJSON, removeFile } = require('../functions');
-      
-      createJSON(`${testPath}/init.json`, initJsonData);
+
+      createFolder(`${testPath}/config`);
+      createJSON(`${testPath}/config/init.json`, initJsonData);
       createJSON(`${testPath}/package.json`, packageJsonData);
 
       removeFile(`${testPath}/README.md`);
@@ -353,8 +368,9 @@ describe('init function', () => {
     it('should throw', () => {
       const { init } = require('../initialize');
       const { createJSON, removeFile } = require('../functions');
-      
-      createJSON(`${testPath}/init.json`, initJsonData);
+
+      createFolder(`${testPath}/config`);
+      createJSON(`${testPath}/config/init.json`, initJsonData);
       createJSON(`${testPath}/package.json`, packageJsonData);
 
       removeFile(`${testPath}/LICENSE`);
@@ -369,7 +385,8 @@ describe('init function', () => {
     const setup = () => {
       const { createJSON, removeFolder } = require('../functions');
 
-      createJSON(`${testPath}/init.json`, initJsonData);
+      createFolder(`${testPath}/config`);
+      createJSON(`${testPath}/config/init.json`, initJsonData);
       createJSON(`${testPath}/package.json`, packageJsonData);
 
       removeFolder(`${testPath}/src`);
@@ -541,37 +558,88 @@ describe('init function', () => {
       });
     });
 
-    describe('if importOpenrct2Api was set to false', () => {
-      it('it should create template mod file in ./src, that doesn\'t have API imported', () => {
-        const { init } = require('../initialize');
-        const { readFile, fileExists } = require('../functions');
+    describe('if importOpenrct2Api', () => {
+      describe('was set to true', () => {
+        describe('and openrct2ApiFilePath was left as default', () => {
+          it('should throw', () => {
+            const { init } = require('../initialize');
+            
+            initJsonData.openrct2ApiFilePath = 'C:/Users/<user>/Documents/OpenRCT2/bin/openrct2.d.ts';
+            initJsonData.config.importOpenrct2Api = true;
 
-        setup();
+            setup();
+    
+            expect(() => {
+              init(testPath);
+            }).toThrow(new Error('when importOpenrct2Api is set to true, openrct2ApiFilePath has to be defined too'));
+          });
+        });
 
-        init(testPath);
+        describe('and openrct2ApiFilePath was left as an empty string', () => {
+          it('should throw', () => {
+            const { init } = require('../initialize');
+            
+            initJsonData.openrct2ApiFilePath = '';
+            initJsonData.config.importOpenrct2Api = true;
 
-        const exists = fileExists(`${testPath}/src`);
-        const content = readFile(`${testPath}/src/test.ts`);
+            setup();
+    
+            expect(() => {
+              init(testPath);
+            }).toThrow(new Error('when importOpenrct2Api is set to true, openrct2ApiFilePath has to be defined too'));
+          });
+        });
 
-        expect(exists).toStrictEqual(true);
-        expect(content).toStrictEqual(expectedModFileContentWithoutApi);
+        it('it should create template mod file in ./src, that has API imported', () => {
+          const { init } = require('../initialize');
+          const { readFile, fileExists } = require('../functions');
+  
+          initJsonData.config.importOpenrct2Api = true;
+  
+          setup();
+  
+          init(testPath);
+  
+          const exists = fileExists(`${testPath}/src`);
+          const content = readFile(`${testPath}/src/test.ts`);
+  
+          expect(exists).toStrictEqual(true);
+          expect(content).toStrictEqual(expectedModFileContentWithApi);
+        });
       });
 
-      it('it should create template mod file in ./src, that has API imported', () => {
-        const { init } = require('../initialize');
-        const { readFile, fileExists } = require('../functions');
+      describe('was set to false', () => {
+        describe('and openrct2ApiFilePath was left as default', () => {
+          it('should not throw', () => {
+            const { init } = require('../initialize');
+            
+            initJsonData.openrct2ApiFilePath = 'C:/Users/<user>/Documents/OpenRCT2/bin/openrct2.d.ts';
+            initJsonData.config.importOpenrct2Api = false;
 
-        initJsonData.config.importOpenrct2Api = true;
+            setup();
+    
+            expect(() => {
+              init(testPath);
+            }).not.toThrow();
+          });
+        });
 
-        setup();
+        it('it should create template mod file in ./src, that doesn\'t have API imported', () => {
+          const { init } = require('../initialize');
+          const { readFile, fileExists } = require('../functions');
+          
+          initJsonData.config.importOpenrct2Api = false;
 
-        init(testPath);
-
-        const exists = fileExists(`${testPath}/src`);
-        const content = readFile(`${testPath}/src/test.ts`);
-
-        expect(exists).toStrictEqual(true);
-        expect(content).toStrictEqual(expectedModFileContentWithApi);
+          setup();
+  
+          init(testPath);
+  
+          const exists = fileExists(`${testPath}/src`);
+          const content = readFile(`${testPath}/src/test.ts`);
+  
+          expect(exists).toStrictEqual(true);
+          expect(content).toStrictEqual(expectedModFileContentWithoutApi);
+        });
       });
     });
 
@@ -610,11 +678,11 @@ describe('init function', () => {
 
       setup();
 
-      const existsBefore = fileExists(`${testPath}/init.json`);
+      const existsBefore = fileExists(`${testPath}/config/init.json`);
 
       init(testPath);
 
-      const existsAfter = fileExists(`${testPath}/init.json`);
+      const existsAfter = fileExists(`${testPath}/config/init.json`);
 
       expect(existsBefore).toStrictEqual(true);
       expect(existsAfter).toStrictEqual(false);
