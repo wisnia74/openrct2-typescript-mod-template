@@ -16,7 +16,7 @@ You can leave the rest as they come with defaults. All of the variables are desc
 |`userName`|-|yes|string|any
 |`modName`|-|yes|string|any
 |`modType`|refer to [OpenRCT2 scripting guide](https://github.com/OpenRCT2/OpenRCT2/blob/develop/distribution/scripting.md) for more info|yes|string|`remote` or `local`
-|`license`|-|no (default: `'MIT'`)|string|any
+|`licence`|-|no (default: `'MIT'`)|string|any
 |`openrct2ApiFilePath`|full path to `openrct2.d.ts` OpenRCT2 TypeScript API declaration file|yes, if `config/importOpenrct2Api` set to `true`|string|any (it needs to be a valid path for it to work)
 |`openrct2PluginFolderPath`|full path to OpenRCT2 `plugin` folder|yes|string|any (it needs to be a valid path for it to work)|
 `config/pushToGithub`|if set as `true`, after finishing `node init.js` all the changes made by the script will get pushed to your GitHub repository|no (default: `false`)|boolean|`true` or `false`|

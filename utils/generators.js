@@ -48,7 +48,7 @@ exports.createEslintConfig = () => ({
   }
 });
 
-exports.createTemplateModFile = (modName, userName, modType, license, apiPath = null) => {
+exports.createTemplateModFile = (modName, userName, modType, licence, apiPath = null) => {
   let apiLine;
 
   if (apiPath) {
@@ -68,7 +68,7 @@ registerPlugin({
   version: '1.0',
   authors: ['${userName}'],
   type: '${modType}',
-  license: '${license}',
+  licence: '${licence}',
   main,
 });
 `;

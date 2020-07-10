@@ -2,7 +2,7 @@
   "userName": "<user_name>",
   "modName": "<mod_name>",
   "modType": "<mod_type>",
-  "license": "MIT",
+  "licence": "MIT",
   "openrct2ApiFilePath": "C:/Users/<user>/Documents/OpenRCT2/bin/openrct2.d.ts",
   "openrct2PluginFolderPath": "C:/Users/<user>/Documents/OpenRCT2/plugin",
   "config": {

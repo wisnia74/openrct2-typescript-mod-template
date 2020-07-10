@@ -19,7 +19,7 @@ registerPlugin({
   version: '1.0',
   authors: ['test'],
   type: 'local',
-  license: 'MIT',
+  licence: 'MIT',
   main,
 });
 `;
@@ -34,7 +34,7 @@ registerPlugin({
   version: '1.0',
   authors: ['test'],
   type: 'local',
-  license: 'MIT',
+  licence: 'MIT',
   main,
 });
 `;
@@ -69,7 +69,7 @@ beforeEach(() => {
     userName: 'test',
     modName: 'test',
     modType: 'local',
-    license: 'MIT',
+    licence: 'MIT',
     openrct2ApiFilePath: `${testPath}/api/openrct2.d.ts`,
     openrct2PluginFolderPath: `${testPath}/plugin`,
     config: {
@@ -182,7 +182,7 @@ describe('init function', () => {
       });
     });
 
-    describe('and license variable', () => {
+    describe('and licence variable', () => {
       const checkAgainst = [0, null, undefined, false, [], {}, () => {}];
 
       describe.each(checkAgainst)('is %p instead of a string', (val) => {
@@ -190,14 +190,14 @@ describe('init function', () => {
           const { init } = require('../initialize');
           const { createJSON } = require('../functions');
           
-          initJsonData.license = val;
+          initJsonData.licence = val;
 
           createFolder(`${testPath}/config`);
           createJSON(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
-          }).toThrow(new Error('variable license has to be a string'));
+          }).toThrow(new Error('variable licence has to be a string'));
         });
       });
     });

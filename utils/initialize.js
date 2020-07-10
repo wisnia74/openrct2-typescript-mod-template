@@ -23,7 +23,7 @@ exports.init = (pathname) => {
     userName,
     modName,
     modType,
-    license,
+    licence,
     openrct2PluginFolderPath,
     config: {
       pushToGithub,
@@ -43,7 +43,7 @@ exports.init = (pathname) => {
 
   if (typeof modName !== 'string') throw new Error('variable modName has to be a string');
 
-  if (typeof license !== 'string') throw new Error('variable license has to be a string');
+  if (typeof licence !== 'string') throw new Error('variable licence has to be a string');
 
   if (typeof openrct2PluginFolderPath !== 'string'){
     throw new Error('variable openrct2PluginFolderPath has to be a string');
@@ -130,8 +130,8 @@ exports.init = (pathname) => {
 
   // create temporary mod file and save it to ${pathname}/src
   const modFile = importOpenrct2Api
-    ? createTemplateModFile(modName, userName, modType, license, openrct2ApiFilePath)
-    : createTemplateModFile(modName, userName, modType, license);
+    ? createTemplateModFile(modName, userName, modType, licence, openrct2ApiFilePath)
+    : createTemplateModFile(modName, userName, modType, licence);
 
   createFolder(`${pathname}/src`);
   createFile(`${pathname}/src/${modName}.ts`, modFile);
