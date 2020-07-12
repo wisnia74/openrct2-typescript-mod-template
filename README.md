@@ -31,6 +31,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 ## Usage
 
 If you've set `compileTemplateMod` in `config/init.json` as `true`:
+- make sure you've enabled OpenRCT2 hot reload feature - read more about how to enable it [here](https://github.com/wisnia74/openrct2-typescript-mod-template/blob/master/demo.gif)
 - open `./src/<modName>.ts` in your code editor
 - run `npm start`
 - start OpenRCT2 with console and load save/start new game
