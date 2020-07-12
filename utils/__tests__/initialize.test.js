@@ -8,7 +8,6 @@ const {
   it
 } = require('@jest/globals');
 const { createFolder } = require('../__mocks__/functions');
-
 const testPath = `${__dirname}/test`;
 const expectedModFileContentWithoutApi = `const main = () => {
   console.log('Your plug-in has started!');
@@ -96,7 +95,6 @@ beforeEach(() => {
 });
 
 describe('init function', () => {
-
   describe('invoked when init.json doesn\'t exist', () => {
     it('should throw', () => {
       const { init } = require('../initialize');
