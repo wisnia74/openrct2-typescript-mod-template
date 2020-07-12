@@ -30,19 +30,18 @@ The idea was to use Nodemon to start a local server that will be watching your m
 
 ## Usage
 
-If you've set `compileTemplateMod` in `config/init.json` as `true`:
-- make sure you've enabled OpenRCT2 hot reload feature - read more about how to enable it [here](https://github.com/wisnia74/openrct2-typescript-mod-template/blob/master/demo.gif)
-- open `./src/<modName>.ts` in your code editor
-- run `npm start`
-- start OpenRCT2 with console and load save/start new game
-- each time you save the file the server will compile `./src/<modName>.ts` and place it inside `<openrct2PluginFolderPath>/<modName>/` directory
-- OpenRCT2 will notice file changes and it will reload the mods
-
-If you've set `compileTemplateMod` in `config/init.json` as `false`:
-- you still follow all the above steps, but before them you need to
-	- `cd` into repo
-	- run `npm run build:develop`
-- this will place compiled `./src/<modName>.ts` inside `<openrct2PluginFolderPath>/<modName>/` directory
+- If you've set `compileTemplateMod` in `config/init.json` as `true`:
+	- make sure you've enabled OpenRCT2 hot reload feature - read more about how to enable it [here](https://github.com/wisnia74/openrct2-typescript-mod-template/blob/master/demo.gif)
+	- open `./src/<modName>.ts` in your code editor
+	- run `npm start`
+	- start OpenRCT2 with console and load save/start new game
+	- each time you save the file the server will compile `./src/<modName>.ts` and place it inside `<openrct2PluginFolderPath>/<modName>/` directory
+	- OpenRCT2 will notice file changes and it will reload the mods
+- If you've set `compileTemplateMod` in `config/init.json` as `false`:
+	- you still follow all the above steps, but before them you need to
+		- `cd` into repo
+		- run `npm run build:develop`
+	- this will place compiled `./src/<modName>.ts` inside `<openrct2PluginFolderPath>/<modName>/` directory
 
 #### How it works
 After the `node init.js` script finishes, you are left with a fully functioning npm package, Nodemon, ESLint and TypeScript configured, and also working npm scripts. All changes made by the script got pushed to your repository if you've set `pushToGithub` to `true` before running it.
