@@ -9,4 +9,5 @@ updates:
   reviewers:
   - wisnia74
   labels:
-  - dependency update
+  - dependencies
+  
