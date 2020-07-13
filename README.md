@@ -61,7 +61,7 @@ Upon starting Nodemon server, it will start watching changes you make to files i
 ## Releasing your mod
 
 That's not an automated process unfortunately.
-After running `npm run build` locally, `./dist/` directory will be created that will contained all the compiled files from `./src/`.
+After running `npm run build` locally, `./dist/` directory will be created that will contain all the compiled files from `./src/`.
 It's up to you, if you want to edit `.gitignore` to actually include `./dist/` contents and push them to your remote, or if you want to manually copy the contents of `./dist/` and publish them somewhere. However, pushing `./dist/` and then making a release on GitHub sounds like a cool idea. The file will get zipped and will be available for download straight from the repo.
 
 ## Notes
