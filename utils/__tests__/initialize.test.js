@@ -54,7 +54,7 @@ beforeEach(() => {
   createFolder(`${testPath}/api`);
   createFolder(`${testPath}/plugin`);
   createFolder(`${testPath}/.circleci`);
-  createFolder(`${testPath}/.dependabot`);
+  createFolder(`${testPath}/.github`);
 
   createFile(`${testPath}/package-lock.json`, {});
   createFile(`${testPath}/README.md`, '');
@@ -64,7 +64,7 @@ beforeEach(() => {
   createFile(`${testPath}/init.js`, 'const test = () => \'test\'');
   createFile(`${testPath}/api/openrct2.d.ts`, '');
   createFile(`${testPath}/.circleci/config.yml`, '');
-  createFile(`${testPath}/.dependabot/config.yml`, '');
+  createFile(`${testPath}/.github/dependabot.yml`, '');
 
   initJsonData = {
     userName: 'test',
@@ -744,17 +744,17 @@ describe('init function', () => {
       expect(existsAfter).toStrictEqual(false);
     });
 
-    it('should remove Dependabot folder', () => {
+    it('should remove GitHub folder', () => {
       const { init } = require('../initialize');
       const { fileExists } = require('../functions');
 
       setup();
 
-      const existsBefore = fileExists(`${testPath}/.dependabot`);
+      const existsBefore = fileExists(`${testPath}/.github`);
 
       init(testPath);
 
-      const existsAfter = fileExists(`${testPath}/.dependabot`);
+      const existsAfter = fileExists(`${testPath}/.github`);
 
       expect(existsBefore).toStrictEqual(true);
       expect(existsAfter).toStrictEqual(false);
