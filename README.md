@@ -43,13 +43,13 @@ The idea was to use Nodemon to start a local server that will be watching your m
 		- run `npm run build:develop`
 	- this will place compiled `./src/<modName>.ts` inside `<openrct2PluginFolderPath>/<modName>/` directory
 
-#### How it works
+### How it works
 After the `node init.js` script finishes, you are left with a fully functioning npm package, Nodemon, ESLint and TypeScript configured, and also working npm scripts. All changes made by the script got pushed to your repository if you've set `pushToGithub` to `true` before running it.
 
 Your mod files live in `./src` directory. That's the ones you will be writing code in. 
 Upon starting Nodemon server, it will start watching changes you make to files in `./src`, and it will build them accordingly.
 
-#### npm scripts:
+### npm scripts:
 
 |script|function|
 |--|--|
@@ -57,6 +57,12 @@ Upon starting Nodemon server, it will start watching changes you make to files i
 |`npm run lint`|lints your `.ts` files from `./src/` directory|
 |`npm run build:develop`|compiles all `.ts` files from `./src/` to ES5 `.js` files, and places them inside `<openrct2PluginFolderPath>/<modName>/` directory|
 |`npm run build`|runs `npm run lint` and if no linting errors are found, compiles your `.ts` files to ES5 `.js` files and places them inside `./dist/` folder - those are your final mod files|
+
+## Releasing your mod
+
+That's not an automated process unfortunately.
+After running `npm run build` locally, `./dist/` directory will be created that will contained all the compiled files from `./src/`.
+It's up to you, if you want to edit `.gitignore` to actually include `./dist/` contents and push them to your remote, or if you want to manually copy the contents of `./dist/` and publish them somewhere. However, pushing `./dist/` and then making a release on GitHub sounds like a cool idea. The file will get zipped and will be available for download straight from the repo.
 
 ## Notes
 
