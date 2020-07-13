@@ -46,8 +46,8 @@ The idea was to use Nodemon to start a local server that will be watching your m
 ### How it works
 After the `node init.js` script finishes, you are left with a fully functioning npm package, Nodemon, ESLint and TypeScript configured, and also working npm scripts. All changes made by the script got pushed to your repository if you've set `pushToGithub` to `true` before running it.
 
-Your mod files live in `./src` directory. That's the ones you will be writing code in. 
-Upon starting Nodemon server, it will start watching changes you make to files in `./src`, and it will build them accordingly.
+Your mod files live in `./src/` directory. That's the ones you will be writing code in. 
+Upon starting Nodemon server, it will start watching changes you make to files in `./src/`, and it will build them accordingly.
 
 ### npm scripts:
 
