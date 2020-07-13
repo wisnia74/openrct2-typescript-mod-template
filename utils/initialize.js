@@ -147,6 +147,7 @@ exports.init = (pathname) => {
 
   // remove CircleCI folder
   removeFolder(`${pathname}/.circleci`);
+  removeFolder(`${pathname}/.dependabot`);
 
   // replace init.js with an empty file
   createFile(`${pathname}/init.js`, '');

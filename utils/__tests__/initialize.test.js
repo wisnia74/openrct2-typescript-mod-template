@@ -54,6 +54,7 @@ beforeEach(() => {
   createFolder(`${testPath}/api`);
   createFolder(`${testPath}/plugin`);
   createFolder(`${testPath}/.circleci`);
+  createFolder(`${testPath}/.dependabot`);
 
   createFile(`${testPath}/package-lock.json`, {});
   createFile(`${testPath}/README.md`, '');
@@ -63,6 +64,7 @@ beforeEach(() => {
   createFile(`${testPath}/init.js`, 'const test = () => \'test\'');
   createFile(`${testPath}/api/openrct2.d.ts`, '');
   createFile(`${testPath}/.circleci/config.yml`, '');
+  createFile(`${testPath}/.dependabot/config.yml`, '');
 
   initJsonData = {
     userName: 'test',
@@ -737,6 +739,22 @@ describe('init function', () => {
       init(testPath);
 
       const existsAfter = fileExists(`${testPath}/.circleci`);
+
+      expect(existsBefore).toStrictEqual(true);
+      expect(existsAfter).toStrictEqual(false);
+    });
+
+    it('should remove Dependabot folder', () => {
+      const { init } = require('../initialize');
+      const { fileExists } = require('../functions');
+
+      setup();
+
+      const existsBefore = fileExists(`${testPath}/.dependabot`);
+
+      init(testPath);
+
+      const existsAfter = fileExists(`${testPath}/.dependabot`);
 
       expect(existsBefore).toStrictEqual(true);
       expect(existsAfter).toStrictEqual(false);
