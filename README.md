@@ -20,13 +20,13 @@ The idea was to use Nodemon to start a local server that will be watching your m
 
 ## Installation
 
-1. install latest versions of [Node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/get-npm)
-2. create your own repository using this one as a template and clone it anywhere to your PC
+1. Install latest versions of [Node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/get-npm)
+2. Create your own repository using this one as a template and clone it anywhere to your PC
 3. `cd` into it and edit `config/init.json` - refer to [this](https://github.com/wisnia74/openrct2-typescript-mod-template/tree/master/config) table to know what to edit
-4. run `node init.js`
-  	* when the script runs `npm init` to generate your npm package, leave `entry` as `init.js`
-  	* everything else is optional
-5. you now have a clean repository and npm package configured so you can start modding :)
+4. Run `node init.js`
+  	* When the script runs `npm init` to generate your npm package, leave `entry` as `init.js`
+  	* Everything else is optional
+5. You now have a clean repository and npm package configured so you can start modding :)
 
 ## Usage
 
@@ -34,12 +34,12 @@ The idea was to use Nodemon to start a local server that will be watching your m
 2. Otherwise:
 	* `cd` into repo
 	* run `npm run build:develop` (this will place compiled `./src/<modName>.ts` inside `<openrct2PluginFolderPath>/<modName>/` directory)
-3. make sure you've enabled OpenRCT2 hot reload feature - read more about how to enable it [here](https://github.com/wisnia74/openrct2-typescript-mod-template/blob/master/demo.gif)
-4. open `./src/<modName>.ts` in your code editor
-5.  run `npm start`
-6.  start OpenRCT2 with console and load save/start new game
-7.  each time you save the file the server will compile `./src/<modName>.ts` and place it inside `<openrct2PluginFolderPath>/<modName>/` directory
-8.  OpenRCT2 will notice file changes and it will reload the mods
+3. Make sure you've enabled OpenRCT2 hot reload feature - read more about how to enable it [here](https://github.com/wisnia74/openrct2-typescript-mod-template/blob/master/demo.gif)
+4. Open `./src/<modName>.ts` in your code editor
+5. Run `npm start`
+6. Start OpenRCT2 with console and load save/start new game
+7. Each time you save the file the server will compile `./src/<modName>.ts` and place it inside `<openrct2PluginFolderPath>/<modName>/` directory
+8. OpenRCT2 will notice file changes and it will reload the mods
 
 ### How it works
 After the `node init.js` script finishes, you are left with a fully functioning npm package, Nodemon, ESLint and TypeScript configured, and also working npm scripts. All changes made by the script got pushed to your repository if you've set `pushToGithub` to `true` before running it.
