@@ -10,7 +10,7 @@ registerPlugin({
   licence: 'MIT',
   main,
 });
-`;
+`;l
 
 const modWithApi = (pathname) => `/// <reference path="${pathname}/api/openrct2.d.ts" />
 
