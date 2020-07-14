@@ -3,7 +3,7 @@ jest.mock('../functions');
 const testPath = `${__dirname}/test`;
 
 const { init } = require('../initialize');
-const { 
+const {
   describe,
   beforeEach,
   afterEach,
@@ -30,6 +30,11 @@ const {
 let packageJsonData;
 let initJsonData;
 
+const createInitJson = (data) => {
+  createFolder(`${testPath}/config`);
+  createJsonFile(`${testPath}/config/init.json`, data);
+}
+
 beforeEach(() => {
   createFolders([
     testPath,
@@ -38,7 +43,7 @@ beforeEach(() => {
     `${testPath}/api`,
     `${testPath}/plugin`,
     `${testPath}/.circleci`,
-    `${testPath}/.github`
+    `${testPath}/.github`,
   ]);
 
   createFiles([
@@ -49,7 +54,7 @@ beforeEach(() => {
     [`${testPath}/init.js`, 'const test = () => \'test\''],
     [`${testPath}/api/openrct2.d.ts`, ''],
     [`${testPath}/.circleci/config.yml`, ''],
-    [`${testPath}/.github/dependabot.yml`, '']
+    [`${testPath}/.github/dependabot.yml`, ''],
   ]);
 
   initJsonData = {
@@ -78,7 +83,7 @@ beforeEach(() => {
       jest: 'jest',
       test1: 'test1',
       test2: 'test2',
-    }
+    },
   };
 });
 
@@ -93,8 +98,7 @@ describe('init function', () => {
 
   describe('invoked when init.json exists but it\'s empty', () => {
     it('should throw', () => {
-      createFolder(`${testPath}/config`);
-      createJsonFile(`${testPath}/config/init.json`, {});
+      createInitJson({});
 
       expect(() => {
         init(testPath);
@@ -110,8 +114,7 @@ describe('init function', () => {
         it('should throw', () => {
           initJsonData.modType = val;
 
-          createFolder(`${testPath}/config`);
-          createJsonFile(`${testPath}/config/init.json`, initJsonData);
+          createInitJson(initJsonData);
 
           expect(() => {
             init(testPath);
@@ -127,8 +130,7 @@ describe('init function', () => {
         it('should throw', () => {
           initJsonData.userName = val;
 
-          createFolder(`${testPath}/config`);
-          createJsonFile(`${testPath}/config/init.json`, initJsonData);
+          createInitJson(initJsonData);
 
           expect(() => {
             init(testPath);
@@ -144,8 +146,7 @@ describe('init function', () => {
         it('should throw', () => {
           initJsonData.modName = val;
 
-          createFolder(`${testPath}/config`);
-          createJsonFile(`${testPath}/config/init.json`, initJsonData);
+          createInitJson(initJsonData);
 
           expect(() => {
             init(testPath);
@@ -161,8 +162,7 @@ describe('init function', () => {
         it('should throw', () => {
           initJsonData.licence = val;
 
-          createFolder(`${testPath}/config`);
-          createJsonFile(`${testPath}/config/init.json`, initJsonData);
+          createInitJson(initJsonData);
 
           expect(() => {
             init(testPath);
@@ -178,8 +178,7 @@ describe('init function', () => {
         it('should throw', () => {
           initJsonData.openrct2ApiFilePath = val;
 
-          createFolder(`${testPath}/config`);
-          createJsonFile(`${testPath}/config/init.json`, initJsonData);
+          createInitJson(initJsonData);
 
           expect(() => {
             init(testPath);
@@ -195,8 +194,7 @@ describe('init function', () => {
         it('should throw', () => {
           initJsonData.openrct2PluginFolderPath = val;
 
-          createFolder(`${testPath}/config`);
-          createJsonFile(`${testPath}/config/init.json`, initJsonData);
+          createInitJson(initJsonData);
 
           expect(() => {
             init(testPath);
@@ -212,8 +210,7 @@ describe('init function', () => {
         it('should throw', () => {
           initJsonData.config.pushToGithub = val;
 
-          createFolder(`${testPath}/config`);
-          createJsonFile(`${testPath}/config/init.json`, initJsonData);
+          createInitJson(initJsonData);
 
           expect(() => {
             init(testPath);
@@ -229,8 +226,7 @@ describe('init function', () => {
         it('should throw', () => {
           initJsonData.config.importOpenrct2Api = val;
 
-          createFolder(`${testPath}/config`);
-          createJsonFile(`${testPath}/config/init.json`, initJsonData);
+          createInitJson(initJsonData);
 
           expect(() => {
             init(testPath);
@@ -246,8 +242,7 @@ describe('init function', () => {
         it('should throw', () => {
           initJsonData.config.compileTemplateMod = val;
 
-          createFolder(`${testPath}/config`);
-          createJsonFile(`${testPath}/config/init.json`, initJsonData);
+          createInitJson(initJsonData);
 
           expect(() => {
             init(testPath);
@@ -263,8 +258,7 @@ describe('init function', () => {
         it('should throw', () => {
           initJsonData.config.useStrictMode = val;
 
-          createFolder(`${testPath}/config`);
-          createJsonFile(`${testPath}/config/init.json`, initJsonData);
+          createInitJson(initJsonData);
 
           expect(() => {
             init(testPath);
@@ -276,8 +270,7 @@ describe('init function', () => {
 
   describe('invoked when package.json doesn\'t exist', () => {
     it('should throw', () => {
-      createFolder(`${testPath}/config`);
-      createJsonFile(`${testPath}/config/init.json`, initJsonData);
+      createInitJson(initJsonData);
 
       expect(() => {
         init(testPath);
@@ -288,8 +281,7 @@ describe('init function', () => {
   describe('invoked when package.json exists', () => {
     describe('but it\'s empty', () => {
       it('should throw', () => {
-        createFolder(`${testPath}/config`);
-        createJsonFile(`${testPath}/config/init.json`, initJsonData);
+        createInitJson(initJsonData);
         createJsonFile(`${testPath}/package.json`, {});
 
         expect(() => {
@@ -301,8 +293,7 @@ describe('init function', () => {
 
   describe('invoked when package-lock.json doesn\'t exist', () => {
     it('should throw', () => {
-      createFolder(`${testPath}/config`);
-      createJsonFile(`${testPath}/config/init.json`, initJsonData);
+      createInitJson(initJsonData);
       createJsonFile(`${testPath}/package.json`, packageJsonData);
 
       removeFile(`${testPath}/package-lock.json`);
@@ -315,8 +306,7 @@ describe('init function', () => {
 
   describe('invoked when README.md doesn\'t exist', () => {
     it('should throw', () => {
-      createFolder(`${testPath}/config`);
-      createJsonFile(`${testPath}/config/init.json`, initJsonData);
+      createInitJson(initJsonData);
       createJsonFile(`${testPath}/package.json`, packageJsonData);
 
       removeFile(`${testPath}/README.md`);
@@ -329,8 +319,7 @@ describe('init function', () => {
 
   describe('invoked when LICENSE doesn\'t exist', () => {
     it('should throw', () => {
-      createFolder(`${testPath}/config`);
-      createJsonFile(`${testPath}/config/init.json`, initJsonData);
+      createInitJson(initJsonData);
       createJsonFile(`${testPath}/package.json`, packageJsonData);
 
       removeFile(`${testPath}/LICENSE`);
@@ -343,8 +332,7 @@ describe('init function', () => {
 
   describe('when given all required data in correct format', () => {
     const setup = () => {
-      createFolder(`${testPath}/config`);
-      createJsonFile(`${testPath}/config/init.json`, initJsonData);
+      createInitJson(initJsonData);
       createJsonFile(`${testPath}/package.json`, packageJsonData);
 
       removeFolder(`${testPath}/src`);
@@ -376,13 +364,13 @@ describe('init function', () => {
         },
         repository: {
           type: 'git',
-          url: 'test'
+          url: 'test',
         },
         keywords: ['test'],
         author: 'test',
         license: 'ISC',
         bugs: {
-          url: 'test'
+          url: 'test',
         },
         homepage: 'test',
         devDependencies: {
@@ -400,15 +388,15 @@ describe('init function', () => {
       const content = readJSON(`${testPath}/tsconfig-develop.json`);
 
       expect(content).toStrictEqual({
-        "compilerOptions": {
-          "target": 'es5',
-          "module": 'commonjs',
-          "declaration": true,
-          "outDir": `${testPath}/plugin/test`,
-          "strict": false,
+        compilerOptions: {
+          target: 'es5',
+          module: 'commonjs',
+          declaration: true,
+          outDir: `${testPath}/plugin/test`,
+          strict: false,
         },
-        "include": ['./src'],
-        "exclude": ['node_modules', '**/__tests__/*'],
+        include: ['./src'],
+        exclude: ['node_modules', '**/__tests__/*'],
       });
     });
 
@@ -420,15 +408,15 @@ describe('init function', () => {
       const content = readJSON(`${testPath}/tsconfig-prod.json`);
 
       expect(content).toStrictEqual({
-        "compilerOptions": {
-          "target": 'es5',
-          "module": 'commonjs',
-          "declaration": true,
-          "outDir": `${testPath}/dist/test`,
-          "strict": false,
+        compilerOptions: {
+          target: 'es5',
+          module: 'commonjs',
+          declaration: true,
+          outDir: `${testPath}/dist/test`,
+          strict: false,
         },
-        "include": ['./src'],
-        "exclude": ['node_modules', '**/__tests__/*'],
+        include: ['./src'],
+        exclude: ['node_modules', '**/__tests__/*'],
       });
     });
 
@@ -442,8 +430,8 @@ describe('init function', () => {
 
       expect(exists).toStrictEqual(true);
       expect(content).toStrictEqual({
-        "typescript.tsdk": "node_modules/typescript/lib",
-    });
+        'typescript.tsdk': 'node_modules/typescript/lib',
+      });
     });
 
     it('should create VSCode config', () => {
@@ -454,8 +442,8 @@ describe('init function', () => {
       const content = readJSON(`${testPath}/nodemon.json`);
 
       expect(content).toStrictEqual({
-        "events": {
-          "restart": 'npm run build:develop',
+        events: {
+          restart: 'npm run build:develop',
         },
       });
     });
@@ -468,31 +456,31 @@ describe('init function', () => {
       const content = readJSON(`${testPath}/.eslintrc.json`);
 
       expect(content).toStrictEqual({
-        "env": {
-            "browser": true,
-            "es6": true,
-            "node": true
+        env: {
+          browser: true,
+          es6: true,
+          node: true,
         },
-        "extends": [
-            "airbnb-base"
+        extends: [
+          'airbnb-base',
         ],
-        "globals": {
-            "Atomics": "readonly",
-            "SharedArrayBuffer": "readonly"
+        globals: {
+          Atomics: 'readonly',
+          SharedArrayBuffer: 'readonly',
         },
-        "parser": "@typescript-eslint/parser",
-        "parserOptions": {
-            "ecmaVersion": 11,
-            "sourceType": "module"
+        parser: '@typescript-eslint/parser',
+        parserOptions: {
+          ecmaVersion: 11,
+          sourceType: 'module',
         },
-        "plugins": [
-            "@typescript-eslint"
+        plugins: [
+          '@typescript-eslint',
         ],
-        "rules": {
-            "no-undef": 0,
-            "spaced-comment": 0,
-            "max-len": ["error", { "code": 120 }]
-        }
+        rules: {
+          'no-undef': 0,
+          'spaced-comment': 0,
+          'max-len': ['error', { code: 120 }],
+        },
       });
     });
 
@@ -504,7 +492,7 @@ describe('init function', () => {
             initJsonData.config.importOpenrct2Api = true;
 
             setup();
-    
+
             expect(() => {
               init(testPath);
             }).toThrow(new Error('when importOpenrct2Api is set to true, openrct2ApiFilePath has to be defined too'));
@@ -517,7 +505,7 @@ describe('init function', () => {
             initJsonData.config.importOpenrct2Api = true;
 
             setup();
-    
+
             expect(() => {
               init(testPath);
             }).toThrow(new Error('when importOpenrct2Api is set to true, openrct2ApiFilePath has to be defined too'));
@@ -526,14 +514,14 @@ describe('init function', () => {
 
         it('it should create template mod file in ./src, that has API imported', () => {
           initJsonData.config.importOpenrct2Api = true;
-  
+
           setup();
-  
+
           init(testPath);
-  
+
           const exists = fileExists(`${testPath}/src`);
           const content = readFile(`${testPath}/src/test.ts`);
-  
+
           expect(exists).toStrictEqual(true);
           expect(content).toStrictEqual(expectedModFileContentWithApi);
         });
@@ -546,7 +534,7 @@ describe('init function', () => {
             initJsonData.config.importOpenrct2Api = false;
 
             setup();
-    
+
             expect(() => {
               init(testPath);
             }).not.toThrow();
@@ -557,12 +545,12 @@ describe('init function', () => {
           initJsonData.config.importOpenrct2Api = false;
 
           setup();
-  
+
           init(testPath);
-  
+
           const exists = fileExists(`${testPath}/src`);
           const content = readFile(`${testPath}/src/test.ts`);
-  
+
           expect(exists).toStrictEqual(true);
           expect(content).toStrictEqual(expectedModFileContentWithoutApi);
         });
