@@ -1,6 +1,6 @@
 const path = require('path');
+const { exec } = require('./execSync');
 const {
-  exec,
   createFiles,
   removeFile,
   removeFiles,
@@ -10,7 +10,7 @@ const {
   readJSON,
   createJsonFile,
   createJsonFiles,
-} = require('./functions');
+} = require('./fileHelpers');
 const {
   createTypeScriptConfig,
   createNodemonConfig,
@@ -143,7 +143,7 @@ exports.init = (pathname) => {
     [`${pathname}/init.js`, ''],
   ]);
 
-  // remove utils, CircleCI, GitHub folder and init configuration file
+  // remove utils, CircleCI, GitHub folder
   removeFolders([
     `${pathname}/utils`,
     `${pathname}/config`,

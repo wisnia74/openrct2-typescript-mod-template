@@ -1,15 +1,8 @@
-jest.mock('../functions');
+jest.mock('../execSync');
 
 const testPath = `${__dirname}/test`;
 
 const { init } = require('../initialize');
-const {
-  describe,
-  beforeEach,
-  afterEach,
-  expect,
-  it,
-} = require('@jest/globals');
 const {
   createFolder,
   createFolders,
@@ -20,7 +13,14 @@ const {
   removeFile,
   createJsonFile,
   readJSON,
-} = require('../functions');
+} = require('../fileHelpers');
+const {
+  describe,
+  beforeEach,
+  afterEach,
+  expect,
+  it,
+} = require('@jest/globals');
 const {
   expectedModFileContentWithoutApi,
   expectedModFileContentWithApi,
@@ -33,7 +33,7 @@ let initJsonData;
 const createInitJson = (data) => {
   createFolder(`${testPath}/config`);
   createJsonFile(`${testPath}/config/init.json`, data);
-}
+};
 
 beforeEach(() => {
   createFolders([
