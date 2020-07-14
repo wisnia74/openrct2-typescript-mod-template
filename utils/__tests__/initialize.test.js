@@ -25,7 +25,7 @@ const {
   expectedModFileContentWithoutApi,
   expectedModFileContentWithApi,
   expectedReadmeContent,
-} = require('./expectedFilesContent').generate(testPath);
+} = require('../expectedFilesContent').generate(testPath);
 
 let packageJsonData;
 let initJsonData;
