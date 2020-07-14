@@ -1,70 +1,56 @@
 jest.mock('../functions');
 
+const testPath = `${__dirname}/test`;
+
+const { init } = require('../initialize');
 const { 
   describe,
   beforeEach,
   afterEach,
   expect,
-  it
+  it,
 } = require('@jest/globals');
-const { createFolder } = require('../__mocks__/functions');
-const testPath = `${__dirname}/test`;
-const expectedModFileContentWithoutApi = `const main = () => {
-  console.log('Your plug-in has started!');
-};
-
-registerPlugin({
-  name: 'test',
-  version: '1.0',
-  authors: ['test'],
-  type: 'local',
-  licence: 'MIT',
-  main,
-});
-`;
-const expectedModFileContentWithApi = `/// <reference path="${testPath}/api/openrct2.d.ts" />
-
-const main = () => {
-  console.log('Your plug-in has started!');
-};
-
-registerPlugin({
-  name: 'test',
-  version: '1.0',
-  authors: ['test'],
-  type: 'local',
-  licence: 'MIT',
-  main,
-});
-`;
-const expectedReadmeContent = `# utils
-
-Happy modding!
-`;
+const {
+  createFolder,
+  createFolders,
+  removeFolder,
+  createFiles,
+  readFile,
+  fileExists,
+  removeFile,
+  createJsonFile,
+  readJSON,
+} = require('../functions');
+const {
+  expectedModFileContentWithoutApi,
+  expectedModFileContentWithApi,
+  expectedReadmeContent,
+} = require('./expectedFilesContent').generate(testPath);
 
 let packageJsonData;
 let initJsonData;
 
 beforeEach(() => {
-  const { createFolder, createFile } = require('../functions');
+  createFolders([
+    testPath,
+    `${testPath}/src`,
+    `${testPath}/utils`,
+    `${testPath}/api`,
+    `${testPath}/plugin`,
+    `${testPath}/.circleci`,
+    `${testPath}/.github`
+  ]);
 
-  createFolder(testPath);
-  createFolder(`${testPath}/src`);
-  createFolder(`${testPath}/utils`);
-  createFolder(`${testPath}/api`);
-  createFolder(`${testPath}/plugin`);
-  createFolder(`${testPath}/.circleci`);
-  createFolder(`${testPath}/.github`);
-
-  createFile(`${testPath}/package-lock.json`, {});
-  createFile(`${testPath}/README.md`, '');
-  createFile(`${testPath}/LICENSE`, '');
-  createFile(`${testPath}/demo.gif`, '');
-
-  createFile(`${testPath}/init.js`, 'const test = () => \'test\'');
-  createFile(`${testPath}/api/openrct2.d.ts`, '');
-  createFile(`${testPath}/.circleci/config.yml`, '');
-  createFile(`${testPath}/.github/dependabot.yml`, '');
+  createFiles([
+    [`${testPath}/package-lock.json`, {}],
+    [`${testPath}/README.md`, ''],
+    [`${testPath}/LICENSE`, ''],
+    [`${testPath}/demo.gif`, ''],
+    [`${testPath}/init.js`, 'const test = () => \'test\''],
+    [`${testPath}/api/openrct2.d.ts`, ''],
+    [`${testPath}/.circleci/config.yml`, ''],
+    [`${testPath}/.github/dependabot.yml`, '']
+  ]);
 
   initJsonData = {
     userName: 'test',
@@ -99,8 +85,6 @@ beforeEach(() => {
 describe('init function', () => {
   describe('invoked when init.json doesn\'t exist', () => {
     it('should throw', () => {
-      const { init } = require('../initialize');
-
       expect(() => {
         init(testPath);
       }).toThrow(new Error(`ENOENT: no such file or directory, open '${testPath}/config/init.json'`));
@@ -109,11 +93,8 @@ describe('init function', () => {
 
   describe('invoked when init.json exists but it\'s empty', () => {
     it('should throw', () => {
-      const { init } = require('../initialize');
-      const { createJSON } = require('../functions');
-
       createFolder(`${testPath}/config`);
-      createJSON(`${testPath}/config/init.json`, {});
+      createJsonFile(`${testPath}/config/init.json`, {});
 
       expect(() => {
         init(testPath);
@@ -127,13 +108,10 @@ describe('init function', () => {
 
       describe.each(checkAgainst)('is %p instead of "local"/"remote"', (val) => {
         it('should throw', () => {
-          const { init } = require('../initialize');
-          const { createJSON } = require('../functions');
-          
           initJsonData.modType = val;
 
           createFolder(`${testPath}/config`);
-          createJSON(`${testPath}/config/init.json`, initJsonData);
+          createJsonFile(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -147,13 +125,10 @@ describe('init function', () => {
 
       describe.each(checkAgainst)('is %p instead of a string', (val) => {
         it('should throw', () => {
-          const { init } = require('../initialize');
-          const { createJSON } = require('../functions');
-          
           initJsonData.userName = val;
 
           createFolder(`${testPath}/config`);
-          createJSON(`${testPath}/config/init.json`, initJsonData);
+          createJsonFile(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -167,13 +142,10 @@ describe('init function', () => {
 
       describe.each(checkAgainst)('is %p instead of a string', (val) => {
         it('should throw', () => {
-          const { init } = require('../initialize');
-          const { createJSON } = require('../functions');
-          
           initJsonData.modName = val;
 
           createFolder(`${testPath}/config`);
-          createJSON(`${testPath}/config/init.json`, initJsonData);
+          createJsonFile(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -187,13 +159,10 @@ describe('init function', () => {
 
       describe.each(checkAgainst)('is %p instead of a string', (val) => {
         it('should throw', () => {
-          const { init } = require('../initialize');
-          const { createJSON } = require('../functions');
-          
           initJsonData.licence = val;
 
           createFolder(`${testPath}/config`);
-          createJSON(`${testPath}/config/init.json`, initJsonData);
+          createJsonFile(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -207,13 +176,10 @@ describe('init function', () => {
 
       describe.each(checkAgainst)('is %p instead of a string', (val) => {
         it('should throw', () => {
-          const { init } = require('../initialize');
-          const { createJSON } = require('../functions');
-          
           initJsonData.openrct2ApiFilePath = val;
 
           createFolder(`${testPath}/config`);
-          createJSON(`${testPath}/config/init.json`, initJsonData);
+          createJsonFile(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -227,13 +193,10 @@ describe('init function', () => {
 
       describe.each(checkAgainst)('is %p instead of a string', (val) => {
         it('should throw', () => {
-          const { init } = require('../initialize');
-          const { createJSON } = require('../functions');
-          
           initJsonData.openrct2PluginFolderPath = val;
 
           createFolder(`${testPath}/config`);
-          createJSON(`${testPath}/config/init.json`, initJsonData);
+          createJsonFile(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -247,13 +210,10 @@ describe('init function', () => {
 
       describe.each(checkAgainst)('is %p instead of a boolean', (val) => {
         it('should throw', () => {
-          const { init } = require('../initialize');
-          const { createJSON } = require('../functions');
-
           initJsonData.config.pushToGithub = val;
 
           createFolder(`${testPath}/config`);
-          createJSON(`${testPath}/config/init.json`, initJsonData);
+          createJsonFile(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -267,13 +227,10 @@ describe('init function', () => {
 
       describe.each(checkAgainst)('is %p instead of a boolean', (val) => {
         it('should throw', () => {
-          const { init } = require('../initialize');
-          const { createJSON } = require('../functions');
-
           initJsonData.config.importOpenrct2Api = val;
 
           createFolder(`${testPath}/config`);
-          createJSON(`${testPath}/config/init.json`, initJsonData);
+          createJsonFile(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -287,13 +244,10 @@ describe('init function', () => {
 
       describe.each(checkAgainst)('is %p instead of a boolean', (val) => {
         it('should throw', () => {
-          const { init } = require('../initialize');
-          const { createJSON } = require('../functions');
-
           initJsonData.config.compileTemplateMod = val;
 
           createFolder(`${testPath}/config`);
-          createJSON(`${testPath}/config/init.json`, initJsonData);
+          createJsonFile(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -307,13 +261,10 @@ describe('init function', () => {
 
       describe.each(checkAgainst)('is %p instead of a boolean', (val) => {
         it('should throw', () => {
-          const { init } = require('../initialize');
-          const { createJSON } = require('../functions');
-
           initJsonData.config.useStrictMode = val;
 
           createFolder(`${testPath}/config`);
-          createJSON(`${testPath}/config/init.json`, initJsonData);
+          createJsonFile(`${testPath}/config/init.json`, initJsonData);
 
           expect(() => {
             init(testPath);
@@ -325,11 +276,8 @@ describe('init function', () => {
 
   describe('invoked when package.json doesn\'t exist', () => {
     it('should throw', () => {
-      const { init } = require('../initialize');
-      const { createJSON } = require('../functions');
-
       createFolder(`${testPath}/config`);
-      createJSON(`${testPath}/config/init.json`, initJsonData);
+      createJsonFile(`${testPath}/config/init.json`, initJsonData);
 
       expect(() => {
         init(testPath);
@@ -340,12 +288,9 @@ describe('init function', () => {
   describe('invoked when package.json exists', () => {
     describe('but it\'s empty', () => {
       it('should throw', () => {
-        const { init } = require('../initialize');
-        const { createJSON } = require('../functions');
-
         createFolder(`${testPath}/config`);
-        createJSON(`${testPath}/config/init.json`, initJsonData);
-        createJSON(`${testPath}/package.json`, {});
+        createJsonFile(`${testPath}/config/init.json`, initJsonData);
+        createJsonFile(`${testPath}/package.json`, {});
 
         expect(() => {
           init(testPath);
@@ -356,12 +301,9 @@ describe('init function', () => {
 
   describe('invoked when package-lock.json doesn\'t exist', () => {
     it('should throw', () => {
-      const { init } = require('../initialize');
-      const { createJSON, removeFile } = require('../functions');
-
       createFolder(`${testPath}/config`);
-      createJSON(`${testPath}/config/init.json`, initJsonData);
-      createJSON(`${testPath}/package.json`, packageJsonData);
+      createJsonFile(`${testPath}/config/init.json`, initJsonData);
+      createJsonFile(`${testPath}/package.json`, packageJsonData);
 
       removeFile(`${testPath}/package-lock.json`);
 
@@ -373,12 +315,9 @@ describe('init function', () => {
 
   describe('invoked when README.md doesn\'t exist', () => {
     it('should throw', () => {
-      const { init } = require('../initialize');
-      const { createJSON, removeFile } = require('../functions');
-
       createFolder(`${testPath}/config`);
-      createJSON(`${testPath}/config/init.json`, initJsonData);
-      createJSON(`${testPath}/package.json`, packageJsonData);
+      createJsonFile(`${testPath}/config/init.json`, initJsonData);
+      createJsonFile(`${testPath}/package.json`, packageJsonData);
 
       removeFile(`${testPath}/README.md`);
 
@@ -390,12 +329,9 @@ describe('init function', () => {
 
   describe('invoked when LICENSE doesn\'t exist', () => {
     it('should throw', () => {
-      const { init } = require('../initialize');
-      const { createJSON, removeFile } = require('../functions');
-
       createFolder(`${testPath}/config`);
-      createJSON(`${testPath}/config/init.json`, initJsonData);
-      createJSON(`${testPath}/package.json`, packageJsonData);
+      createJsonFile(`${testPath}/config/init.json`, initJsonData);
+      createJsonFile(`${testPath}/package.json`, packageJsonData);
 
       removeFile(`${testPath}/LICENSE`);
 
@@ -407,18 +343,14 @@ describe('init function', () => {
 
   describe('when given all required data in correct format', () => {
     const setup = () => {
-      const { createJSON, removeFolder } = require('../functions');
-
       createFolder(`${testPath}/config`);
-      createJSON(`${testPath}/config/init.json`, initJsonData);
-      createJSON(`${testPath}/package.json`, packageJsonData);
+      createJsonFile(`${testPath}/config/init.json`, initJsonData);
+      createJsonFile(`${testPath}/package.json`, packageJsonData);
 
       removeFolder(`${testPath}/src`);
     };
 
     it('should not throw', () => {
-      const { init } = require('../initialize');
-
       setup();
 
       expect(() => {
@@ -427,9 +359,6 @@ describe('init function', () => {
     });
 
     it('should create new package.json', () => {
-      const { init } = require('../initialize');
-      const { readJSON } = require('../functions');
-
       setup();
 
       init(testPath);
@@ -464,9 +393,6 @@ describe('init function', () => {
     });
 
     it('should create develop TypeScript config', () => {
-      const { init } = require('../initialize');
-      const { readJSON } = require('../functions');
-
       setup();
 
       init(testPath);
@@ -487,9 +413,6 @@ describe('init function', () => {
     });
 
     it('should create prod TypeScript config', () => {
-      const { init } = require('../initialize');
-      const { readJSON } = require('../functions');
-
       setup();
 
       init(testPath);
@@ -510,9 +433,6 @@ describe('init function', () => {
     });
 
     it('should create Nodemon config', () => {
-      const { init } = require('../initialize');
-      const { readJSON, fileExists } = require('../functions');
-
       setup();
 
       init(testPath);
@@ -527,9 +447,6 @@ describe('init function', () => {
     });
 
     it('should create VSCode config', () => {
-      const { init } = require('../initialize');
-      const { readJSON } = require('../functions');
-
       setup();
 
       init(testPath);
@@ -544,9 +461,6 @@ describe('init function', () => {
     });
 
     it('should create ESLint config', () => {
-      const { init } = require('../initialize');
-      const { readJSON } = require('../functions');
-
       setup();
 
       init(testPath);
@@ -586,8 +500,6 @@ describe('init function', () => {
       describe('was set to true', () => {
         describe('and openrct2ApiFilePath was left as default', () => {
           it('should throw', () => {
-            const { init } = require('../initialize');
-            
             initJsonData.openrct2ApiFilePath = 'C:/Users/<user>/Documents/OpenRCT2/bin/openrct2.d.ts';
             initJsonData.config.importOpenrct2Api = true;
 
@@ -601,8 +513,6 @@ describe('init function', () => {
 
         describe('and openrct2ApiFilePath was left as an empty string', () => {
           it('should throw', () => {
-            const { init } = require('../initialize');
-            
             initJsonData.openrct2ApiFilePath = '';
             initJsonData.config.importOpenrct2Api = true;
 
@@ -615,9 +525,6 @@ describe('init function', () => {
         });
 
         it('it should create template mod file in ./src, that has API imported', () => {
-          const { init } = require('../initialize');
-          const { readFile, fileExists } = require('../functions');
-  
           initJsonData.config.importOpenrct2Api = true;
   
           setup();
@@ -635,8 +542,6 @@ describe('init function', () => {
       describe('was set to false', () => {
         describe('and openrct2ApiFilePath was left as default', () => {
           it('should not throw', () => {
-            const { init } = require('../initialize');
-            
             initJsonData.openrct2ApiFilePath = 'C:/Users/<user>/Documents/OpenRCT2/bin/openrct2.d.ts';
             initJsonData.config.importOpenrct2Api = false;
 
@@ -649,9 +554,6 @@ describe('init function', () => {
         });
 
         it('it should create template mod file in ./src, that doesn\'t have API imported', () => {
-          const { init } = require('../initialize');
-          const { readFile, fileExists } = require('../functions');
-          
           initJsonData.config.importOpenrct2Api = false;
 
           setup();
@@ -668,9 +570,6 @@ describe('init function', () => {
     });
 
     it('should create template README.md file', () => {
-      const { init } = require('../initialize');
-      const { readFile } = require('../functions');
-
       setup();
 
       init(testPath);
@@ -681,9 +580,6 @@ describe('init function', () => {
     });
 
     it('should remove utils folder', () => {
-      const { init } = require('../initialize');
-      const { fileExists } = require('../functions');
-
       setup();
 
       const existsBefore = fileExists(`${testPath}/utils`);
@@ -697,9 +593,6 @@ describe('init function', () => {
     });
 
     it('should remove init.json file', () => {
-      const { init } = require('../initialize');
-      const { fileExists } = require('../functions');
-
       setup();
 
       const existsBefore = fileExists(`${testPath}/config/init.json`);
@@ -713,9 +606,6 @@ describe('init function', () => {
     });
 
     it('should replace init.js with empty file', () => {
-      const { init } = require('../initialize');
-      const { readFile } = require('../functions');
-
       setup();
 
       const contentBefore = readFile(`${testPath}/init.js`);
@@ -729,9 +619,6 @@ describe('init function', () => {
     });
 
     it('should remove CircleCI folder', () => {
-      const { init } = require('../initialize');
-      const { fileExists } = require('../functions');
-
       setup();
 
       const existsBefore = fileExists(`${testPath}/.circleci`);
@@ -745,9 +632,6 @@ describe('init function', () => {
     });
 
     it('should remove GitHub folder', () => {
-      const { init } = require('../initialize');
-      const { fileExists } = require('../functions');
-
       setup();
 
       const existsBefore = fileExists(`${testPath}/.github`);
@@ -761,9 +645,6 @@ describe('init function', () => {
     });
 
     it('should remove demo.gif file', () => {
-      const { init } = require('../initialize');
-      const { fileExists } = require('../functions');
-
       setup();
 
       const existsBefore = fileExists(`${testPath}/demo.gif`);
@@ -778,8 +659,6 @@ describe('init function', () => {
 
     describe('if pushToGithub was set to true', () => {
       it('should run without errors and push changes to GitHub at the end', () => {
-        const { init } = require('../initialize');
-
         initJsonData.config.pushToGithub = true;
 
         setup();
@@ -792,9 +671,6 @@ describe('init function', () => {
 
     describe('if compileTemplateMod was set to true', () => {
       it('should run without errors, create mod folder in OpenRCT2 plugin folder, and run npm build:develop script', () => {
-        const { init } = require('../initialize');
-        const { fileExists } = require('../functions');
-
         initJsonData.config.compileTemplateMod = true;
 
         setup();
@@ -810,7 +686,5 @@ describe('init function', () => {
 });
 
 afterEach(() => {
-  const { removeFolder } = require('../functions');
-
   removeFolder(testPath);
 });

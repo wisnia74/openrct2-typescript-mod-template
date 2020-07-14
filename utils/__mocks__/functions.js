@@ -41,17 +41,19 @@ exports.createFile = (pathname, data) => {
   fs.writeFileSync(pathname, content);
 };
 
-exports.removeFile = (pathname) => {
-  fs.unlinkSync(pathname);
-};
+exports.createFiles = (arr) => arr.forEach(([pathname, data]) => this.createFile(pathname, data));
 
 exports.readFile = (pathname) => fs.readFileSync(pathname, 'utf8');
 
-exports.createFolder = (pathname) => {
-  fs.mkdirSync(pathname);
-};
+exports.removeFile = (pathname) => fs.unlinkSync(pathname);
+
+exports.removeFiles = (arr) => arr.forEach(pathname => this.removeFile(pathname));
 
 exports.fileExists = (pathname) => fs.existsSync(pathname);
+
+exports.createFolder = (pathname) => fs.mkdirSync(pathname);
+
+exports.createFolders = (arr) => arr.forEach(pathname => this.createFolder(pathname));
 
 exports.removeFolder = (pathname) => {
   if (fs.existsSync(pathname)) {
@@ -66,11 +68,12 @@ exports.removeFolder = (pathname) => {
     fs.rmdirSync(pathname);
   }
 };
+exports.removeFolders = (arr) => arr.forEach(pathname => this.removeFolder(pathname));
+
+exports.createJsonFile = (pathname, data) => fs.writeFileSync(pathname, JSON.stringify(data, undefined, 2));
+
+exports.createJsonFiles = (arr) => arr.forEach(([pathname, data]) => this.createJsonFile(pathname, data));
 
 exports.readJSON = (pathname) => JSON.parse(fs.readFileSync(pathname));
-
-exports.createJSON = (pathname, data) => {
-  fs.writeFileSync(pathname, JSON.stringify(data, undefined, 2));
-};
 
 module.exports = exports;

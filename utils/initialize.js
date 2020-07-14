@@ -1,12 +1,15 @@
 const path = require('path');
 const {
   exec,
-  createFile,
+  createFiles,
   removeFile,
+  removeFiles,
   createFolder,
-  removeFolder,
+  createFolders,
+  removeFolders,
   readJSON,
-  createJSON,
+  createJsonFile,
+  createJsonFiles,
 } = require('./functions');
 const {
   createTypeScriptConfig,
@@ -42,6 +45,8 @@ exports.init = (pathname) => {
   if (typeof userName !== 'string') throw new Error('variable userName has to be a string');
 
   if (typeof modName !== 'string') throw new Error('variable modName has to be a string');
+
+  if (modName === '<modName>') throw new Error('invalid modName');
 
   if (typeof licence !== 'string') throw new Error('variable licence has to be a string');
 
@@ -81,11 +86,13 @@ exports.init = (pathname) => {
   delete devDependencies.jest
 
   // remove template files
-  removeFile(`${pathname}/package.json`);
-  removeFile(`${pathname}/package-lock.json`);
-  removeFile(`${pathname}/README.md`);
-  removeFile(`${pathname}/LICENSE`);
-  removeFile(`${pathname}/demo.gif`);
+  removeFiles([
+    `${pathname}/package.json`,
+    `${pathname}/package-lock.json`,
+    `${pathname}/README.md`,
+    `${pathname}/LICENSE`,
+    `${pathname}/demo.gif`
+  ]);
 
   // clean npm cache
   exec('npm cache clean --force');
@@ -100,69 +107,59 @@ exports.init = (pathname) => {
   newPackageJson.devDependencies = devDependencies;
 
   removeFile(`${pathname}/package.json`);
-  createJSON(`${pathname}/package.json`, newPackageJson);
+  createJsonFile(`${pathname}/package.json`, newPackageJson);
 
   // install dependencies
   exec('npm install --force');
 
-  // create TypeScript develop and prod configs and save them
+  // create configs
   const tsDevelopConfig = createTypeScriptConfig(`${openrct2PluginFolderPath}/${modName}`, useStrictMode);
   const tsProdConfig = createTypeScriptConfig(`${pathname}/dist/${modName}`, useStrictMode);
-
-  createJSON(`${pathname}/tsconfig-develop.json`, tsDevelopConfig);
-  createJSON(`${pathname}/tsconfig-prod.json`, tsProdConfig);
-
-  // create and save Nodemon config
   const nodemonConfig = createNodemonConfig();
-
-  createJSON(`${pathname}/nodemon.json`, nodemonConfig);
-
-  // create VSCode config and save it to its folder
   const vsCodeConfig = createVsCodeConfig();
-
-  createFolder(`${pathname}/.vscode`);
-  createJSON(`${pathname}/.vscode/settings.json`, vsCodeConfig);
-
-  // create ESLint config and save it
   const eslintConfig = createEslintConfig();
-
-  createJSON(`${pathname}/.eslintrc.json`, eslintConfig);
-
-  // create temporary mod file and save it to ${pathname}/src
+  const readmeMdText = createTemplateReadmeMd(path.basename(__dirname), 'Happy modding!');
   const modFile = importOpenrct2Api
     ? createTemplateModFile(modName, userName, modType, licence, openrct2ApiFilePath)
     : createTemplateModFile(modName, userName, modType, licence);
 
-  createFolder(`${pathname}/src`);
-  createFile(`${pathname}/src/${modName}.ts`, modFile);
+  // save them to their respective folders and files
+  createFolders([
+    `${pathname}/.vscode`,
+    `${pathname}/src`
+  ]);
 
-  // create template README.md and save it
-  const readmeMdText = createTemplateReadmeMd(path.basename(__dirname), 'Happy modding!');
+  createJsonFiles([
+    [`${pathname}/tsconfig-develop.json`, tsDevelopConfig],
+    [`${pathname}/tsconfig-prod.json`, tsProdConfig],
+    [`${pathname}/nodemon.json`, nodemonConfig],
+    [`${pathname}/.vscode/settings.json`, vsCodeConfig],
+    [`${pathname}/.eslintrc.json`, eslintConfig]
+  ]);
 
-  createFile(`${pathname}/README.md`, readmeMdText);
+  createFiles([
+    [`${pathname}/src/${modName}.ts`, modFile],
+    [`${pathname}/README.md`, readmeMdText],
+    [`${pathname}/init.js`, '']
+  ]);
 
-  // remove utils folder and init configuration file
-  removeFolder(`${pathname}/utils`);
-  removeFolder(`${pathname}/config`);
+  // remove utils, CircleCI, GitHub folder and init configuration file
+  removeFolders([
+    `${pathname}/utils`,
+    `${pathname}/config`,
+    `${pathname}/.circleci`,
+    `${pathname}/.github`
+  ]);
 
-  // remove CircleCI folder
-  removeFolder(`${pathname}/.circleci`);
-  
-  // remove GitHub folder
-  removeFolder(`${pathname}/.github`);
-
-  // replace init.js with an empty file
-  createFile(`${pathname}/init.js`, '');
-
+  // save everything to GitHub
   if (pushToGithub === true) {
-    // save everything to GitHub
     exec('git add .');
     exec('git commit -m "Initialize mod file and folder structure"');
     exec('git push');
   }
 
+  // compile template mod and place it in OpenRCT2 plugin folder
   if (compileTemplateMod === true) {
-    // compile template mod and place it in OpenRCT2 plugin folder
     createFolder(`${openrct2PluginFolderPath}/${modName}`);
     exec('npm run build:develop');
   }
