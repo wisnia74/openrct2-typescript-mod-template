@@ -33,12 +33,10 @@ const readme = `# utils
 Happy modding!
 `;
 
-exports.generate = (pathname) => {
-  return {
-    expectedModFileContentWithoutApi: modWithoutApi,
-    expectedModFileContentWithApi: modWithApi(pathname),
-    expectedReadmeContent: readme,
-  }
-}
+exports.generate = (pathname) => ({
+  expectedModFileContentWithoutApi: modWithoutApi,
+  expectedModFileContentWithApi: modWithApi(pathname),
+  expectedReadmeContent: readme,
+});
 
 module.exports = exports;

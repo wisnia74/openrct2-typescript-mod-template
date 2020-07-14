@@ -33,7 +33,7 @@ let initJsonData;
 const createInitJson = (data) => {
   createFolder(`${testPath}/config`);
   createJsonFile(`${testPath}/config/init.json`, data);
-}
+};
 
 beforeEach(() => {
   createFolders([

@@ -9,20 +9,20 @@ exports.exec = (cmd) => {
         version: '1.0.0',
         main: 'index.js',
         scripts: {
-          test: 'echo \'Error: no test specified\' && exit 1'
+          test: 'echo \'Error: no test specified\' && exit 1',
         },
         repository: {
           type: 'git',
-          url: 'test'
+          url: 'test',
         },
         keywords: ['test'],
         author: 'test',
         license: 'ISC',
         bugs: {
-          url: 'test'
+          url: 'test',
         },
-        homepage: 'test'
-      } , undefined, 2));
+        homepage: 'test',
+      }, undefined, 2));
       return undefined;
     default:
       return `executed ${cmd}`;
