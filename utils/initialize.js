@@ -33,7 +33,7 @@ exports.init = (pathname) => {
       importOpenrct2Api,
       compileTemplateMod,
       useStrictMode,
-    }
+    },
   } = readJSON(`${pathname}/config/init.json`);
   let { openrct2ApiFilePath } = readJSON(`${pathname}/config/init.json`);
 
@@ -46,11 +46,11 @@ exports.init = (pathname) => {
 
   if (typeof modName !== 'string') throw new Error('variable modName has to be a string');
 
-  if (modName === '<modName>') throw new Error('invalid modName');
+  if (modName === '<modName>') throw new Error('invalid modName - you can\'t leave it as deafult');
 
   if (typeof licence !== 'string') throw new Error('variable licence has to be a string');
 
-  if (typeof openrct2PluginFolderPath !== 'string'){
+  if (typeof openrct2PluginFolderPath !== 'string') {
     throw new Error('variable openrct2PluginFolderPath has to be a string');
   }
 
@@ -58,9 +58,9 @@ exports.init = (pathname) => {
     throw new Error('variable openrct2ApiFilePath has to be a string');
   }
 
-  [pushToGithub, importOpenrct2Api, compileTemplateMod, useStrictMode].some((attr) => {
+  [pushToGithub, importOpenrct2Api, compileTemplateMod, useStrictMode].forEach((attr) => {
     if (typeof attr !== 'boolean') {
-      throw new Error(`all config variables in init.json have to be of type boolean (true/false, no quotes)`);
+      throw new Error('all config variables in init.json have to be of type boolean (true/false, no quotes)');
     }
   });
 
@@ -83,7 +83,7 @@ exports.init = (pathname) => {
   // remove test scripts and dependencies
   delete scripts.test;
   delete scripts['test:dev'];
-  delete devDependencies.jest
+  delete devDependencies.jest;
 
   // remove template files
   removeFiles([
@@ -91,7 +91,7 @@ exports.init = (pathname) => {
     `${pathname}/package-lock.json`,
     `${pathname}/README.md`,
     `${pathname}/LICENSE`,
-    `${pathname}/demo.gif`
+    `${pathname}/demo.gif`,
   ]);
 
   // clean npm cache
@@ -126,7 +126,7 @@ exports.init = (pathname) => {
   // save them to their respective folders and files
   createFolders([
     `${pathname}/.vscode`,
-    `${pathname}/src`
+    `${pathname}/src`,
   ]);
 
   createJsonFiles([
@@ -134,13 +134,13 @@ exports.init = (pathname) => {
     [`${pathname}/tsconfig-prod.json`, tsProdConfig],
     [`${pathname}/nodemon.json`, nodemonConfig],
     [`${pathname}/.vscode/settings.json`, vsCodeConfig],
-    [`${pathname}/.eslintrc.json`, eslintConfig]
+    [`${pathname}/.eslintrc.json`, eslintConfig],
   ]);
 
   createFiles([
     [`${pathname}/src/${modName}.ts`, modFile],
     [`${pathname}/README.md`, readmeMdText],
-    [`${pathname}/init.js`, '']
+    [`${pathname}/init.js`, ''],
   ]);
 
   // remove utils, CircleCI, GitHub folder and init configuration file
@@ -148,7 +148,7 @@ exports.init = (pathname) => {
     `${pathname}/utils`,
     `${pathname}/config`,
     `${pathname}/.circleci`,
-    `${pathname}/.github`
+    `${pathname}/.github`,
   ]);
 
   // save everything to GitHub

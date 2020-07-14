@@ -153,6 +153,18 @@ describe('init function', () => {
           }).toThrow(new Error('variable modName has to be a string'));
         });
       });
+
+      describe('was left as default', () => {
+        it('should throw', () => {
+          initJsonData.modName = '<modName>';
+
+          createInitJson(initJsonData);
+
+          expect(() => {
+            init(testPath);
+          }).toThrow(new Error('invalid modName - you can\'t leave it as deafult'));
+        });
+      });
     });
 
     describe('and licence variable', () => {
