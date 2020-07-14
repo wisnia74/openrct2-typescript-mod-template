@@ -1,51 +1,51 @@
 exports.createTypeScriptConfig = (outDir, useStrictMode) => ({
-  "compilerOptions": {
-    "target": 'es5',
-    "module": 'commonjs',
-    "declaration": true,
+  compilerOptions: {
+    target: 'es5',
+    module: 'commonjs',
+    declaration: true,
     outDir,
-    "strict": useStrictMode,
+    strict: useStrictMode,
   },
-  "include": ['./src'],
-  "exclude": ['node_modules', '**/__tests__/*'],
+  include: ['./src'],
+  exclude: ['node_modules', '**/__tests__/*'],
 });
 
 exports.createNodemonConfig = () => ({
-  "events": {
-    "restart": 'npm run build:develop',
+  events: {
+    restart: 'npm run build:develop',
   },
 });
 
 exports.createVsCodeConfig = () => ({
-    "typescript.tsdk": "node_modules/typescript/lib",
+  'typescript.tsdk': 'node_modules/typescript/lib',
 });
 
 exports.createEslintConfig = () => ({
-  "env": {
-      "browser": true,
-      "es6": true,
-      "node": true
+  env: {
+    browser: true,
+    es6: true,
+    node: true,
   },
-  "extends": [
-      "airbnb-base"
+  extends: [
+    'airbnb-base',
   ],
-  "globals": {
-      "Atomics": "readonly",
-      "SharedArrayBuffer": "readonly"
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
   },
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-      "ecmaVersion": 11,
-      "sourceType": "module"
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 11,
+    sourceType: 'module',
   },
-  "plugins": [
-      "@typescript-eslint"
+  plugins: [
+    '@typescript-eslint',
   ],
-  "rules": {
-      "no-undef": 0,
-      "spaced-comment": 0,
-      "max-len": ["error", { "code": 120 }]
-  }
+  rules: {
+    'no-undef': 0,
+    'spaced-comment': 0,
+    'max-len': ['error', { code: 120 }],
+  },
 });
 
 exports.createTemplateModFile = (modName, userName, modType, licence, apiPath = null) => {
