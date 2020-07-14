@@ -143,7 +143,7 @@ exports.init = (pathname) => {
     [`${pathname}/init.js`, ''],
   ]);
 
-  // remove utils, CircleCI, GitHub folder and init configuration file
+  // remove utils, CircleCI, GitHub folder
   removeFolders([
     `${pathname}/utils`,
     `${pathname}/config`,
