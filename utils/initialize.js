@@ -1,6 +1,6 @@
 const path = require('path');
+const { exec } = require('./execSync');
 const {
-  exec,
   createFiles,
   removeFile,
   removeFiles,
@@ -10,7 +10,7 @@ const {
   readJSON,
   createJsonFile,
   createJsonFiles,
-} = require('./functions');
+} = require('./fileHelpers');
 const {
   createTypeScriptConfig,
   createNodemonConfig,
