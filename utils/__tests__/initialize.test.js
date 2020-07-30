@@ -1,5 +1,7 @@
 jest.mock('../execSync');
 
+const testPath = `${__dirname}/test`;
+
 const { init } = require('../initialize');
 const {
   createFolder,
@@ -25,7 +27,6 @@ const {
   expectedReadmeContent,
 } = require('../expectedFilesContent').generate(testPath);
 
-const testPath = `${__dirname}/test`;
 let packageJsonData;
 let initJsonData;
 
