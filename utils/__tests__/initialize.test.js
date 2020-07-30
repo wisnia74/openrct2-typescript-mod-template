@@ -25,6 +25,7 @@ const {
   expectedReadmeContent,
 } = require('../expectedFilesContent').generate(testPath);
 
+const testPath = `${__dirname}/test`;
 let packageJsonData;
 let initJsonData;
 
@@ -32,8 +33,6 @@ const createInitJson = (data) => {
   createFolder(`${testPath}/config`);
   createJsonFile(`${testPath}/config/init.json`, data);
 };
-
-const testPath = `${__dirname}/test`;
 
 beforeEach(() => {
   createFolders([
