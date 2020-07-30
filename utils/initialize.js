@@ -92,6 +92,7 @@ exports.init = (pathname) => {
     `${pathname}/README.md`,
     `${pathname}/LICENSE`,
     `${pathname}/demo.gif`,
+    `${pathname}/.nvmrc`,
   ]);
 
   // clean npm cache

@@ -51,6 +51,7 @@ beforeEach(() => {
     [`${testPath}/README.md`, ''],
     [`${testPath}/LICENSE`, ''],
     [`${testPath}/demo.gif`, ''],
+    [`${testPath}/.nvmrc`, ''],
     [`${testPath}/init.js`, 'const test = () => \'test\''],
     [`${testPath}/api/openrct2.d.ts`, ''],
     [`${testPath}/.circleci/config.yml`, ''],
@@ -652,6 +653,19 @@ describe('init function', () => {
       init(testPath);
 
       const existsAfter = fileExists(`${testPath}/demo.gif`);
+
+      expect(existsBefore).toStrictEqual(true);
+      expect(existsAfter).toStrictEqual(false);
+    });
+
+    it('should remove .nvmrc file', () => {
+      setup();
+
+      const existsBefore = fileExists(`${testPath}/.nvmrc`);
+
+      init(testPath);
+
+      const existsAfter = fileExists(`${testPath}/.nvmrc`);
 
       expect(existsBefore).toStrictEqual(true);
       expect(existsAfter).toStrictEqual(false);
