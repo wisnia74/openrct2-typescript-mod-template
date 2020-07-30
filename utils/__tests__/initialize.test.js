@@ -1,7 +1,5 @@
 jest.mock('../execSync');
 
-const testPath = `${__dirname}/test`;
-
 const { init } = require('../initialize');
 const {
   createFolder,
@@ -34,6 +32,8 @@ const createInitJson = (data) => {
   createFolder(`${testPath}/config`);
   createJsonFile(`${testPath}/config/init.json`, data);
 };
+
+const testPath = `${__dirname}/test`;
 
 beforeEach(() => {
   createFolders([
