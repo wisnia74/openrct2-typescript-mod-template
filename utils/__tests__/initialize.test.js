@@ -52,6 +52,7 @@ beforeEach(() => {
     [`${testPath}/LICENSE`, ''],
     [`${testPath}/demo.gif`, ''],
     [`${testPath}/.nvmrc`, ''],
+    [`${testPath}/jest.config.js`, ''],
     [`${testPath}/init.js`, 'const test = () => \'test\''],
     [`${testPath}/api/openrct2.d.ts`, ''],
     [`${testPath}/.circleci/config.yml`, ''],
@@ -666,6 +667,19 @@ describe('init function', () => {
       init(testPath);
 
       const existsAfter = fileExists(`${testPath}/.nvmrc`);
+
+      expect(existsBefore).toStrictEqual(true);
+      expect(existsAfter).toStrictEqual(false);
+    });
+
+    it('should remove jest.config.js file', () => {
+      setup();
+
+      const existsBefore = fileExists(`${testPath}/jest.config.js`);
+
+      init(testPath);
+
+      const existsAfter = fileExists(`${testPath}/jest.config.js`);
 
       expect(existsBefore).toStrictEqual(true);
       expect(existsAfter).toStrictEqual(false);

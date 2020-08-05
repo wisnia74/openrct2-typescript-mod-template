@@ -5,11 +5,11 @@
   "main": "init.js",
   "scripts": {
     "start": "nodemon --watch ./src --ext ts",
-    "build:develop": "tsc --project tsconfig-develop.json",
     "build": "npm run lint && tsc --project tsconfig-prod.json",
+    "build:develop": "tsc --project tsconfig-develop.json",
     "lint": "eslint ./src/*.ts",
-    "test": "jest --verbose=false",
-    "test:dev": "jest --onlyChanged --verbose --collectCoverage"
+    "test": "jest && codecov",
+    "test:dev": "jest --onlyChanged --verbose"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.8.0",
     "@typescript-eslint/parser": "^3.8.0",
+    "codecov": "^3.7.2",
     "eslint": "^7.6.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",

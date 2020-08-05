@@ -93,6 +93,7 @@ exports.init = (pathname) => {
     `${pathname}/LICENSE`,
     `${pathname}/demo.gif`,
     `${pathname}/.nvmrc`,
+    `${pathname}/jest.config.js`,
   ]);
 
   // clean npm cache
