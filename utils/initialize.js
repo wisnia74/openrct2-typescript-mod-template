@@ -84,6 +84,7 @@ exports.init = (pathname) => {
   delete scripts.test;
   delete scripts['test:dev'];
   delete devDependencies.jest;
+  delete devDependencies.codecov;
 
   // remove template files
   removeFiles([
