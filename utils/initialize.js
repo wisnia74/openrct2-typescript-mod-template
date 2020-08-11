@@ -46,7 +46,7 @@ exports.init = (pathname) => {
 
   if (typeof modName !== 'string') throw new Error('variable modName has to be a string');
 
-  if (modName === '<modName>') throw new Error('invalid modName - you can\'t leave it as deafult');
+  if (modName === '<mod_name>') throw new Error('invalid modName - you can\'t leave it as deafult');
 
   if (typeof licence !== 'string') throw new Error('variable licence has to be a string');
 
