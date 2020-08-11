@@ -157,7 +157,7 @@ describe('init function', () => {
 
       describe('was left as default', () => {
         it('should throw', () => {
-          initJsonData.modName = '<modName>';
+          initJsonData.modName = '<mod_name>';
 
           createInitJson(initJsonData);
 
