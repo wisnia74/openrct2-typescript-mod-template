@@ -15,9 +15,7 @@ Template repository for OpenRCT2 mods written in TypeScript.
   * [Useful links](#useful-links)
 
 ## Demo
-Upon saving the file, it gets compiled, placed in OpenRCT2 `plugin` folder and then OpenRCT2 hot reload feature does the rest. TypeScript features are supported, but on the demo I just show how it works using `console.log`.
-
-![](https://github.com/wisnia74/openrct2-typescript-mod-template/blob/master/demo.gif)
+-- Coming soon, needed to remove the GIF because you can't use this repo as a template, if I include files over 10mb.
 
 ## About
 
