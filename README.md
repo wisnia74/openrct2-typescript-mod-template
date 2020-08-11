@@ -44,7 +44,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 2. Otherwise:
 	* `cd` into repo
 	* run `npm run build:develop` (this will place compiled `./src/<modName>.ts` inside `<openrct2PluginFolderPath>/<modName>/` directory)
-3. Make sure you've enabled OpenRCT2 hot reload feature - read more about how to enable it [here](https://github.com/wisnia74/openrct2-typescript-mod-template/blob/master/demo.gif)
+3. Make sure you've enabled OpenRCT2 hot reload feature
 4. Open `./src/<modName>.ts` in your code editor
 5. Run `npm start`
 6. Start OpenRCT2 with console and load save/start new game

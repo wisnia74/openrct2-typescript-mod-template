@@ -92,7 +92,6 @@ exports.init = (pathname) => {
     `${pathname}/package-lock.json`,
     `${pathname}/README.md`,
     `${pathname}/LICENSE`,
-    `${pathname}/demo.gif`,
     `${pathname}/.nvmrc`,
     `${pathname}/jest.config.js`,
   ]);

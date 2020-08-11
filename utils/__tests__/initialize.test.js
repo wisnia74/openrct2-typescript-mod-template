@@ -50,7 +50,6 @@ beforeEach(() => {
     [`${testPath}/package-lock.json`, {}],
     [`${testPath}/README.md`, ''],
     [`${testPath}/LICENSE`, ''],
-    [`${testPath}/demo.gif`, ''],
     [`${testPath}/.nvmrc`, ''],
     [`${testPath}/jest.config.js`, ''],
     [`${testPath}/init.js`, 'const test = () => \'test\''],
@@ -641,19 +640,6 @@ describe('init function', () => {
       init(testPath);
 
       const existsAfter = fileExists(`${testPath}/.github`);
-
-      expect(existsBefore).toStrictEqual(true);
-      expect(existsAfter).toStrictEqual(false);
-    });
-
-    it('should remove demo.gif file', () => {
-      setup();
-
-      const existsBefore = fileExists(`${testPath}/demo.gif`);
-
-      init(testPath);
-
-      const existsAfter = fileExists(`${testPath}/demo.gif`);
 
       expect(existsBefore).toStrictEqual(true);
       expect(existsAfter).toStrictEqual(false);
