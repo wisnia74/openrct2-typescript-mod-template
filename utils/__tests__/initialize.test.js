@@ -25,6 +25,7 @@ const {
   expectedModFileContentWithoutApi,
   expectedModFileContentWithApi,
   expectedReadmeContent,
+  expectedEditorconfigContent,
 } = require('../expectedFilesContent').generate(testPath);
 
 let packageJsonData;
@@ -578,6 +579,16 @@ describe('init function', () => {
       const content = readFile(`${testPath}/README.md`);
 
       expect(content).toStrictEqual(expectedReadmeContent);
+    });
+
+    it('should create .editorconfig file', () => {
+      setup();
+
+      init(testPath);
+
+      const content = readFile(`${testPath}/.editorconfig`);
+
+      expect(content).toStrictEqual(expectedEditorconfigContent);
     });
 
     it('should remove utils folder', () => {

@@ -18,6 +18,7 @@ const {
   createEslintConfig,
   createTemplateModFile,
   createTemplateReadmeMd,
+  createEditorConfig,
 } = require('./generators');
 
 exports.init = (pathname) => {
@@ -120,7 +121,8 @@ exports.init = (pathname) => {
   const nodemonConfig = createNodemonConfig();
   const vsCodeConfig = createVsCodeConfig();
   const eslintConfig = createEslintConfig();
-  const readmeMdText = createTemplateReadmeMd(path.basename(__dirname), 'Happy modding!');
+  const readmeMdText = createTemplateReadmeMd(`Mod template`, 'Happy modding!');
+  const editorConfig = createEditorConfig();
   const modFile = importOpenrct2Api
     ? createTemplateModFile(modName, userName, modType, licence, openrct2ApiFilePath)
     : createTemplateModFile(modName, userName, modType, licence);
@@ -142,6 +144,7 @@ exports.init = (pathname) => {
   createFiles([
     [`${pathname}/src/${modName}.ts`, modFile],
     [`${pathname}/README.md`, readmeMdText],
+    [`${pathname}/.editorconfig`, editorConfig],
     [`${pathname}/init.js`, ''],
   ]);
 
