@@ -9,6 +9,7 @@
     "build:develop": "tsc --project tsconfig-develop.json",
     "lint": "eslint ./src/*.ts",
     "test": "jest && codecov",
+    "test:local": "jest",
     "test:dev": "jest --onlyChanged --verbose"
   },
   "repository": {

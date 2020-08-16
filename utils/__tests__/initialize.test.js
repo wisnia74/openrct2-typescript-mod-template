@@ -77,6 +77,7 @@ beforeEach(() => {
   packageJsonData = {
     scripts: {
       test: 'test',
+      'test:local': 'test',
       'test:dev': 'test',
       test1: 'test1',
       test2: 'test2',

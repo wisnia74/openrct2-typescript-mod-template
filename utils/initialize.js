@@ -83,6 +83,7 @@ exports.init = (pathname) => {
 
   // remove test scripts and dependencies
   delete scripts.test;
+  delete scripts['test:local'];
   delete scripts['test:dev'];
   delete devDependencies.jest;
   delete devDependencies.codecov;
