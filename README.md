@@ -16,6 +16,7 @@ Template repository for OpenRCT2 mods written in TypeScript.
 
 ## Demo
 Click the image to play a YouTube video.
+
 [![demo](https://img.youtube.com/vi/Nf_qDM2nnA4/0.jpg)](https://www.youtube.com/watch?v=Nf_qDM2nnA4)
 
 ## About
