@@ -15,7 +15,8 @@ Template repository for OpenRCT2 mods written in TypeScript.
   * [Useful links](#useful-links)
 
 ## Demo
--- Coming soon, needed to remove the GIF because you can't use this repo as a template, if I include files over 10mb.
+Click the image to play a YouTube video.
+[![demo](https://img.youtube.com/vi/Nf_qDM2nnA4/0.jpg)](https://www.youtube.com/watch?v=Nf_qDM2nnA4)
 
 ## About
 
