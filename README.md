@@ -49,7 +49,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 4. Open `./src/<modName>.ts` in your code editor
 5. Run `npm start`
 6. Start OpenRCT2 with console and load save/start new game
-7. Each time you save the file the server will compile `./src/<modName>.ts` and place it inside `<openrct2PluginFolderPath>/<modName>/` directory
+7. Each time you save the file the server will compile `./src/<modName>.ts` and place it inside `<openrct2PluginFolderPath>/<modName>/` directory (to be precise, it watches **all files in `./src/`**, so if you have more than one folder and/or more than one file, they will all get compiled and moved there too)
 8. OpenRCT2 will notice file changes and it will reload the mods
 
 ### How it works
