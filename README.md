@@ -31,14 +31,13 @@ The idea was to use Nodemon to start a local server that will be watching your m
 
 ## Installation
 
-1. Install latest versions of [Node](https://nodejs.org/en/) (it should come with `nvm` package) and [npm](https://www.npmjs.com/get-npm)
+1. Install latest versions of [Node](https://nodejs.org/en/) (or at least `10.13.0`) and [npm](https://www.npmjs.com/get-npm)
 2. Create your own repository using this one as a template and clone it anywhere to your PC
 3. `cd` into it and edit `config/init.json` - refer to [this](https://github.com/wisnia74/openrct2-typescript-mod-template/tree/master/config) table to know what to edit
-4. Still being in repo directory, run `nvm use` to make sure you will run the code with Node that is at least `v10.13.0` (if it prompts you that you don't have this version of Node downloaded try running `nvm install 10.13.0` then `nvm use`)
-5. Run `node init.js`
+4. Run `node init.js`
   	* When the script runs `npm init` to generate your npm package, leave `entry` as `init.js`
   	* Everything else is optional
-6. You now have a clean repository and npm package configured so you can start modding :)
+5. You now have a clean repository and npm package configured so you can start modding :)
 
 ## Usage
 
