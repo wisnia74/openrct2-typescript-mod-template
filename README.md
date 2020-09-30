@@ -39,7 +39,7 @@ Of course it's a template, so you can edit anything you like - `package.json` (w
 
 1. `cd` into repo
 2. run `npm run build:develop` (this will place compiled `./src/MOD_NAME.ts` inside `<path_to_openrct2>/plugin/<MOD_NAME>` directory)
-3. Make sure you've enabled OpenRCT2 hot reload feature
+3. Make sure you've enabled [OpenRCT2 hot reload feature](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md#writing-scripts)
 4. Open `./src/MOD_NAME.ts` in your code editor
 5. Run `npm start`
 6. Start OpenRCT2 with console and load save/start new game
