@@ -1,5 +1,4 @@
-// replace below with your path to OpenRCT2 - usually on C:/Users/<user>/Documents
-/// <reference path="<path_to_openrct2>/bin/openrct2.d.ts" />
+/// <reference path="../lib/openrct2.d.ts" />
 
 const main = () => {
   console.log('Your plug-in has started!');

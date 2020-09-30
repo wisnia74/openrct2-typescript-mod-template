@@ -27,11 +27,12 @@ The idea was to use Nodemon to start a local server that will be watching your m
 
 1. Install latest versions of [Node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/get-npm)
 2. Create your own repository using this one as a template and clone it anywhere to your PC
-3. Edit the following files: `./src/MOD_NAME.ts`, `./tsconfig-develop.json`
+3. Find `openrct2.d.ts` TypeScript API declaration file in OpenRCT2 files and copy it to `lib` folder (this file can usually be found in `C:\Users\<user>\Documents\OpenRCT2\bin`)
+4. Edit `./tsconfig-develop.json`:
     * replace all occurences of `<path_to_openrct2>` with your path to OpenRCT2
     * fill out `registerPlugin` function with right values (refer to [OpenRCT2 scripting guide](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md))
-4. once you do all the above, you can remove `.github` folder and `LICENSE` file
-4. You can start modding :)
+5. Once you do all the above, you can remove `LICENSE` file, `.github` folder and `README.md` from `lib` folder.
+6. You can start modding :)
 
 Of course it's a template, so you can edit anything you like - `package.json` (which I recommend doing), `tsconfig` files and so on.
 
@@ -48,7 +49,7 @@ Of course it's a template, so you can edit anything you like - `package.json` (w
 
 ### How it works
 
-Your mod files live in `./src/` directory. That's the ones you will be writing code in. 
+Your mod files live in `./src/` directory. That's the ones you will be writing code in.
 Upon starting Nodemon server, it will start watching changes you make to files in `./src/`, and it will build them accordingly.
 
 ### npm scripts
