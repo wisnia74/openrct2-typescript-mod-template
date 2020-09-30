@@ -17,7 +17,7 @@ Template repository for OpenRCT2 mods written in TypeScript.
 
 This repository was created to serve as a template TypeScript mod repository for OpenRCT2.
 
-I wanted to leverage [OpenRCT2 hot reload feature](https://github.com/OpenRCT2/OpenRCT2/blob/develop/distribution/scripting.md#writing-scripts) to make it even more painless to write and debug mods in real time.
+I wanted to leverage [OpenRCT2 hot reload feature](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md#writing-scripts) to make it even more painless to write and debug mods in real time.
 
 This template repository comes with [Nodemon](https://nodemon.io/), [ESLint](https://eslint.org/) and [TypeScript](https://www.typescriptlang.org/) on board. It generates all the needed files once you run `node init.js`.
 
