@@ -31,7 +31,8 @@ The idea was to use Nodemon to start a local server that will be watching your m
 4. Edit `./tsconfig-develop.json`:
     * replace all occurences of `<path_to_openrct2>` with your path to OpenRCT2
     * fill out `registerPlugin` function with right values (refer to [OpenRCT2 scripting guide](https://github.com/OpenRCT2/OpenRCT2/blob/develop/distribution/scripting.md))
-5. You can start modding :)
+5. Once you do all the above, you can remove `LICENSE` file, `.github` folder and `README.md` from `lib` folder.
+6. You can start modding :)
 
 Of course it's a template, so you can edit anything you like - `package.json` (which I recommend doing), `tsconfig` files and so on.
 
