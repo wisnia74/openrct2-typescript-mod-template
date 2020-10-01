@@ -75,7 +75,8 @@ It's up to you, if you want to edit `.gitignore` to actually include `./dist/` c
 
 If you've added a new mod folder to `plugin`, and the OpenRCT2 didn't seem like it registered it (and you had a running park), just load the save/start a new park, so OpenRCT2 loads the mods again. Now when you overwrite them during development, there shouldn't be any problems with hot reload noticing file changes.
 
-Nodemon will watch all the files in `./src/` directory. You can also freely create classes, modules, import them in your mod files. Sky's the limit :)
+Nodemon will watch all the files in `./src/` directory. You can also freely create classes, modules, import them in your mod files.
+Sky's the limit :)
 
 ## Useful links
 
