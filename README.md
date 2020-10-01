@@ -44,7 +44,7 @@ Of course it's a template, so you can edit anything you like - `package.json` (w
 3. Make sure you've enabled [OpenRCT2 hot reload feature](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md#writing-scripts)
 4. Open `./src/main.ts` in your code editor
 5. Run `npm start`
-6. Start OpenRCT2 with console and load save/start new game
+6. [Start OpenRCT2 with console](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md#writing-scripts) and load save/start new game
 7. Each time you save any of the files in `./src/`, the server will compile `./src/registerPlugin.ts` and place compiled file inside `PATH_TO_OPENRCT2/plugin/` directory as `MOD_NAME.js`
 8. OpenRCT2 will notice file changes and it will reload the mods
 
