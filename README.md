@@ -69,7 +69,7 @@ Template uses [Terser](https://github.com/terser/terser) to minify your output m
 ## Releasing your mod
 
 After running `npm run build` locally, `./dist/` directory will be created that will contain `MOD_NAME.js`.
-It's up to you, if you want to edit `.gitignore` to actually include `./dist/` contents and push them to your remote or if you want to manually copy the contents of `./dist/` and publish them somewhere. However creating a GitHub release using zipped contents of `./dist/` directory sounds like a cool idea. You would have your mod file available for download straight from the repo.
+It's up to you, if you want to edit `.gitignore` to actually include `./dist/` contents and push them to your remote or if you want to manually copy the contents of `./dist/` and publish them somewhere. However creating a GitHub release using contents of `./dist/` directory sounds like a cool idea. You would have your mod file available for download straight from the repo.
 
 ## Notes
 
