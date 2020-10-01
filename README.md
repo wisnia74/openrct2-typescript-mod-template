@@ -45,7 +45,7 @@ Of course it's a template, so you can edit anything you like - `package.json` (w
 4. Open `./src/main.ts` in your code editor
 5. Run `npm start`
 6. Start OpenRCT2 with console and load save/start new game
-7. Each time you save any of the files in `./src/`, the server will compile `./src/registerPlugin.ts` and place compiled file inside `PATH_TO_OPENRCT2/plugin/` directory
+7. Each time you save any of the files in `./src/`, the server will compile `./src/registerPlugin.ts` and place compiled file inside `PATH_TO_OPENRCT2/plugin/` directory as `MOD_NAME.js`
 8. OpenRCT2 will notice file changes and it will reload the mods
 
 ### How it works
@@ -64,7 +64,7 @@ Template uses [Terser](https://github.com/terser/terser) to minify your output m
 |`npm start`|starts Nodemon server that will be watching `./src/` directory for any changes you make to any files inside it|
 |`npm run lint`|lints your `.ts` and `.js` files from `./src/` directory|
 |`npm run build:dev`|compiles `registerPlugin.ts` and minifies it, then places it inside `PATH_TO_OPENRCT2/plugin/` as `MOD_NAME.js`|
-|`npm run build`|runs `npm run lint` and if no linting errors are found, compiles `registerPlugin.ts` and minifies it, then places it inside `./dist/` folder - this is your final mod file
+|`npm run build`|runs `npm run lint` and if no linting errors are found, compiles `registerPlugin.ts` and minifies it, then places it inside `./dist/` folder as `MOD_NAME.js` - this is your final mod file|
 
 ## Releasing your mod
 
