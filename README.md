@@ -32,7 +32,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 5. Edit `./rollup.config.dev.js` and:
     - replace `PATH_TO_OPENRCT2` with your path to OpenRCT2
     - replace `MOD_NAME` with your mod name
-6. Once you do all the above, you can delete `./README.md`, `LICENSE`, `lib` folder and `.github` folder
+6. Once you do all the above, you can delete `README.md` file, `LICENSE` file, `./lib/README.md` file and `.github` folder
 7. You can start modding :)
 
 Of course it's a template, so you can edit anything you like - `package.json` (which I recommend doing), `rollup.config` files and so on.
