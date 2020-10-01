@@ -1,14 +1,12 @@
 /// <reference path="../lib/openrct2.d.ts" />
 
-const main = () => {
-  console.log('Your plug-in has started!');
-};
+import main from './main';
 
 registerPlugin({
   name: 'MOD_NAME',
   version: '1.0',
-  authors: ['USERNAME'],
-  type: 'MOD_TYPE',
+  authors: ['MOD_AUTHOR'],
+  type: 'local',
   licence: 'MIT',
   main,
 });

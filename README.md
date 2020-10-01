@@ -28,9 +28,11 @@ The idea was to use Nodemon to start a local server that will be watching your m
 1. Install latest versions of [Node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/get-npm)
 2. Create your own repository using this one as a template and clone it anywhere to your PC
 3. Find `openrct2.d.ts` TypeScript API declaration file in OpenRCT2 files and copy it to `lib` folder (this file can usually be found in `C:\Users\<user>\Documents\OpenRCT2\bin`)
-4. Edit `./src/MOD_NAME.ts` and fill out `registerPlugin` function with right values (refer to [OpenRCT2 scripting guide](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md))
-5. Edit `./tsconfig-develop.json` and replace `<path_to_openrct2>` with your path to OpenRCT2
-6. Once you do all the above, you can remove `LICENSE` file, `.github` folder and `README.md` from `lib` folder.
+4. Edit `./src/registerPlugin.ts` and fill out `registerPlugin` function with right values (refer to [OpenRCT2 scripting guide](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md))
+5. Edit `./rollup.config.dev.js` and:
+  - replace `PATH_TO_OPENRCT2` with your path to OpenRCT2
+  - replace 'MOD_NAME' with your mod name
+6. Once you do all the above, you can delete `./README.md`, `LICENSE`, `lib` folder and `.github` folder
 7. You can start modding :)
 
 Of course it's a template, so you can edit anything you like - `package.json` (which I recommend doing), `tsconfig` files and so on.
@@ -38,12 +40,12 @@ Of course it's a template, so you can edit anything you like - `package.json` (w
 ## Usage
 
 1. `cd` into repo
-2. run `npm run build:develop` (this will place compiled `./src/MOD_NAME.ts` inside `<path_to_openrct2>/plugin/<MOD_NAME>` directory)
+2. run `npm run build:develop` (this will place compiled and minified mod inside `PATH_TO_OPENRCT2/plugin/` directory)
 3. Make sure you've enabled [OpenRCT2 hot reload feature](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md#writing-scripts)
-4. Open `./src/MOD_NAME.ts` in your code editor
+4. Open `./src/main.ts` in your code editor
 5. Run `npm start`
 6. Start OpenRCT2 with console and load save/start new game
-7. Each time you save the file the server will compile `./src/MOD_NAME.ts` and place it inside `<path_to_openrct2>/plugin/<MOD_NAME>` directory (to be precise, it watches **all files in `./src/`**, so if you have more than one folder and/or more than one file, they will all get compiled and moved there too)
+7. Each time you save any of the files in `./src/`, the server will compile `./src/registerPlugin.ts` and place compiled file inside `PATH_TO_OPENRCT2/plugin/` directory
 8. OpenRCT2 will notice file changes and it will reload the mods
 
 ### How it works
@@ -51,18 +53,22 @@ Of course it's a template, so you can edit anything you like - `package.json` (w
 Your mod files live in `./src/` directory. That's the ones you will be writing code in.
 Upon starting Nodemon server, it will start watching changes you make to files in `./src/`, and it will build them accordingly.
 
+The entry point is `./src/registerPlugin.ts`. Any file, class, module you create in `./src/` needs to be imported to `registerPlugin.ts` one way or another.
+
+Template uses [Terser](https://github.com/terser/terser) to minify your output mod bundle file.
+
 ### npm scripts
 
 |script|function|
 |--|--|
-|`npm start`|starts Nodemon server that will be watching `./src/` directory for any changes you make to `.ts` files inside it|
-|`npm run lint`|lints your `.ts` files from `./src/` directory|
-|`npm run build:develop`|compiles all `.ts` files from `./src/` to ES5 `.js` files, and places them inside `<path_to_openrct2>/plugin/<MOD_NAME>` directory|
-|`npm run build`|runs `npm run lint` and if no linting errors are found, compiles your `.ts` files to ES5 `.js` files and places them inside `./dist/` folder - those are your final mod files|
+|`npm start`|starts Nodemon server that will be watching `./src/` directory for any changes you make to any files inside it|
+|`npm run lint`|lints your `.ts` and `.js` files from `./src/` directory|
+|`npm run build:dev`|compiles `registerPlugin.ts` and minifies it, then places it inside `PATH_TO_OPENRCT2/plugin/` as `MOD_NAME.js`|
+|`npm run build`|runs `npm run lint` and if no linting errors are found, compiles `registerPlugin.ts` and minifies it, then places it inside `./dist/` folder - this is your final mod file
 
 ## Releasing your mod
 
-After running `npm run build` locally, `./dist/` directory will be created that will contain all the compiled files from `./src/`.
+After running `npm run build` locally, `./dist/` directory will be created that will contain `MOD_NAME.js`.
 It's up to you, if you want to edit `.gitignore` to actually include `./dist/` contents and push them to your remote or if you want to manually copy the contents of `./dist/` and publish them somewhere. However creating a GitHub release using zipped contents of `./dist/` directory sounds like a cool idea. You would have your mod file available for download straight from the repo.
 
 ## Notes
