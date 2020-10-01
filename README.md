@@ -30,8 +30,8 @@ The idea was to use Nodemon to start a local server that will be watching your m
 3. Find `openrct2.d.ts` TypeScript API declaration file in OpenRCT2 files and copy it to `lib` folder (this file can usually be found in `C:\Users\<user>\Documents\OpenRCT2\bin`)
 4. Edit `./src/registerPlugin.ts` and fill out `registerPlugin` function with right values (refer to [OpenRCT2 scripting guide](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md))
 5. Edit `./rollup.config.dev.js` and:
-  - replace `PATH_TO_OPENRCT2` with your path to OpenRCT2
-  - replace 'MOD_NAME' with your mod name
+    - replace `PATH_TO_OPENRCT2` with your path to OpenRCT2
+    - replace 'MOD_NAME' with your mod name
 6. Once you do all the above, you can delete `./README.md`, `LICENSE`, `lib` folder and `.github` folder
 7. You can start modding :)
 
