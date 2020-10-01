@@ -35,7 +35,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 6. Once you do all the above, you can delete `./README.md`, `LICENSE`, `lib` folder and `.github` folder
 7. You can start modding :)
 
-Of course it's a template, so you can edit anything you like - `package.json` (which I recommend doing), `tsconfig` files and so on.
+Of course it's a template, so you can edit anything you like - `package.json` (which I recommend doing), `rollup.config` files and so on.
 
 ## Usage
 
