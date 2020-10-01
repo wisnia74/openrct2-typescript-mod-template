@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "watch": "nodemon --watch ./src --ext js,ts",
-    "build": "rollup --config rollup.config.dev.js",
-    "build:dev": "rollup --config rollup.config.js",
+    "build": "npm run lint && rollup --config rollup.config.prod.js",
+    "build:dev": "rollup --config rollup.config.dev.js",
     "lint": "eslint ./src --ext .js --ext .ts"
   },
   "repository": {

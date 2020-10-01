@@ -2,9 +2,9 @@ import typescript from 'rollup-plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
 
 export default {
-  input: 'src/registerPlugin.ts',
+  input: './src/registerPlugin.ts',
   output: {
-    output: 'PATH_TO_OPENRCT2/plugin/MOD_NAME',
+    file: 'PATH_TO_OPENRCT2/plugin/MOD_NAME.js',
     format: 'iife',
   },
   plugins: [
