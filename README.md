@@ -55,7 +55,7 @@ Upon starting Nodemon server, it will start watching changes you make to files i
 
 The entry point is `./src/registerPlugin.ts`. Any file, class, module you create in `./src/` needs to be imported to `registerPlugin.ts` one way or another.
 
-Template uses [Terser](https://github.com/terser/terser) to minify your output mod bundle file.
+Template uses [Terser](https://github.com/terser/terser) to minify your output mod bundle file and to resolve any dependencies.
 
 ### npm scripts
 
