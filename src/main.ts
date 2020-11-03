@@ -8,7 +8,7 @@ import {
   getEntertainers,
 } from './helpers';
 
-const main = () => {
+const main = (): void => {
   console.log(`${hello()} Your plug-in has started!`);
 
   console.log(`In your park, there are currently ${getPeeps().length} peeps`);
