@@ -1,1 +1,1 @@
-export default (): void => 'Hello stranger!';
+export default (): string => 'Hello stranger!';
