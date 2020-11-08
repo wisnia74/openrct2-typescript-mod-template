@@ -39,7 +39,8 @@ for (let x = 0; x < paths.length; x += 1) {
 }
 
 const packageJsonContent = readJSON('./package.json');
-delete packageJSON.scripts.init;
+delete packageJsonContent.scripts.init;
 saveFile('./package.json', packageJsonContent);
 
+removeFile('./config.json');
 removeFile('./init.js');
