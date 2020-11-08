@@ -11,7 +11,7 @@ const saveFile = (path, data) => {
     content = data;
   }
 
-  fs.writeFileSync(path, content);
+  writeFileSync(path, content);
 };
 
 const { modName, modAuthor, pathToOpenRCT2 } = readJSON('./config.json');
@@ -37,3 +37,9 @@ for (let x = 0; x < paths.length; x += 1) {
 
   saveFile(path, replacedContent);
 }
+
+const packageJsonContent = readJSON('./package.json');
+delete packageJSON.scripts.init;
+saveFile('./package.json', packageJsonContent);
+
+removeFile('./init.js');
