@@ -1,4 +1,5 @@
 const { readFileSync, writeFileSync, unlinkSync } = require('fs');
+const { execSync } = require('child_process');
 
 const removeFile = (path) => unlinkSync(path);
 const readJSON = (path) => JSON.parse(readFileSync(path));
@@ -44,3 +45,6 @@ saveFile('./package.json', packageJsonContent);
 
 removeFile('./config.json');
 removeFile('./init.js');
+
+execSync('git add .');
+execSync('git commit -m "init script"');
