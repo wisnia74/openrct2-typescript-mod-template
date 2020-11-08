@@ -27,12 +27,13 @@ The idea was to use Nodemon to start a local server that will be watching your m
 
 1. Install latest versions of [Node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/get-npm)
 2. [Create your own repository using this one as a template](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) and clone it anywhere to your PC
-3. Find `openrct2.d.ts` TypeScript API declaration file in OpenRCT2 files and copy it to `lib` folder (this file can usually be found in `C:\Users\<user>\Documents\OpenRCT2\bin`)
-4. Edit `./src/registerPlugin.ts` and fill out `registerPlugin` function with right values (refer to [OpenRCT2 scripting guide](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md))
-5. Edit `./rollup.config.dev.js` and `./rollup.config.prod.js`:
+3. `cd` into it and run `npm install`
+4. Find `openrct2.d.ts` TypeScript API declaration file in OpenRCT2 files and copy it to `lib` folder (this file can usually be found in `C:\Users\<user>\Documents\OpenRCT2\bin`)
+5. Edit `./src/registerPlugin.ts` and fill out `registerPlugin` function with right values (refer to [OpenRCT2 scripting guide](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md))
+6. Edit `./rollup.config.dev.js` and `./rollup.config.prod.js`:
     - replace any occurence of `PATH_TO_OPENRCT2` with your path to OpenRCT2
     - replace any occurence of `MOD_NAME` with your mod name
-6. You can start modding :)
+7. You can start modding :)
 
 Of course it's a template, so you can edit anything you like.
 
