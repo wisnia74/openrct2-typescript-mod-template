@@ -37,6 +37,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 7. You can start modding :)
 
 Of course it's a template, so you can edit anything you like.
+
 If you want to alter plugin data, refer to [OpenRCT2 scripting guide](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md).
 
 ## Usage
