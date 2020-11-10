@@ -28,11 +28,18 @@ The idea was to use Nodemon to start a local server that will be watching your m
 1. Install latest versions of [Node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/get-npm)
 2. [Create your own repository using this one as a template](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) and clone it anywhere to your PC
 3. `cd` into it and run `npm install`
-4. Find `openrct2.d.ts` TypeScript API declaration file in OpenRCT2 files and copy it to `lib` folder (this file can usually be found in `C:\Users\<user>\Documents\OpenRCT2\bin`)
+4. Find `openrct2.d.ts` TypeScript API declaration file in OpenRCT2 files and copy it to `lib` folder (this file can usually be found in `C:\Users\<user>\Documents\OpenRCT2\bin` or `C:\Program Files\OpenRCT2\openrct2.d.ts`)
+  - Alternatively, you can make a symbolic link instead of copying the file, which will keep the it up to date whenever you install new versions of OpenRCT2. To do this on Windows:
+    - Run a Command Prompt as Administrator
+    - `cd` into your repo (wherever you cloned it)
+    - Run `mklink .\lib\openrct2.d.ts <path to openrct2.d.ts>`  
 5. Edit `./config.json`:
     - `modName` - will be used in `./src/registerPlugin.ts`, `./rollup.config.dev.js` and `./rollup.config.prod.js`
     - `modAuthor` - will be used in `./src/registerPlugin.ts`
-    - `pathToOpenRCT2` - will be used in `./rollup.config.dev.js` (make sure this path uses `/` instead of `\`)
+    - `pathToOpenRCT2` - will be used in `./rollup.config.dev.js`
+      - make sure this path uses `/` instead of `\`
+      - this path is the one that holds the `plugin` folder, not the installation path
+      - typically `C:/Users/<USER>/Documents/OpenRCT2`
 6. After editing `./config.json` run `npm run init` - it will replace all the data and then commit the results
 7. You can start modding :)
 
@@ -42,14 +49,13 @@ If you want to alter plugin data, refer to [OpenRCT2 scripting guide](https://gi
 
 ## Usage
 
-1. `cd` into repo
-2. run `npm run build:develop` (this will place compiled and minified mod inside `PATH_TO_OPENRCT2/plugin/` directory)
-3. Make sure you've enabled [OpenRCT2 hot reload feature](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md#writing-scripts)
+1. Make sure you've enabled [OpenRCT2 hot reload feature](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md#writing-scripts) by setting `enable_hot_reloading = true` in your `/OpenRCT2/config.ini`
+2. `cd` into repo
+3. run `npm start` (this will place compiled and minified mod inside `PATH_TO_OPENRCT2/plugin/` directory)
 4. Open `./src/main.ts` in your code editor
-5. Run `npm start`
-6. [Start OpenRCT2 with console](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md#writing-scripts) and load save/start new game
-7. Each time you save any of the files in `./src/`, the server will compile `./src/registerPlugin.ts` and place compiled file inside `PATH_TO_OPENRCT2/plugin/` directory as `MOD_NAME.js`
-8. OpenRCT2 will notice file changes and it will reload the mods
+5. [Start OpenRCT2 with console](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md#writing-scripts) and load save/start new game
+6. Each time you save any of the files in `./src/`, the server will compile `./src/registerPlugin.ts` and place compiled file inside `PATH_TO_OPENRCT2/plugin/` directory as `MOD_NAME.js`
+7. OpenRCT2 will notice file changes and it will reload the mods
 
 ### How it works
 
@@ -73,10 +79,13 @@ Template uses [Terser](https://github.com/terser/terser) to minify your output m
 
 After running `npm run build` locally, `./dist/` directory will be created that will contain `MOD_NAME.js`.
 It's up to you, if you want to edit `.gitignore` to actually include `./dist/` contents and push them to your remote or if you want to manually copy the contents of `./dist/` and publish them somewhere. However creating a GitHub release using contents of `./dist/` directory sounds like a cool idea. You would have your mod file available for download straight from the repo.
+Don't forget to update `README.md` to reflect your mod and update version numbers for future releases.
 
 ## Notes
 
 If you've added a new mod folder to `plugin`, and the OpenRCT2 didn't seem like it registered it (and you had a running park), just load the save/start a new park, so OpenRCT2 loads the mods again. Now when you overwrite them during development, there shouldn't be any problems with hot reload noticing file changes.
+
+Don't touch `app.js`, even though it's just an empty file. Its existence makes Nodemon happy, and Nodemon is what does the watches your files for changes & fires off new dev builds for hot reloading.
 
 Nodemon will watch all the files in `./src/` directory. You can also freely create classes, modules, import them in your mod files.
 Sky's the limit :)
