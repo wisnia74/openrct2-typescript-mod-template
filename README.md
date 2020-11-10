@@ -35,7 +35,8 @@ The idea was to use Nodemon to start a local server that will be watching your m
     - Run `mklink .\lib\openrct2.d.ts <path to openrct2.d.ts>`  
 5. Edit `./config.json`:
     - `modName` - will be used in `./src/registerPlugin.ts`, `./rollup.config.dev.js` and `./rollup.config.prod.js`
-    - `modAuthor` - will be used in `./src/registerPlugin.ts`
+    - `modURL` - will be used in `./src/registerPlugin.ts`, `package.json`
+      - Use the URL from Installation step 2. It should look like `https://github.com/<author>/<repository>`
     - `pathToOpenRCT2` - will be used in `./rollup.config.dev.js`
       - make sure this path uses `/` instead of `\`
       - this path is the one that holds the `plugin` folder, not the installation path
