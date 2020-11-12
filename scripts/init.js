@@ -50,8 +50,8 @@ const packageJsonContent = readJSON('./package.json');
 delete packageJsonContent.scripts.init;
 packageJsonContent.author = modAuthor;
 packageJsonContent.name = repoName;
-packageJsonContent.homepage = `${cleanModURL}#readme`;
-packageJsonContent.bugs.url = `${cleanModURL}/issues`;
+packageJsonContent.homepage = `https://${cleanModURL}#readme`;
+packageJsonContent.bugs.url = `https://${cleanModURL}/issues`;
 packageJsonContent.repository.url = `git+https://${cleanModURL}.git`;
 saveFile('./package.json', packageJsonContent);
 
