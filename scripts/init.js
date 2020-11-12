@@ -1,7 +1,8 @@
-const { readFileSync, writeFileSync, unlinkSync } = require('fs');
+const { readFileSync, writeFileSync, unlinkSync, rmdirSync } = require('fs');
 const { execSync } = require('child_process');
 
 const removeFile = (path) => unlinkSync(path);
+const removeEmptyFolder = (path) => rmdirSync(path);
 const readJSON = (path) => JSON.parse(readFileSync(path));
 const saveFile = (path, data) => {
   let content;
@@ -56,7 +57,8 @@ packageJsonContent.repository.url = `git+https://${cleanModUrl}.git`;
 saveFile('./package.json', packageJsonContent);
 
 removeFile('./config.json');
-removeFile('./init.js');
+removeFile('./scripts/init.js');
+removeEmptyFolder('./scripts');
 
 execSync('git add .');
 execSync('git commit -m "init script"');
