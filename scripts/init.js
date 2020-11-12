@@ -16,7 +16,7 @@ const saveFile = (path, data) => {
 };
 
 const { modName, modURL, pathToOpenRCT2 } = readJSON('./config.json');
-const [cleanModURL, modAuthor, repoName] = modURL.match(/^(https:\/\/github.com\/([^/]+)\/([^/]+))\/?$/);
+const [cleanModURL, modAuthor, repoName] = modURL.match(/github.com\/([^/]+)\/([^/]+)/);
 
 const paths = [
   './.github/dependabot.yml',
@@ -52,7 +52,7 @@ packageJsonContent.author = modAuthor;
 packageJsonContent.name = repoName;
 packageJsonContent.homepage = `${cleanModURL}#readme`;
 packageJsonContent.bugs.url = `${cleanModURL}/issues`;
-packageJsonContent.repository.url = `git+${cleanModURL}.git`;
+packageJsonContent.repository.url = `git+https://${cleanModURL}.git`;
 saveFile('./package.json', packageJsonContent);
 
 removeFile('./config.json');
