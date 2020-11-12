@@ -36,7 +36,7 @@ The idea was to use Nodemon to start a local server that will be watching your m
 5. Edit `./config.json`:
     - `modName` - will be used in `./src/registerPlugin.ts`, `./rollup.config.dev.js` and `./rollup.config.prod.js`
     - `modURL` - will be used in `./src/registerPlugin.ts` and `package.json`
-      - use the URL from step 2 - it should look like `https://github.com/<author>/<repository>`
+      - use the URL created as a result of step 2 (link to your mod repo) - it should look like `https://github.com/<author>/<repository>`
     - `pathToOpenRCT2` - will be used in `./rollup.config.dev.js`
       - make sure this path uses `/` instead of `\`
       - this path is the one that holds the `plugin` folder, not the installation path
