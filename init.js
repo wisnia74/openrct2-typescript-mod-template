@@ -57,8 +57,7 @@ packageJsonContent.repository.url = `git+https://${cleanModUrl}.git`;
 saveFile('./package.json', packageJsonContent);
 
 removeFile('./config.json');
-removeFile('./scripts/init.js');
-removeEmptyFolder('./scripts');
+removeFile('./init.js');
 
 execSync('git add .');
 execSync('git commit -m "init script"');
