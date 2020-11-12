@@ -15,8 +15,8 @@ const saveFile = (path, data) => {
   writeFileSync(path, content);
 };
 
-const { modName, modURL, pathToOpenRCT2 } = readJSON('./config.json');
-const [cleanModURL, modAuthor, repoName] = modURL.match(/github.com\/([^/]+)\/([^/]+)/);
+const { modName, modUrl, pathToOpenRCT2 } = readJSON('./config.json');
+const [cleanModUrl, modAuthor, repoName] = modUrl.match(/github.com\/([^/]+)\/([^/]+)/);
 
 const paths = [
   './.github/dependabot.yml',
@@ -50,9 +50,9 @@ const packageJsonContent = readJSON('./package.json');
 delete packageJsonContent.scripts.init;
 packageJsonContent.author = modAuthor;
 packageJsonContent.name = repoName;
-packageJsonContent.homepage = `https://${cleanModURL}#readme`;
-packageJsonContent.bugs.url = `https://${cleanModURL}/issues`;
-packageJsonContent.repository.url = `git+https://${cleanModURL}.git`;
+packageJsonContent.homepage = `https://${cleanModUrl}#readme`;
+packageJsonContent.bugs.url = `https://${cleanModUrl}/issues`;
+packageJsonContent.repository.url = `git+https://${cleanModUrl}.git`;
 saveFile('./package.json', packageJsonContent);
 
 removeFile('./config.json');
