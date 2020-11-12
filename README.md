@@ -30,18 +30,18 @@ The idea was to use Nodemon to start a local server that will be watching your m
 3. `cd` into it and run `npm install`
 4. Find `openrct2.d.ts` TypeScript API declaration file in OpenRCT2 files and copy it to `lib` folder (this file can usually be found in `C:\Users\<user>\Documents\OpenRCT2\bin` or `C:\Program Files\OpenRCT2\openrct2.d.ts`)
   - Alternatively, you can make a symbolic link instead of copying the file, which will keep the it up to date whenever you install new versions of OpenRCT2. To do this on Windows:
-    - Run a Command Prompt as Administrator
+    - run command prompt as administrator
     - `cd` into your repo (wherever you cloned it)
-    - Run `mklink .\lib\openrct2.d.ts <path to openrct2.d.ts>`  
+    - run `mklink .\lib\openrct2.d.ts <path to openrct2.d.ts>`  
 5. Edit `./config.json`:
     - `modName` - will be used in `./src/registerPlugin.ts`, `./rollup.config.dev.js` and `./rollup.config.prod.js`
-    - `modURL` - will be used in `./src/registerPlugin.ts`, `package.json`
-      - Use the URL from Installation step 2. It should look like `https://github.com/<author>/<repository>`
+    - `modURL` - will be used in `./src/registerPlugin.ts` and `package.json`
+      - use the URL from step 2 - it should look like `https://github.com/<author>/<repository>`
     - `pathToOpenRCT2` - will be used in `./rollup.config.dev.js`
       - make sure this path uses `/` instead of `\`
       - this path is the one that holds the `plugin` folder, not the installation path
-      - typically `C:/Users/<USER>/Documents/OpenRCT2`
-6. After editing `./config.json` run `npm run init` - it will replace all the data and then commit the results
+      - typically `C:\Users\<USER>\Documents\OpenRCT2`
+6. Run `npm run init` - it will replace all the data and then commit the results
 7. You can start modding :)
 
 Of course it's a template, so you can edit anything you like.
