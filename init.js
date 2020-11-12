@@ -16,7 +16,7 @@ const saveFile = (path, data) => {
   writeFileSync(path, content);
 };
 
-const { modName, modUrl, pathToOpenRCT2 } = readJSON('../config.json');
+const { modName, modUrl, pathToOpenRCT2 } = readJSON('./config.json');
 const [cleanModUrl, modAuthor, repoName] = modUrl.match(/github.com\/([^/]+)\/([^/]+)/);
 
 const paths = [
@@ -57,8 +57,7 @@ packageJsonContent.repository.url = `git+https://${cleanModUrl}.git`;
 saveFile('./package.json', packageJsonContent);
 
 removeFile('./config.json');
-removeFile('./scripts/init.js');
-removeEmptyFolder('./scripts');
+removeFile('./init.js');
 
 execSync('git add .');
 execSync('git commit -m "init script"');
