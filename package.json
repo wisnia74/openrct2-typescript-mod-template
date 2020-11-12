@@ -9,7 +9,7 @@
     "build": "npm run lint && rollup --config rollup.config.prod.js",
     "build:dev": "rollup --config rollup.config.dev.js",
     "lint": "eslint ./src --ext .js --ext .ts",
-    "init": "node ./scripts/init.js"
+    "init": "node ./init.js"
   },
   "repository": {
     "type": "git",
