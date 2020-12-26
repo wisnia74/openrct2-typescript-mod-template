@@ -1,4 +1,9 @@
-const { readFileSync, writeFileSync, unlinkSync, rmdirSync } = require('fs');
+const {
+  readFileSync,
+  writeFileSync,
+  unlinkSync,
+  rmdirSync,
+} = require('fs');
 const { execSync } = require('child_process');
 
 const removeFile = (path) => unlinkSync(path);
