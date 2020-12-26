@@ -1,4 +1,4 @@
-const path = require('path');
+const rootDir = require('../app');
 const {
   readJson,
   replaceModDataInFiles,
