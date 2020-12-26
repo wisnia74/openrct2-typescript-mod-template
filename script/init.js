@@ -1,0 +1,56 @@
+const path = require('path');
+const {
+  readJson,
+  replaceModDataInFiles,
+  replacePackageJsonContent,
+  removeFiles,
+  addAndCommitInitResults,
+} = require('./initHelpers');
+
+const rootDir = path.resolve(__dirname).replace(/\\/g, '/');
+const { modName, modUrl, gamePath } = readJson(`${rootDir}/config.json`);
+const [cleanModUrl, modAuthor, repoName] = modUrl.match(/github.com\/([^/]+)\/([^/]+)/);
+
+const modNameRegex = /MOD_NAME/g;
+const modAuthorRegex = /MOD_AUTHOR/g;
+const templateAuthorRegex = /wisnia74(?!\/)/g;
+const gamePathRegex = /PATH_TO_OPENRCT2/g;
+
+const filePathsToEdit = [
+  `${rootDir}/.github/dependabot.yml`,
+  `${rootDir}/.github/ISSUE_TEMPLATE/bug_report.md`,
+  `${rootDir}/.github/ISSUE_TEMPLATE/feature_request.md`,
+  `${rootDir}/rollup.config.dev.js`,
+  `${rootDir}/rollup.config.prod.js`,
+  `${rootDir}/src/registerPlugin.ts`,
+];
+
+const filePathsToRemove = [
+  `${rootDir}/config.json`,
+  `${rootDir}/script/init.js`,
+  `${rootDir}/script/initHelpers.js`,
+];
+
+replaceModDataInFiles({
+  filePathsToEdit,
+  data: {
+    modNameRegex,
+    modName,
+    modAuthorRegex,
+    modAuthor,
+    gamePathRegex,
+    gamePath,
+    templateAuthorRegex,
+  },
+});
+
+replacePackageJsonContent({
+  rootDir,
+  cleanModUrl,
+  modAuthor,
+  repoName,
+});
+
+removeFiles(filePathsToRemove);
+
+addAndCommitInitResults();
