@@ -8,7 +8,6 @@ const {
   addAndCommitInitResults,
 } = require('./initHelpers');
 
-const rootDir = path.resolve(__dirname).replace(/\\/g, '/');
 const { modName, modUrl, gamePath } = readJson(`${rootDir}/config.json`);
 const [cleanModUrl, modAuthor, repoName] = modUrl.match(/github.com\/([^/]+)\/([^/]+)/);
 
