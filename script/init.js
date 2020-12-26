@@ -3,6 +3,7 @@ const {
   readJson,
   replaceModDataInFiles,
   replacePackageJsonContent,
+  replaceAuthorAndYearInLicense,
   removeFiles,
   addAndCommitInitResults,
 } = require('./initHelpers');
@@ -46,9 +47,19 @@ replaceModDataInFiles({
 
 replacePackageJsonContent({
   rootDir,
-  cleanModUrl,
-  modAuthor,
-  repoName,
+  data: {
+    cleanModUrl,
+    modAuthor,
+    repoName,
+  },
+});
+
+replaceAuthorAndYearInLicense({
+  rootDir,
+  data: {
+    templateAuthorRegex,
+    modAuthor,
+  },
 });
 
 removeFiles(filePathsToRemove);

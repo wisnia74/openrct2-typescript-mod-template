@@ -55,9 +55,11 @@ const replaceModDataInFiles = ({
 
 const replacePackageJsonContent = ({
   rootDir,
-  cleanModUrl,
-  modAuthor,
-  repoName,
+  data: {
+    cleanModUrl,
+    modAuthor,
+    repoName,
+  },
 }) => {
   const packageJsonPath = `${rootDir}/package.json`;
   const packageJsonContent = readJson(packageJsonPath);
@@ -72,6 +74,22 @@ const replacePackageJsonContent = ({
   saveFile(packageJsonPath, packageJsonContent);
 };
 
+const replaceAuthorAndYearInLicense = ({
+  rootDir,
+  data: {
+    templateAuthorRegex,
+    modAuthor,
+  },
+}) => {
+  const licensePath = `${rootDir}/LICENSE`;
+  const licenseData = readFile(licensePath);
+  const replacedLicenseData = licenseData
+    .replace(templateAuthorRegex, modAuthor)
+    .replace(/2020/, new Date().getFullYear().toString());
+
+  saveFile(licensePath, replacedLicenseData);
+};
+
 const addAndCommitInitResults = () => {
   execSync('git add .');
   execSync('git commit -m "init script"');
@@ -81,6 +99,7 @@ module.exports = {
   readJson,
   replaceModDataInFiles,
   replacePackageJsonContent,
+  replaceAuthorAndYearInLicense,
   removeFiles,
   addAndCommitInitResults,
 };
