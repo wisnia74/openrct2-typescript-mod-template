@@ -1,6 +1,5 @@
-# OpenRCT2 TypeScript API declaration file
+# lib directory
 lib/
-openrct2.d.ts
 
 # Logs
 logs

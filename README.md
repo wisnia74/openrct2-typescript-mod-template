@@ -28,11 +28,11 @@ The idea was to use Nodemon to start a local server that will be watching your m
 1. Install latest versions of [Node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/get-npm)
 2. [Create your own repository using this one as a template](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) and clone it anywhere to your PC
 3. `cd` into it and run `npm install`
-4. Find `openrct2.d.ts` TypeScript API declaration file in OpenRCT2 files and copy it to root directory of the repo (this file can usually be found in `C:\Users\<USER>\Documents\OpenRCT2\bin` or `C:\Program Files\OpenRCT2\openrct2.d.ts`)
+4. Find `openrct2.d.ts` TypeScript API declaration file in OpenRCT2 files and copy it to `lib` folder (this file can usually be found in `C:\Users\<USER>\Documents\OpenRCT2\bin` or `C:\Program Files\OpenRCT2\openrct2.d.ts`)
     - alternatively, you can make a symbolic link instead of copying the file, which will keep the file up to date whenever you install new versions of OpenRCT2. To do this on Windows:
       - run command prompt as administrator
       - `cd` into your repo (wherever you cloned it)
-      - run `mklink ./openrct2.d.ts <path to openrct2.d.ts>`  
+      - run `mklink ./lib/openrct2.d.ts <path to openrct2.d.ts>`
 5. Edit `./config.json`:
     - `modName` - will be used in `./src/registerPlugin.ts`, `./rollup.config.dev.js` and `./rollup.config.prod.js`
     - `modURL` - will be used in `./src/registerPlugin.ts` and `package.json`

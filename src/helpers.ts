@@ -1,3 +1,5 @@
+/// <reference path="../lib/openrct2.d.ts" />
+
 export const isUiAvailable = typeof ui !== 'undefined';
 
 export const isParkFlagSet = (flag: ParkFlags): boolean => park.getFlag(flag);
