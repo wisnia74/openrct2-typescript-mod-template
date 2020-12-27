@@ -6,7 +6,7 @@ const {
 const { execSync } = require('child_process');
 
 const readFile = (filePath) => readFileSync(filePath).toString();
-const readJson = (filePath) => JSON.parse(readFileSync(filePath));
+const readJsonFile = (filePath) => JSON.parse(readFileSync(filePath));
 
 const saveFile = (filePath, data) => {
   let fileContent;
@@ -62,7 +62,7 @@ const replacePackageJsonContent = ({
   },
 }) => {
   const packageJsonPath = `${rootDir}/package.json`;
-  const packageJsonContent = readJson(packageJsonPath);
+  const packageJsonContent = readJsonFile(packageJsonPath);
 
   delete packageJsonContent.scripts.init;
   packageJsonContent.author = modAuthor;
@@ -96,7 +96,7 @@ const addAndCommitInitResults = () => {
 };
 
 module.exports = {
-  readJson,
+  readJsonFile,
   replaceModDataInFiles,
   replacePackageJsonContent,
   replaceAuthorAndYearInLicense,
