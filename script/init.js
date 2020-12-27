@@ -1,6 +1,6 @@
 const rootDir = require('../app');
 const {
-  readJson,
+  readJsonFile,
   replaceModDataInFiles,
   replacePackageJsonContent,
   replaceAuthorAndYearInLicense,
@@ -8,7 +8,7 @@ const {
   addAndCommitInitResults,
 } = require('./initHelpers');
 
-const { modName, modUrl, gamePath } = readJson(`${rootDir}/config.json`);
+const { modName, modUrl, gamePath } = readJsonFile(`${rootDir}/config.json`);
 const [cleanModUrl, modAuthor, repoName] = modUrl.match(/github.com\/([^/]+)\/([^/]+)/);
 
 const modNameRegex = /MOD_NAME/g;
