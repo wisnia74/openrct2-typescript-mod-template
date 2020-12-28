@@ -86,7 +86,9 @@ Don't forget to update `README.md` to reflect your mod and update version number
 
 If you've added a new mod folder to `plugin`, and the OpenRCT2 didn't seem like it registered it (and you had a running park), just load the save/start a new park, so OpenRCT2 loads the mods again. Now when you overwrite them during development, there shouldn't be any problems with hot reload noticing file changes.
 
-Don't touch `app.js`. Its existence makes Nodemon happy, and Nodemon is what watches your files for changes & fires off new dev builds for hot reloading.
+Don't touch `app.js`. Its existence makes Nodemon happy.
+
+Nodemon is what watches your files for changes & fires off new dev builds for hot reloading.
 Furthermore, it's used for resolving root directory of the project - that's used, for example, in init script.
 
 Nodemon will watch all the files in `./src/` directory. You can also freely create classes, modules, import them in your mod files.
