@@ -29,6 +29,7 @@ const filePathsToRemove = [
   `${rootDir}/config.json`,
   `${rootDir}/script/init.js`,
   `${rootDir}/script/initHelpers.js`,
+  `${rootDir}/lib/README.md`,
 ];
 
 replaceModDataInFiles({
