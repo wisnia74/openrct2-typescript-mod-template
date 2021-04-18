@@ -2,7 +2,8 @@
   "env": {
     "browser": true,
     "es6": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "extends": [
     "airbnb-base"
@@ -21,7 +22,6 @@
   ],
   "rules": {
     "no-undef": 0,
-    "spaced-comment": 0,
     "max-len": ["error", { "code": 120 }],
     "import/extensions": ["error", "always", { "js": "never", "ts": "never" }]
   },
