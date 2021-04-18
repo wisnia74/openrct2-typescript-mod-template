@@ -1,4 +1,4 @@
-/// <reference path="../lib/openrct2.d.ts" />
+import 'lib/openrct2';
 
 export const isUiAvailable = typeof ui !== 'undefined';
 

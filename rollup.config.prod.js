@@ -8,7 +8,9 @@ export default {
     format: 'iife',
   },
   plugins: [
-    typescript(),
+    typescript({
+      module: 'ESNext',
+    }),
     terser({
       format: {
         quote_style: 1,
@@ -17,4 +19,5 @@ export default {
       },
     }),
   ],
+  external: ['lib/openrct2'],
 };
