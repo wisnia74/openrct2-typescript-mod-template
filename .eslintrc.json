@@ -28,7 +28,7 @@
   "settings": {
     "import/resolver": {
       "node": { "extensions": [".js"] },
-      "typescript": { "extensions": [".ts", ".d.ts"] }
+      "typescript": { "extensions": [".ts"] }
     }
   }
 }

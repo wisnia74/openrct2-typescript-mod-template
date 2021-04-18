@@ -19,5 +19,4 @@ export default {
       },
     }),
   ],
-  external: ['lib/openrct2'],
 };

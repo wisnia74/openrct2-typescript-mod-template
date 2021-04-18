@@ -1,5 +1,3 @@
-import 'lib/openrct2';
-
 export const isUiAvailable = typeof ui !== 'undefined';
 
 export const isParkFlagSet = (flag: ParkFlags): boolean => park.getFlag(flag);

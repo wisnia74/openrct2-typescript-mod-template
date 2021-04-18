@@ -1,4 +1,3 @@
-import 'lib/openrct2';
 import main from './main';
 
 registerPlugin({
