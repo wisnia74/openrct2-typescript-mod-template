@@ -1,3 +1,1 @@
-const path = require('path');
-
-module.exports = path.resolve(__dirname).replace(/\\/g, '/');
+// don't delete this file, that's an entrypoint for nodemon
