@@ -16,7 +16,6 @@
     "@typescript-eslint"
   ],
   "rules": {
-    "no-undef": 0,
     "max-len": ["error", { "code": 120 }],
     "import/extensions": ["error", "always", { "js": "never", "ts": "never" }],
     "import/no-extraneous-dependencies": ["error",
@@ -29,9 +28,17 @@
       }
     ]
   },
+  "overrides": [
+    {
+      "files": ["src/**/*.ts"],
+      "rules": {
+        "no-undef": "off"
+      }
+    }
+  ],
   "settings": {
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
+      "@typescript-eslint/parser": [".ts"]
     },
     "import/resolver": {
       "node": { "extensions": [".js"] },

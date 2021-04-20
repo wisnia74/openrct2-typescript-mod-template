@@ -2,10 +2,10 @@ import fs from 'fs';
 import path from 'path';
 
 const getResolvedPath = (relativePath: string): string => {
-  const currentDir = fs.realpathSync(process.cwd());
-  const pathResolvedRelatively = path.resolve(currentDir, relativePath);
+  const currentDir = process.cwd();
+  const pathResolvedRelatively = path.join(currentDir, relativePath);
 
-  if (!fs.existsSync(pathResolvedRelatively)) throw new Error(`${pathResolvedRelatively} doesn't exist.`);
+  if (!fs.existsSync(pathResolvedRelatively)) throw new Error(`${pathResolvedRelatively} does not exist.`);
 
   return pathResolvedRelatively;
 };

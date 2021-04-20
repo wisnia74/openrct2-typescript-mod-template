@@ -4,5 +4,9 @@
     "module": "commonjs",
     "baseUrl": "./",
     "esModuleInterop": true,
-  }
+  },
+  "include": [
+    "lib/**/*.ts",
+    "src/**/*.ts"
+  ]
 }
