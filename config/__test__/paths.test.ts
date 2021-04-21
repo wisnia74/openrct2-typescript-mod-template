@@ -35,6 +35,6 @@ describe('getProjectPaths function', () => {
 
   afterAll(() => {
     mockedFileSystem.restore();
-    jest.restoreAllMocks();
+    jest.clearAllMocks();
   });
 });

@@ -16,6 +16,7 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "no-undef": "error",
     "max-len": ["error", { "code": 120 }],
     "import/extensions": ["error", "always", { "js": "never", "ts": "never" }],
     "import/no-extraneous-dependencies": ["error",
