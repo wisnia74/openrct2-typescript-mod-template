@@ -10,7 +10,7 @@ export default {
   },
   plugins: [
     typescript({
-      module: 'ESNext',
+      module: 'ES2020',
     }),
     terser({
       format: {

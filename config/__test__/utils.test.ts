@@ -1,33 +1,34 @@
 import mockedFileSystem from 'mock-fs';
-import getResolvedPath from '../utils';
+import * as Utils from '../utils';
 
-describe('getResolvedPath function', () => {
+describe('utility functions', () => {
   beforeAll(() => {
     mockedFileSystem({
       'FakeDisk:': {
-        fakeProjectDir: {
-          fakeExistingDir: {
-            fakeExistingSubDir: {},
-          },
-        },
+        fakeProjectDir: mockedFileSystem.load(`${process.cwd()}`),
       },
     });
 
-    process.cwd = jest.fn().mockReturnValue('FakeDisk:\\fakeProjectDir');
+    process.cwd = jest.fn(() => 'FakeDisk:\\fakeProjectDir');
   });
 
-  it('returns full relative path to specified directory if it exists', () => {
-    const actualResult = getResolvedPath('fakeExistingDir/fakeExistingSubDir');
-    const expectedResult = 'FakeDisk:\\fakeProjectDir\\fakeExistingDir\\fakeExistingSubDir';
-
-    expect(actualResult).toStrictEqual(expectedResult);
+  describe('getResolvedPath', () => {
+    it('returns full relative path to specified directory', () => {
+      expect(Utils.getResolvedPath('config')).toStrictEqual('FakeDisk:\\fakeProjectDir\\config');
+    });
   });
 
-  it('throws an error if path that it tries to resolve doesn\'t exist', () => {
-    const wrappedFunc = () => getResolvedPath('fakeNotExistingDir');
-    const expectedError = new Error('FakeDisk:\\fakeProjectDir\\fakeNotExistingDir does not exist.');
-
-    expect(wrappedFunc).toThrow(expectedError);
+  describe('getProjectPaths', () => {
+    it('returns paths to important directories in the project', () => {
+      expect(Utils.getProjectPaths()).toMatchObject({
+        config: 'FakeDisk:\\fakeProjectDir\\config',
+        dist: 'FakeDisk:\\fakeProjectDir\\dist',
+        lib: 'FakeDisk:\\fakeProjectDir\\lib',
+        script: 'FakeDisk:\\fakeProjectDir\\script',
+        src: 'FakeDisk:\\fakeProjectDir\\src',
+        root: 'FakeDisk:\\fakeProjectDir',
+      });
+    });
   });
 
   afterAll(() => {

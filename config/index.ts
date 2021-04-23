@@ -1,3 +1,3 @@
-import paths from './paths';
+import { getProjectPaths } from './utils';
 
-export default paths;
+export default getProjectPaths();
