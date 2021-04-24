@@ -1,26 +1,23 @@
-import mockedFileSystem from 'mock-fs';
 import * as Utils from '../utils';
 
 describe('utility functions', () => {
   beforeAll(() => {
-    mockedFileSystem({
-      'FakeDisk:': {
-        fakeProjectDir: mockedFileSystem.load(`${process.cwd()}`),
-      },
-    });
-
-    process.cwd = jest.fn(() => 'FakeDisk:\\fakeProjectDir');
+    jest.spyOn(process, 'cwd').mockImplementation(() => 'FakeDisk:\\fakeProjectDir');
   });
 
   describe('getResolvedPath', () => {
     it('returns full relative path to specified directory', () => {
-      expect(Utils.getResolvedPath('config')).toStrictEqual('FakeDisk:\\fakeProjectDir\\config');
+      const result = Utils.getResolvedPath('config');
+
+      expect(result).toStrictEqual('FakeDisk:\\fakeProjectDir\\config');
     });
   });
 
   describe('getProjectPaths', () => {
     it('returns paths to important directories in the project', () => {
-      expect(Utils.getProjectPaths()).toMatchObject({
+      const result = Utils.getProjectPaths();
+
+      expect(result).toMatchObject({
         config: 'FakeDisk:\\fakeProjectDir\\config',
         dist: 'FakeDisk:\\fakeProjectDir\\dist',
         lib: 'FakeDisk:\\fakeProjectDir\\lib',
@@ -32,7 +29,6 @@ describe('utility functions', () => {
   });
 
   afterAll(() => {
-    mockedFileSystem.restore();
-    jest.clearAllMocks();
+    jest.restoreAllMocks();
   });
 });

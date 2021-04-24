@@ -5,7 +5,9 @@
     "jest": true
   },
   "extends": [
-    "airbnb-base"
+    "airbnb-base",
+    "plugin:import/recommended",
+    "plugin:jest/all"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -13,31 +15,33 @@
     "sourceType": "module"
   },
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "eslint-plugin-import",
+    "eslint-plugin-jest"
   ],
   "rules": {
     "no-undef": "error",
     "max-len": ["error", { "code": 120 }],
     "import/extensions": ["error", "always", { "js": "never", "ts": "never" }],
-    "import/no-extraneous-dependencies": ["error",
-      {
-        "devDependencies": [
-          "config/**/*.ts",
-          "script/**/*.ts",
-          "rollup.*.ts",
-          "jest.*.ts"
-        ]
-      }
-    ]
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": [
+        "config/**/*.ts",
+        "script/**/*.ts",
+        "rollup.*.ts",
+        "jest.*.ts"
+      ]
+    }],
+    "jest/no-hooks": "off",
+    "jest/prefer-expect-assertions": ["warn", {
+      "onlyFunctionsWithAsyncKeyword": true
+    }]
   },
-  "overrides": [
-    {
-      "files": ["src/**/*.ts"],
-      "rules": {
-        "no-undef": "off"
-      }
+  "overrides": [{
+    "files": ["src/**/*.ts"],
+    "rules": {
+      "no-undef": "off"
     }
-  ],
+  }],
   "settings": {
     "import/parsers": {
       "@typescript-eslint/parser": [".ts"]

@@ -1,6 +1,6 @@
 import fetch, { Response } from 'node-fetch';
 
-const fetchApiDeclarationFileData = async () => {
+export const fetchApiDeclarationFileData = async () => {
   const url = 'https://raw.githubusercontent.com/OpenRCT2/OpenRCT2/master/distribution/openrct2.d.ts';
   let data: Response;
 
