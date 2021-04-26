@@ -6,3 +6,8 @@ export type ProjectPaths = {
   src: string;
   root: string;
 };
+
+export type ParsedProcessArguments = {
+  [x: string]: unknown;
+  entrypoint: string;
+}

@@ -5,11 +5,11 @@
   "main": "",
   "scripts": {
     "start": "npm run watch",
-    "watch": "npm run build:dev -- -w",
-    "build": "npm run lint && rollup -c rollup.config.prod.ts",
-    "build:dev": "rollup -c rollup.config.dev.ts",
+    "watch": "npm run build:dev -- --watch",
+    "build": "npm run lint && rollup --config rollup.config.prod.ts",
+    "build:dev": "rollup --config rollup.config.dev.ts",
     "lint": "eslint . --ext js,ts",
-    "lint:fix": "eslint --ext js,ts --fix",
+    "lint:fix": "eslint . --ext js,ts --fix",
     "test": "jest"
   },
   "repository": {

@@ -7,7 +7,7 @@ export const fetchApiDeclarationFileData = async () => {
   try {
     data = await fetch(url);
   } catch (err) {
-    throw new Error('There was a problem when trying to fetch openrct2.d.ts API declaration file from OpenRCT2 GitHub');
+    throw new Error('Could not fetch openrct2.d.ts API declaration file from OpenRCT2 GitHub');
   }
 
   return data.text();

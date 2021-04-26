@@ -1,5 +1,20 @@
 import path from 'path';
-import { ProjectPaths } from './types';
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+import { ProjectPaths, ParsedProcessArguments } from './types';
+
+export const getProcessArguments = (): ParsedProcessArguments => {
+  const { argv } = yargs(hideBin(process.argv));
+
+  const parsedArgs = Object.keys(argv).reduce((acc, key) => {
+    if (key === '$0') acc.entrypoint = argv[key];
+    else if (key !== '_') acc[key] = argv[key];
+
+    return acc;
+  }, <ParsedProcessArguments>{});
+
+  return parsedArgs;
+};
 
 export const getResolvedPath = (relativePath: string): string => {
   const currentDir = process.cwd();

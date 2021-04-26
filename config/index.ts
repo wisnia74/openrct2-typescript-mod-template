@@ -1,3 +1,6 @@
-import { getProjectPaths } from './utils';
+import { getProcessArguments, getProjectPaths } from './utils';
 
-export default getProjectPaths();
+export default {
+  paths: getProjectPaths(),
+  ...getProcessArguments(),
+};

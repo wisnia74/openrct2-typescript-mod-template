@@ -1,8 +1,11 @@
 {
   "env": {
-    "es2021": true,
+    "es2020": true,
     "node": true,
     "jest": true
+  },
+  "globals": {
+    "node": true
   },
   "extends": [
     "airbnb-base",
@@ -23,21 +26,27 @@
     "no-undef": "error",
     "max-len": ["error", { "code": 120 }],
     "import/extensions": ["error", "always", { "js": "never", "ts": "never" }],
-    "import/no-extraneous-dependencies": ["error", {
-      "devDependencies": [
-        "config/**/*.ts",
-        "script/**/*.ts",
-        "rollup.*.ts",
-        "jest.*.ts"
-      ]
-    }],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "config/**/*.ts",
+          "script/**/*.ts",
+          "rollup.*.ts",
+          "jest.*.ts"
+        ]
+      }
+    ],
     "jest/no-hooks": "off",
-    "jest/prefer-expect-assertions": ["warn", {
-      "onlyFunctionsWithAsyncKeyword": true
-    }]
+    "jest/prefer-expect-assertions": [
+      "warn",
+      {
+        "onlyFunctionsWithAsyncKeyword": true
+      }
+    ]
   },
   "overrides": [{
-    "files": ["src/**/*.ts"],
+    "files": ["*.ts"],
     "rules": {
       "no-undef": "off"
     }
