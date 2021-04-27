@@ -1,32 +1,47 @@
 import mockedFileSystem from 'mock-fs';
 import * as Utils from '../utils';
 
+class ProcessArgv {
+  private static realProcessArgv: string[] = process.argv;
+
+  static mockReturnValue(arr: string[]) {
+    process.argv = arr;
+  }
+
+  static restore() {
+    process.argv = this.realProcessArgv;
+  }
+}
+
 describe('utility functions', () => {
-  beforeAll(() => {
-    mockedFileSystem({
-      'FakeDisk:': {
-        FakeProjectDir: {
-          config: {},
-          dist: {},
-          lib: {},
-          script: {},
-          src: {},
-        },
-      },
+  describe('getProcessArguments', () => {
+    beforeAll(() => {
+      ProcessArgv.mockReturnValue(['Path\\To\\Node.exe', 'Path\\To\\Script.js', '--flag', 'value']);
     });
 
-    jest.spyOn(process, 'cwd').mockImplementation(() => 'FakeDisk:\\FakeProjectDir');
-  });
+    afterAll(() => {
+      ProcessArgv.restore();
+    });
 
-  afterAll(() => {
-    jest.restoreAllMocks();
-  });
+    it('returns object holding process arguments', () => {
+      const result = Utils.getProcessArguments();
 
-  describe('getProcessArguments', () => {
-    it.todo('returns object holding process arguments');
+      expect(result).toStrictEqual({
+        entrypoint: 'Path\\To\\Node.exe',
+        flag: 'value',
+      });
+    });
   });
 
   describe('getResolvedPath', () => {
+    beforeAll(() => {
+      jest.spyOn(process, 'cwd').mockImplementation(() => 'FakeDisk:\\FakeProjectDir');
+    });
+
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
     it('returns full relative path to specified directory', () => {
       const result = Utils.getResolvedPath('config');
 
@@ -35,10 +50,31 @@ describe('utility functions', () => {
   });
 
   describe('getProjectPaths', () => {
+    beforeAll(() => {
+      mockedFileSystem({
+        'FakeDisk:': {
+          FakeProjectDir: {
+            config: {},
+            dist: {},
+            lib: {},
+            script: {},
+            src: {},
+          },
+        },
+      });
+
+      jest.spyOn(process, 'cwd').mockImplementation(() => 'FakeDisk:\\FakeProjectDir');
+    });
+
+    afterAll(() => {
+      mockedFileSystem.restore();
+      jest.restoreAllMocks();
+    });
+
     it('returns paths to important directories in the project', () => {
       const result = Utils.getProjectPaths();
 
-      expect(result).toMatchObject({
+      expect(result).toStrictEqual({
         config: 'FakeDisk:\\FakeProjectDir\\config',
         dist: 'FakeDisk:\\FakeProjectDir\\dist',
         lib: 'FakeDisk:\\FakeProjectDir\\lib',
