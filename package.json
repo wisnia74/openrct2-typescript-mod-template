@@ -24,6 +24,7 @@
   "homepage": "https://github.com/wisnia74/openrct2-typescript-mod-template#readme",
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.2.0",
+    "@tsconfig/node14": "^1.0.0",
     "@types/jest": "^26.0.22",
     "@types/mock-fs": "^4.13.0",
     "@types/node-fetch": "^2.5.10",
@@ -34,7 +35,7 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^24.3.5",
+    "eslint-plugin-jest": "^24.3.6",
     "jest": "^26.6.3",
     "mock-fs": "^4.14.0",
     "node-fetch": "^2.6.1",

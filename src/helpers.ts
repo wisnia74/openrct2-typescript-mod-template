@@ -20,4 +20,4 @@ export const getEntertainers = (): Staff[] => getStaff().filter(isEntertainer);
 
 export const hasPaidForParkEntry = (peep: Peep): boolean => peep.getFlag('hasPaidForParkEntry');
 
-export const setTickInterval = (cb: Function): IDisposable => context.subscribe('interval.tick', cb);
+export const setTickInterval = (cb: <T extends unknown[], R = unknown>(args?: T) => R): IDisposable => context.subscribe('interval.tick', cb);
