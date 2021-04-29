@@ -1,33 +1,55 @@
+import mockFs from 'mock-fs';
+import fs from 'fs';
 import * as Fetch from 'node-fetch';
 import * as Utils from '../utils';
 
-describe('utility functions', () => {
+jest.mock('config', () => ({
+  paths: {
+    config: 'FakeDisk:\\FakeProjectDir\\config',
+    dist: 'FakeDisk:\\FakeProjectDir\\dist',
+    lib: 'FakeDisk:\\FakeProjectDir\\lib',
+    script: 'FakeDisk:\\FakeProjectDir\\script',
+    src: 'FakeDisk:\\FakeProjectDir\\src',
+    root: 'FakeDisk:\\FakeProjectDir',
+  },
+  entrypoint: 'Path\\To\\Node.exe',
+  flag: 'value',
+}));
+
+describe('script utility functions', () => {
   describe('fetchApiDeclarationFileData', () => {
-    beforeAll(() => {
-      jest.spyOn(Fetch, 'default')
-        .mockImplementationOnce(() => Promise.resolve(new Fetch.Response('test')))
-        .mockImplementationOnce(() => Promise.reject(new Error('timeout')));
-    });
-
-    afterAll(() => {
-      jest.restoreAllMocks();
-    });
-
-    it('fetches openrct2.d.ts API declaration file data from OpenRCT2 GitHub if there was no error', async () => {
+    it('fetches openrct2.d.ts API declaration file data from OpenRCT2 GitHub as string', async () => {
       expect.assertions(1);
 
-      const promise = Utils.fetchApiDeclarationFileData();
+      jest.spyOn(Fetch, 'default').mockResolvedValueOnce(new Fetch.Response('test'));
 
-      await expect(promise).resolves.toStrictEqual('test');
+      await expect(Utils.fetchApiDeclarationFileData()).resolves.toStrictEqual('test');
     });
 
     it('handles error if one was thrown', async () => {
       expect.assertions(1);
 
-      const promise = Utils.fetchApiDeclarationFileData();
-      const expectedError = new Error('Could not fetch openrct2.d.ts API declaration file from OpenRCT2 GitHub');
+      jest.spyOn(Fetch, 'default').mockRejectedValueOnce(new Error('timeout'));
 
-      await expect(promise).rejects.toThrow(expectedError);
+      await expect(Utils.fetchApiDeclarationFileData()).rejects.toThrow(new Error('Could not fetch openrct2.d.ts API declaration file from OpenRCT2 GitHub'));
+    });
+  });
+
+  describe('createReadmeInLib', () => {
+    it('creates a README.md in lib directory', () => {
+      mockFs({
+        'FakeDisk:': {
+          FakeProjectDir: {
+            lib: {},
+          },
+        },
+      });
+
+      Utils.createReadmeFileInLib('test');
+
+      expect(fs.readFileSync('FakeDisk:\\FakeProjectDir\\lib\\README.md').toString()).toStrictEqual('test');
+
+      mockFs.restore();
     });
   });
 });

@@ -23,7 +23,12 @@
   ],
   "rules": {
     "import/extensions": 0,
-    "jest/no-hooks": 0,
+    "jest/no-hooks": [
+      1,
+      {
+        "allow": ["beforeEach"]
+      }
+    ],
     "jest/prefer-expect-assertions": [
       "warn",
       { "onlyFunctionsWithAsyncKeyword": true }
@@ -43,7 +48,8 @@
     },
     "import/resolver": {
       "typescript": {
-        "alwaysTryTypes": true
+        "alwaysTryTypes": true,
+        "extensions": [".ts", ".tsx"]
       }
     }
   }

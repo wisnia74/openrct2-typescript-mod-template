@@ -1,7 +1,7 @@
 import path from 'path';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import { ProjectPaths, ParsedProcessArguments } from './types';
+import type { ProjectPaths, ParsedProcessArguments } from './types';
 
 export const getProcessArguments = (): ParsedProcessArguments => {
   const { argv } = yargs(hideBin(process.argv));

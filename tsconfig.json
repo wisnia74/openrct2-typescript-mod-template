@@ -4,12 +4,6 @@
     "esModuleInterop": true,
     "baseUrl": ".",
   },
-  "include": [
-    "config/**/*.ts",
-    "lib/**/*.ts",
-    "script/**/*.ts",
-    "src/**/*.ts",
-  ],
   "exclude": [
     "node_modules"
   ]

@@ -1,4 +1,7 @@
+import fs from 'fs';
+import path from 'path';
 import fetch, { Response } from 'node-fetch';
+import config from 'config';
 
 export const fetchApiDeclarationFileData = async (): Promise<string> => {
   const url = 'https://raw.githubusercontent.com/OpenRCT2/OpenRCT2/master/distribution/openrct2.d.ts';
@@ -13,4 +16,4 @@ export const fetchApiDeclarationFileData = async (): Promise<string> => {
   return data.text();
 };
 
-export default fetchApiDeclarationFileData;
+export const createReadmeFileInLib = (text: string): void => fs.writeFileSync(path.join(config.paths.lib, 'README.md'), text);
