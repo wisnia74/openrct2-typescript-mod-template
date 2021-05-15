@@ -26,7 +26,7 @@
     "jest/no-hooks": [
       1,
       {
-        "allow": ["beforeEach"]
+        "allow": ["afterAll"]
       }
     ],
     "jest/prefer-expect-assertions": [

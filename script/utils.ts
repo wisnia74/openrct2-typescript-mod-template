@@ -1,5 +1,5 @@
-import fs from 'fs';
 import path from 'path';
+import fs from 'fs';
 import fetch, { Response } from 'node-fetch';
 import config from 'config';
 
@@ -16,4 +16,8 @@ export const fetchApiDeclarationFileData = async (): Promise<string> => {
   return data.text();
 };
 
-export const createReadmeFileInLib = (text: string): void => fs.writeFileSync(path.join(config.paths.lib, 'README.md'), text);
+export const createApiDeclarationFile = async (): Promise<void> => {
+  const data = await fetchApiDeclarationFileData();
+
+  fs.writeFileSync(path.join(config.paths.lib, 'openrct2.d.ts'), data);
+};
