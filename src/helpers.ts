@@ -1,5 +1,3 @@
-/// <reference path="../lib/openrct2.d.ts" />
-
 export const isUiAvailable = typeof ui !== 'undefined';
 
 export const isParkFlagSet = (flag: ParkFlags): boolean => park.getFlag(flag);
@@ -22,4 +20,4 @@ export const getEntertainers = (): Staff[] => getStaff().filter(isEntertainer);
 
 export const hasPaidForParkEntry = (peep: Peep): boolean => peep.getFlag('hasPaidForParkEntry');
 
-export const setTickInterval = (cb: Function): IDisposable => context.subscribe('interval.tick', cb);
+export const setTickInterval = (cb: <T extends unknown[], R = unknown>(args?: T) => R): IDisposable => context.subscribe('interval.tick', cb);

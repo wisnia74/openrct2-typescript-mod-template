@@ -1,33 +1,56 @@
 {
   "env": {
-    "browser": true,
-    "es6": true,
-    "node": true
+    "es2021": true,
+    "node": true,
+    "jest": true
   },
   "extends": [
-    "airbnb-base"
+    "airbnb-base",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:eslint-plugin-jest/all"
   ],
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 11,
+    "ecmaVersion": 2021,
     "sourceType": "module"
   },
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "eslint-plugin-import",
+    "eslint-plugin-jest"
   ],
   "rules": {
-    "no-undef": 0,
-    "spaced-comment": 0,
-    "max-len": ["error", { "code": 120 }],
-    "import/extensions": ["error", "always", { "js": "never", "ts": "never" }]
+    "import/extensions": 0,
+    "jest/no-hooks": [
+      1,
+      {
+        "allow": ["afterAll"]
+      }
+    ],
+    "jest/prefer-expect-assertions": [
+      "warn",
+      { "onlyFunctionsWithAsyncKeyword": true }
+    ]
   },
+  "overrides": [
+    {
+      "files": ["script/**/*.ts", "config/**/*.ts", "rollup.*.ts"],
+      "rules": {
+        "import/no-extraneous-dependencies": 0
+      }
+    }
+  ],
   "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
     "import/resolver": {
-      "node": { "extensions": [".js", ".ts"] }
+      "typescript": {
+        "alwaysTryTypes": true,
+        "extensions": [".ts", ".tsx"]
+      }
     }
   }
 }

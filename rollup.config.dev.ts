@@ -1,14 +1,17 @@
+import path from 'path';
 import typescript from '@rollup/plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
 
 export default {
-  input: './src/registerPlugin.ts',
+  input: path.resolve('.', 'src', 'registerPlugin.ts'),
   output: {
-    file: './dist/MOD_NAME.js',
+    file: path.resolve('PATH_TO_OPENRCT2', 'plugin', 'MOD_NAME.js'),
     format: 'iife',
   },
   plugins: [
-    typescript(),
+    typescript({
+      module: 'ES2020',
+    }),
     terser({
       format: {
         quote_style: 1,
