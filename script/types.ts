@@ -1,4 +1,4 @@
 export type SearchReplaceValuePair = {
-  searchValue: RegExp,
-  replaceValue: string,
+  searchValue: RegExp;
+  replaceValue: string;
 };

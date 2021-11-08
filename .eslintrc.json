@@ -1,44 +1,53 @@
 {
+  "root": true,
   "env": {
     "es2021": true,
+    "browser": true,
     "node": true,
     "jest": true
   },
-  "extends": [
-    "airbnb-base",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:eslint-plugin-jest/all"
-  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2021,
     "sourceType": "module"
   },
-  "plugins": [
-    "@typescript-eslint",
-    "eslint-plugin-import",
-    "eslint-plugin-jest"
+  "extends": [
+    "eslint:recommended",
+    "airbnb-base",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "plugin:jest/all",
+    "plugin:prettier/recommended"
   ],
+  "plugins": ["@typescript-eslint", "import", "jest", "prettier"],
   "rules": {
-    "import/extensions": 0,
-    "jest/no-hooks": [
-      1,
+    "import/extensions": "off",
+    "max-len": [
+      "error",
       {
-        "allow": ["afterAll"]
+        "code": 120,
+        "tabWidth": 2,
+        "ignoreComments": true,
+        "ignoreUrls": true
       }
     ],
-    "jest/prefer-expect-assertions": [
-      "warn",
-      { "onlyFunctionsWithAsyncKeyword": true }
-    ]
+    "prettier/prettier": "error",
+    "jest/prefer-expect-assertions": ["error", { "onlyFunctionsWithAsyncKeyword": true }],
+    "jest/require-hook": "off"
   },
+
   "overrides": [
     {
       "files": ["script/**/*.ts", "config/**/*.ts", "rollup.*.ts"],
       "rules": {
         "import/no-extraneous-dependencies": 0
+      }
+    },
+    {
+      "files": ["**/*.test.ts"],
+      "rules": {
+        "jest/require-hook": "error"
       }
     }
   ],

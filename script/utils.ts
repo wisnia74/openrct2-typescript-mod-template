@@ -25,7 +25,7 @@ export const createApiDeclarationFile = async (): Promise<void> => {
 
 export const replaceDataInFiles = (
   filepaths: fs.PathLike[],
-  searchReplaceValuePairs: SearchReplaceValuePair[],
+  searchReplaceValuePairs: SearchReplaceValuePair[]
 ): void => {
   filepaths.forEach((filepath) => {
     const fileContent = fs.readFileSync(filepath).toString();

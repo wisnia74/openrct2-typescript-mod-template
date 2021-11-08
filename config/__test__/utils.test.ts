@@ -1,20 +1,27 @@
 import * as Utils from '../utils';
 
-describe('getProcessArguments', () => {
-  class ProcessArgv {
-    private static realProcessArgv: string[] = process.argv;
+class ProcessArgv {
+  private static realProcessArgv: string[] = process.argv;
 
-    static mockReturnValue(arr: string[]) {
-      process.argv = arr;
-    }
-
-    static restore() {
-      process.argv = this.realProcessArgv;
-    }
+  static mockReturnValue(arr: string[]) {
+    process.argv = arr;
   }
 
+  static restore() {
+    process.argv = this.realProcessArgv;
+  }
+}
+
+describe('getProcessArguments', () => {
   it('returns object holding process arguments', () => {
-    ProcessArgv.mockReturnValue(['Path\\To\\Node.exe', 'Path\\To\\Script.js', '--flag1', 'value1', '--flag2', 'value2']);
+    ProcessArgv.mockReturnValue([
+      'Path\\To\\Node.exe',
+      'Path\\To\\Script.js',
+      '--flag1',
+      'value1',
+      '--flag2',
+      'value2',
+    ]);
 
     expect(Utils.getProcessArguments()).toStrictEqual({
       entrypoint: 'Path\\To\\Node.exe',
@@ -31,7 +38,7 @@ describe('getResolvedPath', () => {
     jest.spyOn(process, 'cwd').mockReturnValue('FakeDisk:\\FakeProjectDir');
 
     const path = Utils.getResolvedPath('config');
-    expect(path).toStrictEqual('FakeDisk:\\FakeProjectDir\\config');
+    expect(path).toBe('FakeDisk:\\FakeProjectDir\\config');
 
     jest.restoreAllMocks();
   });

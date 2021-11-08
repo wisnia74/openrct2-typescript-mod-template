@@ -19,7 +19,7 @@ describe('fetchApiDeclarationFileData', () => {
 
     jest.spyOn(Fetch, 'default').mockResolvedValue(new Fetch.Response('data'));
 
-    await expect(Utils.fetchApiDeclarationFileData()).resolves.toStrictEqual('data');
+    await expect(Utils.fetchApiDeclarationFileData()).resolves.toBe('data');
 
     jest.restoreAllMocks();
   });
@@ -29,7 +29,9 @@ describe('fetchApiDeclarationFileData', () => {
 
     jest.spyOn(Fetch, 'default').mockRejectedValue(new Error('timeout'));
 
-    await expect(Utils.fetchApiDeclarationFileData()).rejects.toThrow(new Error('Could not fetch openrct2.d.ts API declaration file from OpenRCT2 GitHub'));
+    await expect(Utils.fetchApiDeclarationFileData()).rejects.toThrow(
+      new Error('Could not fetch openrct2.d.ts API declaration file from OpenRCT2 GitHub')
+    );
 
     jest.restoreAllMocks();
   });
@@ -70,14 +72,11 @@ describe('replaceDataInFiles', () => {
     jest.spyOn(fs, 'writeFileSync').mockImplementation();
 
     Utils.replaceDataInFiles(
+      ['FakeDisk:\\FakeProjectDir\\config', 'FakeDisk:\\FakeProjectDir\\src'],
       [
-        'FakeDisk:\\FakeProjectDir\\config',
-        'FakeDisk:\\FakeProjectDir\\src',
-      ],
-      [
-        { searchValue: /searchValue1/, replaceValue: 'replaceValue1'},
-        { searchValue: /searchValue2/, replaceValue: 'replaceValue2'},
-      ],
+        { searchValue: /searchValue1/, replaceValue: 'replaceValue1' },
+        { searchValue: /searchValue2/, replaceValue: 'replaceValue2' },
+      ]
     );
 
     expect(fs.readFileSync).toHaveBeenCalledTimes(2);
@@ -87,24 +86,29 @@ describe('replaceDataInFiles', () => {
     jest.restoreAllMocks();
   });
 
-  it('calls fs.writeFileSync correct amount of times, each time with correct filepath and file data that has been modified', () => {
+  it('calls fs.writeFileSync correct amount of times, each time with correct filepath and file data', () => {
     jest.spyOn(fs, 'readFileSync').mockImplementation(() => Buffer.from('searchValue1\nsearchValue2'));
     jest.spyOn(fs, 'writeFileSync').mockImplementation();
 
     Utils.replaceDataInFiles(
+      ['FakeDisk:\\FakeProjectDir\\config', 'FakeDisk:\\FakeProjectDir\\src'],
       [
-        'FakeDisk:\\FakeProjectDir\\config',
-        'FakeDisk:\\FakeProjectDir\\src',
-      ],
-      [
-        { searchValue: /searchValue1/, replaceValue: 'replaceValue1'},
-        { searchValue: /searchValue2/, replaceValue: 'replaceValue2'},
-      ],
+        { searchValue: /searchValue1/, replaceValue: 'replaceValue1' },
+        { searchValue: /searchValue2/, replaceValue: 'replaceValue2' },
+      ]
     );
 
     expect(fs.writeFileSync).toHaveBeenCalledTimes(2);
-    expect(fs.writeFileSync).toHaveBeenNthCalledWith(1, 'FakeDisk:\\FakeProjectDir\\config', 'replaceValue1\nreplaceValue2');
-    expect(fs.writeFileSync).toHaveBeenNthCalledWith(2, 'FakeDisk:\\FakeProjectDir\\src', 'replaceValue1\nreplaceValue2');
+    expect(fs.writeFileSync).toHaveBeenNthCalledWith(
+      1,
+      'FakeDisk:\\FakeProjectDir\\config',
+      'replaceValue1\nreplaceValue2'
+    );
+    expect(fs.writeFileSync).toHaveBeenNthCalledWith(
+      2,
+      'FakeDisk:\\FakeProjectDir\\src',
+      'replaceValue1\nreplaceValue2'
+    );
 
     jest.restoreAllMocks();
   });

@@ -1,8 +1,3 @@
-export const isUiAvailable = typeof ui !== 'undefined';
-
-export const isParkFlagSet = (flag: ParkFlags): boolean => park.getFlag(flag);
-export const isParkEntranceFree = (): boolean => park.entranceFee === 0;
-
 export const isGuest = (peep: Peep): peep is Guest => peep.peepType === 'guest';
 export const isStaff = (peep: Peep): peep is Staff => peep.peepType === 'staff';
 export const isHandyman = (staff: Staff): boolean => staff.staffType === 'handyman';
@@ -17,7 +12,3 @@ export const getHandymen = (): Staff[] => getStaff().filter(isHandyman);
 export const getMechanics = (): Staff[] => getStaff().filter(isMechanic);
 export const getSecurity = (): Staff[] => getStaff().filter(isSecurity);
 export const getEntertainers = (): Staff[] => getStaff().filter(isEntertainer);
-
-export const hasPaidForParkEntry = (peep: Peep): boolean => peep.getFlag('hasPaidForParkEntry');
-
-export const setTickInterval = (cb: <T extends unknown[], R = unknown>(args?: T) => R): IDisposable => context.subscribe('interval.tick', cb);

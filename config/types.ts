@@ -10,10 +10,10 @@ export type ProjectPaths = {
 export type ParsedProcessArguments = {
   [x: string]: unknown;
   entrypoint: string;
-}
+};
 
 export type ProjectConfig = {
-  paths: ProjectPaths,
-  entrypoint: string,
-  [x: string]: unknown,
+  paths: ProjectPaths;
+  entrypoint: string;
+  [x: string]: unknown;
 };

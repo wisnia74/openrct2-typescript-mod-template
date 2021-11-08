@@ -1,15 +1,7 @@
-import hello from './hello';
-import {
-  getPeeps,
-  getStaff,
-  getHandymen,
-  getMechanics,
-  getSecurity,
-  getEntertainers,
-} from './helpers';
+import { getPeeps, getStaff, getHandymen, getMechanics, getSecurity, getEntertainers } from './helpers';
 
 const main = (): void => {
-  console.log(`${hello()} Your plug-in has started!`);
+  console.log(`Hello stranger! Your plug-in has started!`);
 
   console.log(`In your park, there are currently ${getPeeps().length} peeps`);
   console.log(`${getStaff().length} of them is your staff.`);
