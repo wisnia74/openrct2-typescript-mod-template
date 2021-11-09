@@ -35,18 +35,11 @@ export const replaceTextInFile = (filepath: fs.PathLike, searchReplaceValuePairs
   fs.writeFileSync(filepath, modifiedContent);
 };
 
-// export const replaceDataInFiles = (
-//   filepaths: fs.PathLike[],
-//   searchReplaceValuePairs: SearchReplaceValuePair[]
-// ): void => {
-//   filepaths.forEach((filepath) => {
-//     const fileContent = fs.readFileSync(filepath).toString();
-//     let modifiedFileContent = fileContent;
-
-//     searchReplaceValuePairs.forEach(({ searchValue, replaceValue }) => {
-//       modifiedFileContent = modifiedFileContent.replace(searchValue, replaceValue);
-//     });
-
-//     fs.writeFileSync(filepath, modifiedFileContent);
-//   });
-// };
+export const replaceTextInFiles = (
+  filepaths: fs.PathLike[],
+  searchReplaceValuePairs: SearchReplaceValuePair[]
+): void => {
+  filepaths.forEach((filepath) => {
+    replaceTextInFile(filepath, searchReplaceValuePairs);
+  });
+};

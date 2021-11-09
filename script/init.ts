@@ -40,7 +40,7 @@ const init = (): void => {
 
   const modNameRegex = /MOD_NAME/g;
   const modAuthorRegex = /MOD_AUTHOR/g;
-  const templateAuthorRegex = /wisnia74(?!\/)/g;
+  const templateAuthorRegex = /(?<!https:\/\/github\.com\/)wisnia74(?!\/openrct2-typescript-mod-template)/g;
   const gamePathRegex = /PATH_TO_OPENRCT2/g;
 
   const filePathsToEdit = [
@@ -52,30 +52,24 @@ const init = (): void => {
     path.join(config.paths.src, 'registerPlugin.ts'),
   ];
 
-  console.log(cleanModUrl, repositoryName, templateAuthorRegex);
-
-  // const filePathsToRemove = [path.join(config.paths.script, 'init.ts'), path.join(config.paths.script, 'utils.ts')];
-
-  filePathsToEdit.forEach((filepath) => {
-    Utils.replaceTextInFile(filepath, [
-      {
-        searchValue: modNameRegex,
-        replaceValue: modName,
-      },
-      {
-        searchValue: modAuthorRegex,
-        replaceValue: modAuthor,
-      },
-      {
-        searchValue: gamePathRegex,
-        replaceValue: gamePath,
-      },
-      {
-        searchValue: templateAuthorRegex,
-        replaceValue: modAuthor,
-      },
-    ]);
-  });
+  Utils.replaceTextInFiles(filePathsToEdit, [
+    {
+      searchValue: modNameRegex,
+      replaceValue: modName,
+    },
+    {
+      searchValue: modAuthorRegex,
+      replaceValue: modAuthor,
+    },
+    {
+      searchValue: gamePathRegex,
+      replaceValue: gamePath,
+    },
+    {
+      searchValue: templateAuthorRegex,
+      replaceValue: modAuthor,
+    },
+  ]);
 };
 
 init();

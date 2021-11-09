@@ -118,3 +118,29 @@ describe('replaceTextInFile', () => {
     jest.restoreAllMocks();
   });
 });
+
+describe('replaceTextInFiles', () => {
+  it('calls Utils.replaceTextInFile correct amount of times, each time with correct filepath', () => {
+    jest.spyOn(Utils, 'replaceTextInFile').mockImplementation(jest.fn);
+
+    Utils.replaceTextInFiles(
+      ['FakeDisk:\\FakeProjectDir\\file1.txt', 'FakeDisk:\\FakeProjectDir\\file2.txt'],
+      [
+        { searchValue: /searchValue1/, replaceValue: 'replaceValue1' },
+        { searchValue: /searchValue2/, replaceValue: 'replaceValue2' },
+      ]
+    );
+
+    expect(Utils.replaceTextInFile).toHaveBeenCalledTimes(2);
+    expect(Utils.replaceTextInFile).toHaveBeenNthCalledWith(1, 'FakeDisk:\\FakeProjectDir\\file1.txt', [
+      { searchValue: /searchValue1/, replaceValue: 'replaceValue1' },
+      { searchValue: /searchValue2/, replaceValue: 'replaceValue2' },
+    ]);
+    expect(Utils.replaceTextInFile).toHaveBeenNthCalledWith(2, 'FakeDisk:\\FakeProjectDir\\file2.txt', [
+      { searchValue: /searchValue1/, replaceValue: 'replaceValue1' },
+      { searchValue: /searchValue2/, replaceValue: 'replaceValue2' },
+    ]);
+
+    jest.restoreAllMocks();
+  });
+});
