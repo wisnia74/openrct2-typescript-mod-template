@@ -3,13 +3,14 @@ import * as Fetch from 'node-fetch';
 import * as Utils from '../utils';
 
 jest.mock('config', () => ({
+  entrypoint: 'Path\\To\\Node.exe',
   paths: {
     config: 'FakeDisk:\\FakeProjectDir\\config',
     dist: 'FakeDisk:\\FakeProjectDir\\dist',
     lib: 'FakeDisk:\\FakeProjectDir\\lib',
     script: 'FakeDisk:\\FakeProjectDir\\script',
     src: 'FakeDisk:\\FakeProjectDir\\src',
-    root: 'FakeDisk:\\FakeProjectDir\\root',
+    root: 'FakeDisk:\\FakeProjectDir\\.',
   },
 }));
 
@@ -42,6 +43,7 @@ describe('createApiDeclarationFile', () => {
     expect.assertions(1);
 
     jest.spyOn(Utils, 'fetchApiDeclarationFileData').mockResolvedValue('data');
+    jest.spyOn(fs, 'mkdirSync').mockImplementation();
     jest.spyOn(fs, 'writeFileSync').mockImplementation();
 
     await Utils.createApiDeclarationFile();
@@ -51,10 +53,26 @@ describe('createApiDeclarationFile', () => {
     jest.restoreAllMocks();
   });
 
+  it('calls fs.mkdirSync to create a lib directory', async () => {
+    expect.assertions(2);
+
+    jest.spyOn(Utils, 'fetchApiDeclarationFileData').mockResolvedValue('data');
+    jest.spyOn(fs, 'mkdirSync').mockImplementation();
+    jest.spyOn(fs, 'writeFileSync').mockImplementation();
+
+    await Utils.createApiDeclarationFile();
+
+    expect(fs.mkdirSync).toHaveBeenCalledTimes(1);
+    expect(fs.mkdirSync).toHaveBeenCalledWith('FakeDisk:\\FakeProjectDir\\lib');
+
+    jest.restoreAllMocks();
+  });
+
   it('calls fs.writeFileSync to save a file with fetched openrct2.d.ts', async () => {
     expect.assertions(2);
 
     jest.spyOn(Utils, 'fetchApiDeclarationFileData').mockResolvedValue('data');
+    jest.spyOn(fs, 'mkdirSync').mockImplementation();
     jest.spyOn(fs, 'writeFileSync').mockImplementation();
 
     await Utils.createApiDeclarationFile();
@@ -66,22 +84,18 @@ describe('createApiDeclarationFile', () => {
   });
 });
 
-describe('replaceDataInFiles', () => {
+describe('replaceTextInFile', () => {
   it('calls fs.readFileSync correct amount of times, each time with correct filepath', () => {
     jest.spyOn(fs, 'readFileSync').mockImplementation(() => Buffer.from('data'));
     jest.spyOn(fs, 'writeFileSync').mockImplementation();
 
-    Utils.replaceDataInFiles(
-      ['FakeDisk:\\FakeProjectDir\\config', 'FakeDisk:\\FakeProjectDir\\src'],
-      [
-        { searchValue: /searchValue1/, replaceValue: 'replaceValue1' },
-        { searchValue: /searchValue2/, replaceValue: 'replaceValue2' },
-      ]
-    );
+    Utils.replaceTextInFile('FakeDisk:\\FakeProjectDir\\file.txt', [
+      { searchValue: /searchValue1/, replaceValue: 'replaceValue1' },
+      { searchValue: /searchValue2/, replaceValue: 'replaceValue2' },
+    ]);
 
-    expect(fs.readFileSync).toHaveBeenCalledTimes(2);
-    expect(fs.readFileSync).toHaveBeenNthCalledWith(1, 'FakeDisk:\\FakeProjectDir\\config');
-    expect(fs.readFileSync).toHaveBeenNthCalledWith(2, 'FakeDisk:\\FakeProjectDir\\src');
+    expect(fs.readFileSync).toHaveBeenCalledTimes(1);
+    expect(fs.readFileSync).toHaveBeenCalledWith('FakeDisk:\\FakeProjectDir\\file.txt');
 
     jest.restoreAllMocks();
   });
@@ -90,23 +104,14 @@ describe('replaceDataInFiles', () => {
     jest.spyOn(fs, 'readFileSync').mockImplementation(() => Buffer.from('searchValue1\nsearchValue2'));
     jest.spyOn(fs, 'writeFileSync').mockImplementation();
 
-    Utils.replaceDataInFiles(
-      ['FakeDisk:\\FakeProjectDir\\config', 'FakeDisk:\\FakeProjectDir\\src'],
-      [
-        { searchValue: /searchValue1/, replaceValue: 'replaceValue1' },
-        { searchValue: /searchValue2/, replaceValue: 'replaceValue2' },
-      ]
-    );
+    Utils.replaceTextInFile('FakeDisk:\\FakeProjectDir\\file.txt', [
+      { searchValue: /searchValue1/, replaceValue: 'replaceValue1' },
+      { searchValue: /searchValue2/, replaceValue: 'replaceValue2' },
+    ]);
 
-    expect(fs.writeFileSync).toHaveBeenCalledTimes(2);
-    expect(fs.writeFileSync).toHaveBeenNthCalledWith(
-      1,
-      'FakeDisk:\\FakeProjectDir\\config',
-      'replaceValue1\nreplaceValue2'
-    );
-    expect(fs.writeFileSync).toHaveBeenNthCalledWith(
-      2,
-      'FakeDisk:\\FakeProjectDir\\src',
+    expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
+    expect(fs.writeFileSync).toHaveBeenCalledWith(
+      'FakeDisk:\\FakeProjectDir\\file.txt',
       'replaceValue1\nreplaceValue2'
     );
 

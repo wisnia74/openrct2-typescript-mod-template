@@ -20,21 +20,33 @@ export const fetchApiDeclarationFileData = async (): Promise<string> => {
 export const createApiDeclarationFile = async (): Promise<void> => {
   const data = await fetchApiDeclarationFileData();
 
+  fs.mkdirSync(config.paths.lib);
   fs.writeFileSync(path.join(config.paths.lib, 'openrct2.d.ts'), data);
 };
 
-export const replaceDataInFiles = (
-  filepaths: fs.PathLike[],
-  searchReplaceValuePairs: SearchReplaceValuePair[]
-): void => {
-  filepaths.forEach((filepath) => {
-    const fileContent = fs.readFileSync(filepath).toString();
-    let modifiedFileContent = fileContent;
+export const replaceTextInFile = (filepath: fs.PathLike, searchReplaceValuePairs: SearchReplaceValuePair[]): void => {
+  const content = fs.readFileSync(filepath).toString();
+  let modifiedContent = content;
 
-    searchReplaceValuePairs.forEach(({ searchValue, replaceValue }) => {
-      modifiedFileContent = modifiedFileContent.replace(searchValue, replaceValue);
-    });
-
-    fs.writeFileSync(filepath, modifiedFileContent);
+  searchReplaceValuePairs.forEach(({ searchValue, replaceValue }) => {
+    modifiedContent = modifiedContent.replace(searchValue, replaceValue);
   });
+
+  fs.writeFileSync(filepath, modifiedContent);
 };
+
+// export const replaceDataInFiles = (
+//   filepaths: fs.PathLike[],
+//   searchReplaceValuePairs: SearchReplaceValuePair[]
+// ): void => {
+//   filepaths.forEach((filepath) => {
+//     const fileContent = fs.readFileSync(filepath).toString();
+//     let modifiedFileContent = fileContent;
+
+//     searchReplaceValuePairs.forEach(({ searchValue, replaceValue }) => {
+//       modifiedFileContent = modifiedFileContent.replace(searchValue, replaceValue);
+//     });
+
+//     fs.writeFileSync(filepath, modifiedFileContent);
+//   });
+// };
