@@ -52,6 +52,8 @@ const init = (): void => {
     path.join(config.paths.src, 'registerPlugin.ts'),
   ];
 
+  console.log(cleanModUrl, repositoryName, templateAuthorRegex);
+
   // const filePathsToRemove = [path.join(config.paths.script, 'init.ts'), path.join(config.paths.script, 'utils.ts')];
 
   filePathsToEdit.forEach((filepath) => {
@@ -71,3 +73,5 @@ const init = (): void => {
     ]);
   });
 };
+
+init();
