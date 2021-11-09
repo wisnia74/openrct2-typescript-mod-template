@@ -70,6 +70,10 @@ const init = (): void => {
         searchValue: gamePathRegex,
         replaceValue: gamePath,
       },
+      {
+        searchValue: templateAuthorRegex,
+        replaceValue: modAuthor,
+      },
     ]);
   });
 };

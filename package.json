@@ -6,12 +6,12 @@
   "scripts": {
     "start": "npm run watch",
     "watch": "npm run build:dev -- --watch",
-    "build": "rollup -r tsconfig-paths/register --config rollup.config.prod.ts",
+    "build": "rollup --config rollup.config.prod.ts",
     "build:dev": "rollup --config rollup.config.dev.ts",
     "lint": "eslint . --ext ts",
     "lint:fix": "eslint . --ext ts --fix",
     "test": "jest",
-    "init": "ts-node -r tsconfig-paths/register ./node_modules/rollup/bin/rollup.js"
+    "init": "ts-node -r tsconfig-paths/register ./node_modules/rollup/dist/bin/rollup"
   },
   "repository": {
     "type": "git",
