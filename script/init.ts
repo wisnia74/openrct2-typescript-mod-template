@@ -33,15 +33,14 @@ const getDataMatchedFromModUrl = (modUrl: string): RegExpMatchArray => {
 };
 
 const init = (): void => {
-  const modName = getModName();
-  const modUrl = getModUrl();
-  const gamePath = getGamePath();
+  const [modName, modUrl, gamePath] = [getModName(), getModUrl(), getGamePath()];
   const [cleanModUrl, modAuthor, repositoryName] = getDataMatchedFromModUrl(modUrl);
 
   const modNameRegex = /MOD_NAME/g;
   const modAuthorRegex = /MOD_AUTHOR/g;
   const templateAuthorRegex = /(?<!https:\/\/github\.com\/)wisnia74(?!\/openrct2-typescript-mod-template)/g;
   const gamePathRegex = /PATH_TO_OPENRCT2/g;
+  const licenseCopyrightRegex = /Copyright (c) 2020 wisnia74/;
 
   const filePathsToEdit = [
     path.join(config.paths.root, '.github', 'dependabot.yml'),
@@ -68,6 +67,10 @@ const init = (): void => {
     {
       searchValue: templateAuthorRegex,
       replaceValue: modAuthor,
+    },
+    {
+      searchValue: licenseCopyrightRegex,
+      replaceValue: `Copyright (c) ${new Date().getFullYear().toString()} ${modAuthor} `,
     },
   ]);
 };
