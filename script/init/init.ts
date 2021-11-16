@@ -83,7 +83,7 @@ const init = (): void => {
     return {
       ...modifiedContent,
       author: modAuthor,
-      name: modName,
+      name: repositoryName,
       homepage: `https://${cleanModUrl}/#readme`,
       bugs: {
         url: `https://${cleanModUrl}/issues`,
