@@ -11,7 +11,7 @@
     "lint": "eslint . --ext ts",
     "lint:fix": "eslint . --ext ts --fix",
     "test": "jest",
-    "init": "ts-node -r tsconfig-paths/register ./script/init.ts"
+    "init": "bash ./script/init/init.sh"
   },
   "repository": {
     "type": "git",

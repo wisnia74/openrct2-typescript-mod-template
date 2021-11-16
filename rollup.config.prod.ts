@@ -1,11 +1,12 @@
 import path from 'path';
+import process from 'process';
 import typescript from '@rollup/plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
 
 export default {
-  input: path.resolve('.', 'src', 'registerPlugin.ts'),
+  input: path.resolve(process.cwd(), 'src', 'registerPlugin.ts'),
   output: {
-    file: path.resolve('.', 'dist', 'MOD_NAME.js'),
+    file: path.resolve(process.cwd(), 'dist', 'MOD_NAME.js'),
     format: 'iife',
   },
   plugins: [

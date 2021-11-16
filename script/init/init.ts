@@ -1,6 +1,6 @@
 import config from 'config';
 import path from 'path';
-import * as Utils from './utils';
+import * as Utils from '../utils';
 
 const getModName = (): string => {
   if (!config.modName) throw new Error('--modName flag is missing');
@@ -40,12 +40,13 @@ const init = (): void => {
   const modAuthorRegex = /MOD_AUTHOR/g;
   const templateAuthorRegex = /(?<!https:\/\/github\.com\/)wisnia74(?!\/openrct2-typescript-mod-template)/g;
   const gamePathRegex = /PATH_TO_OPENRCT2/g;
-  const licenseCopyrightRegex = /Copyright (c) 2020 wisnia74/;
+  const copyrightRegex = /Copyright (c) 2020/;
 
   const filePathsToEdit = [
     path.join(config.paths.root, '.github', 'dependabot.yml'),
     path.join(config.paths.root, '.github', 'ISSUE_TEMPLATE', 'bug_report.md'),
     path.join(config.paths.root, '.github', 'ISSUE_TEMPLATE', 'feature_request.md'),
+    path.join(config.paths.root, 'LICENSE'),
     path.join(config.paths.root, 'rollup.config.dev.ts'),
     path.join(config.paths.root, 'rollup.config.prod.ts'),
     path.join(config.paths.src, 'registerPlugin.ts'),
@@ -69,10 +70,30 @@ const init = (): void => {
       replaceValue: modAuthor,
     },
     {
-      searchValue: licenseCopyrightRegex,
-      replaceValue: `Copyright (c) ${new Date().getFullYear().toString()} ${modAuthor} `,
+      searchValue: copyrightRegex,
+      replaceValue: `Copyright (c) ${new Date().getFullYear().toString()}`,
     },
   ]);
+
+  Utils.modifyPackageJson((content) => {
+    const modifiedContent = content;
+
+    delete modifiedContent.scripts.init;
+
+    return {
+      ...modifiedContent,
+      author: modAuthor,
+      name: modName,
+      homepage: `https://${cleanModUrl}/#readme`,
+      bugs: {
+        url: `https://${cleanModUrl}/issues`,
+      },
+      repository: {
+        type: 'git',
+        url: `git+https://${cleanModUrl}.git`,
+      },
+    };
+  });
 };
 
 init();

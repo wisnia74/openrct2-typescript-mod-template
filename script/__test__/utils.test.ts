@@ -121,7 +121,7 @@ describe('replaceTextInFile', () => {
 
 describe('replaceTextInFiles', () => {
   it('calls Utils.replaceTextInFile correct amount of times, each time with correct filepath', () => {
-    jest.spyOn(Utils, 'replaceTextInFile').mockImplementation(jest.fn);
+    jest.spyOn(Utils, 'replaceTextInFile').mockImplementation();
 
     Utils.replaceTextInFiles(
       ['FakeDisk:\\FakeProjectDir\\file1.txt', 'FakeDisk:\\FakeProjectDir\\file2.txt'],
@@ -142,5 +142,26 @@ describe('replaceTextInFiles', () => {
     ]);
 
     jest.restoreAllMocks();
+  });
+});
+
+describe('modifyPackageJson', () => {
+  it('replaces content in package.json file', () => {
+    jest.spyOn(fs, 'readFileSync').mockImplementation(() => {
+      return Buffer.from('{"property1": "value1", "property2": "value2" }');
+    });
+    jest.spyOn(fs, 'writeFileSync').mockImplementation();
+    jest.spyOn(JSON, 'parse');
+
+    Utils.modifyPackageJson((content) => ({
+      ...content,
+      property3: 'value3',
+    }));
+
+    expect(JSON.parse).toHaveBeenCalledWith('{"property1": "value1", "property2": "value2" }');
+    expect(fs.writeFileSync).toHaveBeenCalledWith(
+      'FakeDisk:\\FakeProjectDir\\package.json',
+      JSON.stringify({ property1: 'value1', property2: 'value2', property3: 'value3' }, null, 2)
+    );
   });
 });

@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import fetch, { Response } from 'node-fetch';
 import config from 'config';
-import { SearchReplaceValuePair } from './types';
+import type { SearchReplaceValuePair, PackageJSON } from './types';
 
 export const fetchApiDeclarationFileData = async (): Promise<string> => {
   const url = 'https://raw.githubusercontent.com/OpenRCT2/OpenRCT2/master/distribution/openrct2.d.ts';
@@ -42,4 +42,12 @@ export const replaceTextInFiles = (
   filepaths.forEach((filepath) => {
     replaceTextInFile(filepath, searchReplaceValuePairs);
   });
+};
+
+export const modifyPackageJson = (callback: (content: PackageJSON) => PackageJSON): void => {
+  const packageJsonPath = path.join(config.paths.root, 'package.json');
+  const content = JSON.parse(fs.readFileSync(packageJsonPath).toString());
+  const modifiedContent = callback(content);
+
+  fs.writeFileSync(packageJsonPath, JSON.stringify(modifiedContent, null, 2));
 };
