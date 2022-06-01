@@ -3,6 +3,6 @@
   "preset": "ts-jest",
   "modulePaths": ["<rootDir>/node_modules", "<rootDir>"],
   "moduleNameMapper": {
-    "^@App/(.*)$": "<rootDir>/src/$1"
+    "^src/(.*)$": "<rootDir>/src/$1"
   }
 }

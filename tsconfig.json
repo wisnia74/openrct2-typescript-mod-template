@@ -11,7 +11,7 @@
     "noImplicitReturns": true,
     "baseUrl": ".",
     "paths": {
-      "@App/*": ["./src/*"]
+      "src/*": ["src/*"]
     },
     "esModuleInterop": true,
     "skipLibCheck": true,
