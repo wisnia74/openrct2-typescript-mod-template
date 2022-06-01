@@ -5,13 +5,14 @@
   "main": "",
   "scripts": {
     "start": "npm run watch",
-    "watch": "npm run build:dev -- --watch",
+    "start:dev": "npm run watch:dev",
+    "watch": "npm run build -- --watch",
+    "watch:dev": "npm run build:dev -- --watch",
     "build": "rollup --config rollup.config.prod.ts",
     "build:dev": "rollup --config rollup.config.dev.ts",
     "lint": "eslint . --ext ts",
     "lint:fix": "eslint . --ext ts --fix",
-    "test": "jest",
-    "init": "bash ./script/init/init.sh"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
