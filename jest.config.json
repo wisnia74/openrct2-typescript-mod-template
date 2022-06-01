@@ -1,8 +1,0 @@
-{
-  "bail": 1,
-  "preset": "ts-jest",
-  "modulePaths": ["<rootDir>/node_modules", "<rootDir>"],
-  "moduleNameMapper": {
-    "^src/(.*)$": "<rootDir>/src/$1"
-  }
-}
