@@ -32,6 +32,12 @@
   },
   "overrides": [
     {
+      "files": ["rollup.*.ts"],
+      "rules": {
+        "import/no-extraneous-dependencies": 0
+      }
+    },
+    {
       "files": ["*.ts"],
       "extends": [
         "plugin:@typescript-eslint/recommended",
