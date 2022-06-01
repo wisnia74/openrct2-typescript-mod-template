@@ -57,5 +57,10 @@
         "jest/require-hook": "off"
       }
     }
-  ]
+  ],
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  }
 }
