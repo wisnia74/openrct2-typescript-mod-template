@@ -13,6 +13,7 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
+      "config": ["./node_modules/config"],
       "src/*": ["./src/*"]
     },
     "esModuleInterop": true,

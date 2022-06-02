@@ -1,4 +1,4 @@
-import config from 'config';
+import config from './config';
 import main from './main';
 
 registerPlugin({

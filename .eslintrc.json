@@ -32,7 +32,7 @@
   },
   "overrides": [
     {
-      "files": ["rollup.*.ts"],
+      "files": ["rollup.*.ts", "config/*.ts"],
       "rules": {
         "import/no-extraneous-dependencies": 0
       }
