@@ -1,4 +1,6 @@
-lib/openrct2.d.ts
+# lib directory
+lib/
+
 config/local.json
 
 # Logs
@@ -72,7 +74,8 @@ typings/
 .yarn-integrity
 
 # dotenv local environment variables file
-.env.dev
+.env
+.env.test
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
