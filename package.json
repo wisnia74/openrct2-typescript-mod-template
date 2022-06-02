@@ -4,12 +4,14 @@
   "description": "",
   "main": "",
   "scripts": {
+    "start": "npm run build:watch",
+    "start:dev": "npm run build:dev:watch",
     "build:dev": "rollup --config rollup.config.dev.ts --configPlugin typescript",
     "build:dev:watch": "npm run build:dev -- --watch",
     "build": "rollup --config rollup.config.prod.ts --configPlugin typescript",
     "build:watch": "npm run build -- --watch",
     "lint": "eslint . --ext ts",
-    "lint:fix": "eslint . --ext ts --fix",
+    "lint:fix": "npm run lint -- --fix",
     "husky:prepare": "husky install"
   },
   "repository": {
