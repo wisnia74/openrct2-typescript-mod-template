@@ -1,32 +1,25 @@
 import path from 'path';
 import type { RollupOptions } from 'rollup';
-import typescript from 'rollup-plugin-ts';
+import typescript from '@rollup/plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
-import dotenv from 'rollup-plugin-dotenv';
-import nodeResolve from '@rollup/plugin-node-resolve';
-import { cjsToEsm } from 'cjstoesm';
-import nodePolyfills from 'rollup-plugin-polyfill-node';
+import json from '@rollup/plugin-json';
 import config from './config';
-import paths from './utils';
+import { paths, readJSON } from './utils';
+
+const localConfig = readJSON(path.join(paths.config, 'local.json'));
+
+if (!localConfig.OPENRCT2_PATH) throw new Error('Missing OPENRCT2_PATH in ./config/local.json');
+if (typeof localConfig.OPENRCT2_PATH !== 'string') throw new Error('OPENRCT2_PATH has to be a string');
 
 export default <RollupOptions>{
   input: path.join(paths.src, 'index.ts'),
   output: {
-    file: path.join(config.OPENRCT2_PATH, 'plugin', config.MOD_NAME, '.js'),
+    file: path.join(localConfig.OPENRCT2_PATH, 'plugin', `${config.MOD_NAME}.js`),
     format: 'iife',
   },
   plugins: [
-    nodePolyfills(),
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    dotenv(),
-    nodeResolve(),
-    typescript({
-      transformers: [cjsToEsm()],
-      tsconfig: {
-        allowSyntheticDefaultImports: true,
-        allowJs: true,
-      },
-    }),
+    json(),
+    typescript(),
     terser({
       format: {
         quote_style: 1,

@@ -1,32 +1,20 @@
 import path from 'path';
 import type { RollupOptions } from 'rollup';
-import typescript from 'rollup-plugin-ts';
+import typescript from '@rollup/plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
-import dotenv from 'rollup-plugin-dotenv';
-import nodeResolve from '@rollup/plugin-node-resolve';
-import { cjsToEsm } from 'cjstoesm';
-import nodePolyfills from 'rollup-plugin-polyfill-node';
+import json from '@rollup/plugin-json';
 import config from './config';
-import paths from './utils';
+import { paths } from './utils';
 
 export default <RollupOptions>{
   input: path.join(paths.src, 'index.ts'),
   output: {
-    file: path.join(paths.dist, config.MOD_NAME, '.js'),
+    file: path.join(paths.dist, `${config.MOD_NAME}.js`),
     format: 'iife',
   },
   plugins: [
-    nodePolyfills(),
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    dotenv(),
-    nodeResolve(),
-    typescript({
-      transformers: [cjsToEsm()],
-      tsconfig: {
-        allowSyntheticDefaultImports: true,
-        allowJs: true,
-      },
-    }),
+    json(),
+    typescript(),
     terser({
       format: {
         quote_style: 1,

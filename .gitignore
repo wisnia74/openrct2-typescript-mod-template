@@ -1,4 +1,5 @@
 lib/openrct2.d.ts
+config/local.json
 
 # Logs
 logs
