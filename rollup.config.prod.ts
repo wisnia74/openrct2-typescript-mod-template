@@ -5,19 +5,23 @@ import { terser } from 'rollup-plugin-terser';
 import json from '@rollup/plugin-json';
 import injectProcessEnv from 'rollup-plugin-inject-process-env';
 import config from './config';
-import { paths, stripObjectOfProperties } from './utils';
+import { paths } from './utils';
 
 export default <RollupOptions>{
   input: path.join(paths.src, 'index.ts'),
   output: {
-    file: path.join(paths.dist, `${config.MOD_NAME}.js`),
+    file: path.join(paths.dist, `${config.getString('MOD_NAME')}.js`),
     format: 'iife',
   },
   plugins: [
-    json(),
-    injectProcessEnv(stripObjectOfProperties(config, 'OPENRCT2_PATH')),
+    json({ compact: true }),
+    injectProcessEnv(config.getMap()),
     typescript(),
     terser({
+      compress: true,
+      mangle: true,
+      keep_classnames: false,
+      keep_fnames: false,
       format: {
         quote_style: 1,
         wrap_iife: true,

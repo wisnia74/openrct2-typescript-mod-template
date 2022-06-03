@@ -1,7 +1,8 @@
 # lib directory
 lib/
 
-config/local.json
+# local config files
+config/local*.json
 
 # Logs
 logs

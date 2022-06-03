@@ -13,8 +13,9 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "config": ["./node_modules/config"],
-      "src/*": ["./src/*"]
+      "~/*": ["./*"],
+      "src/*": ["./src/*"],
+      "config": ["./node_modules/config"]
     },
     "esModuleInterop": true,
     "skipLibCheck": true,
