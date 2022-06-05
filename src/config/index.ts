@@ -1,3 +1,3 @@
-import Env from '~/config/Env';
+import EnvConfig from '~/config/Env';
 
-export default new Env(process.env, (key) => process.env[key]);
+export default new EnvConfig(process.env);

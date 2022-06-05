@@ -1,32 +1,39 @@
-import { stringTypeCheckFunction } from '../utils/typeCheckFunctions';
+import { isString } from '../utils/typeCheckFunctions';
 
-type EnvMap = { [x: string]: unknown };
-
-type EnvMapVarGetter = (key: string) => unknown;
+type EnvConfigObject = { [x: string]: unknown };
 
 export default class {
-  private envMap: EnvMap;
+  private envConfigObject: EnvConfigObject;
 
-  private getEnvMapVar: EnvMapVarGetter;
-
-  constructor(envMap: EnvMap, getEnvMapVar: EnvMapVarGetter) {
-    this.envMap = envMap;
-    this.getEnvMapVar = getEnvMapVar;
+  constructor(envConfigObject: EnvConfigObject) {
+    this.envConfigObject = envConfigObject;
   }
 
-  getMap(): EnvMap {
-    return this.envMap;
+  has(key: string): boolean {
+    return !!this.envConfigObject[key];
   }
 
-  private getTypedEnvironmentVariable<T>(key: string, typeCheckFunction: (val: unknown) => val is T): T {
-    const val = this.getEnvMapVar(key);
+  private get(key: string): unknown {
+    return this.envConfigObject[key];
+  }
 
-    if (!typeCheckFunction(val)) throw new Error(`${key} has invalid type`);
+  getEnvConfigObject(): EnvConfigObject {
+    return this.envConfigObject;
+  }
+
+  private getTypedEnvVar<T>(key: string, isOfType: (val: unknown) => val is T): T {
+    const val = this.get(key);
+
+    if (!isOfType(val)) throw new Error();
 
     return val;
   }
 
   getString(key: string): string {
-    return this.getTypedEnvironmentVariable(key, stringTypeCheckFunction);
+    try {
+      return this.getTypedEnvVar(key, isString);
+    } catch {
+      throw new Error(`${key} has invalid type - expected string but got ${typeof this.envConfigObject[key]}`);
+    }
   }
 }

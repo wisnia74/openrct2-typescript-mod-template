@@ -1,4 +1,4 @@
 import config from 'config';
-import Env from './Env';
+import EnvConfig from './Env';
 
-export default new Env({ ...config }, (key) => config.get(key));
+export default new EnvConfig({ ...config, NODE_ENV: process.env.NODE_ENV });

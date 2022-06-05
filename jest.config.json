@@ -1,6 +1,7 @@
 {
   "bail": 1,
   "preset": "ts-jest",
+  "testPathIgnorePatterns": ["/node_modules/", "/gulp/test/test.ts"],
   "modulePaths": ["<rootDir>/node_modules", "<rootDir>"],
   "moduleNameMapper": {
     "^src/(.*)$": "<rootDir>/src/$1"
