@@ -4,18 +4,18 @@
   "description": "",
   "main": "",
   "scripts": {
-    "start": "npm run build:watch",
-    "start:dev": "npm run build:dev:watch",
+    "build": "cross-env NODE_ENV=prd gulp build",
     "build:dev": "cross-env NODE_ENV=dev gulp build",
     "build:dev:watch": "cross-env NODE_ENV=dev gulp buildWatch",
-    "build": "cross-env NODE_ENV=prd gulp build",
     "build:watch": "cross-env NODE_ENV=prd gulp buildWatch",
+    "help": "gulp --tasks",
+    "husky:prepare": "husky install",
     "lint": "eslint . --ext ts",
     "lint:fix": "npm run lint -- --fix",
+    "start": "npm run build:watch",
+    "start:dev": "npm run build:dev:watch",
     "test": "gulp test",
-    "test:watch": "gulp testWatch",
-    "husky:prepare": "husky install",
-    "help": "gulp --tasks"
+    "test:watch": "gulp testWatch"
   },
   "repository": {
     "type": "git",
