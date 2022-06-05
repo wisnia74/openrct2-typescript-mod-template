@@ -11,7 +11,7 @@ export default <RollupOptions>{
   input: path.join(paths.src, 'index.ts'),
   output: [
     {
-      file: path.join(paths.dist, `${config.getString('MOD_NAME')}_${config.getString('NODE_ENV')}.js`),
+      file: path.join(paths.dist, `${config.getString('MOD_NAME')}.js`),
       format: 'iife',
     },
   ],
