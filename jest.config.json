@@ -1,9 +1,14 @@
 {
-  "bail": 1,
-  "preset": "ts-jest",
-  "testPathIgnorePatterns": ["/node_modules/", "/gulp/test/test.ts"],
-  "modulePaths": ["<rootDir>/node_modules", "<rootDir>"],
-  "moduleNameMapper": {
-    "^src/(.*)$": "<rootDir>/src/$1"
-  }
+  "projects": [
+    {
+      "preset": "ts-jest",
+      "displayName": "scaffolding",
+      "testMatch": ["<rootDir>/config/**/*.test.ts", "<rootDir>/utils/**/*.test.ts"]
+    },
+    {
+      "preset": "ts-jest",
+      "displayName": "mod",
+      "testMatch": ["<rootDir>/src/**/*.test.ts"]
+    }
+  ]
 }
