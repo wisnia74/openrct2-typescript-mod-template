@@ -11,12 +11,16 @@ export default <RollupOptions>{
   input: path.join(paths.src, 'index.ts'),
   output: [
     {
-      file: path.join(config.getString('OPENRCT2_PATH'), 'plugin', `${config.getString('MOD_NAME')}.js`),
-      format: 'iife',
+      file: path.join(
+        config.getString('OPENRCT2_PATH'),
+        'plugin',
+        `${config.getString('MOD_NAME')}_${config.getString('NODE_ENV')}.js`
+      ),
+      format: 'commonjs',
     },
     {
       file: path.join(paths.dist, `${config.getString('MOD_NAME')}_${config.getString('NODE_ENV')}.js`),
-      format: 'iife',
+      format: 'commonjs',
     },
   ],
   plugins: [
@@ -29,8 +33,9 @@ export default <RollupOptions>{
       keep_classnames: true,
       keep_fnames: true,
       format: {
+        comments: 'all',
         quote_style: 1,
-        wrap_iife: true,
+        wrap_iife: false,
         preamble: '// Mod powered by https://github.com/wisnia74/openrct2-typescript-mod-template - MIT license',
       },
     }),

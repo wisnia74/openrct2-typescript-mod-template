@@ -26,7 +26,7 @@ export default <RollupOptions>{
       keep_fnames: false,
       format: {
         quote_style: 1,
-        wrap_iife: true,
+        wrap_iife: false,
         preamble: '// Mod powered by https://github.com/wisnia74/openrct2-typescript-mod-template - MIT license',
       },
     }),

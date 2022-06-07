@@ -1,3 +1,5 @@
 import * as jest from 'jest';
 
-export default async (): Promise<void> => jest.run(['--watch']);
+export default async function testWatch(): Promise<void> {
+  return jest.run(['--watch']);
+}

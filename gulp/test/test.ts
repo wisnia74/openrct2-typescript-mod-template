@@ -1,3 +1,5 @@
 import * as jest from 'jest';
 
-export default async (): Promise<void> => jest.run();
+export default async function test(): Promise<void> {
+  return jest.run();
+}
