@@ -1,4 +1,4 @@
-import { getHandymen, getMechanics, getSecurity, getEntertainers } from './helpers';
+import { getHandymen, getMechanics, getSecurity, getEntertainers } from './utils';
 
 const main = (): void => {
   console.log(`Hello stranger! Your plug-in has started!`);

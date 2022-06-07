@@ -55,7 +55,8 @@
       "extends": ["plugin:jest/all"],
       "rules": {
         "jest/prefer-expect-assertions": ["error", { "onlyFunctionsWithAsyncKeyword": true }],
-        "jest/require-hook": "off"
+        "jest/require-hook": "off",
+        "jest/no-hooks": "off"
       }
     }
   ],
