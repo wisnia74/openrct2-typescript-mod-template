@@ -8,7 +8,11 @@
     {
       "preset": "ts-jest",
       "displayName": "mod",
-      "testMatch": ["<rootDir>/src/**/*.test.ts"]
+      "testMatch": ["<rootDir>/src/**/*.test.ts"],
+      "setupFilesAfterEnv": ["<rootDir>/jest.setup.ts"],
+      "moduleNameMapper": {
+        "^~/(.*)$": "<rootDir>/$1"
+      }
     }
   ]
 }
