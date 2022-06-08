@@ -42,10 +42,10 @@ const getReplaceData = (): string[] => {
 
 const replaceDataInFile = async (pathname: PathLike, data: SearchReplaceValuePair[]): Promise<void> => {
   const file = await fs.readFile(pathname);
-  const content = file.toString();
+  let content = file.toString();
 
   data.forEach(([searchValue, replaceValue]) => {
-    content.replace(searchValue, replaceValue);
+    content = content.replace(searchValue, replaceValue);
   });
 
   await fs.writeFile(pathname, content);
@@ -92,11 +92,11 @@ const replacePackageJsonData = async (): Promise<void> => {
 const replaceAuthorAndYearInLicense = async (): Promise<void> => {
   const filepath = path.join(paths.root, 'LICENSE');
   const file = await fs.readFile(filepath);
-  const content = file.toString();
+  let content = file.toString();
 
   console.log('Replacing author and year in LICENSE...');
 
-  content
+  content = content
     .replace(templateAuthorRegex, config.getString('MOD_AUTHOR'))
     .replace(/2020/, new Date().getFullYear().toString());
 
