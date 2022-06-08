@@ -1,4 +1,5 @@
-import fs from 'fs';
+import type { PathLike } from 'fs';
+import { promises as fs } from 'fs';
 import path from 'path';
 import config from '~/config';
 import { paths } from '~/utils';
@@ -39,17 +40,18 @@ const getReplaceData = (): string[] => {
   return [cleanModURL, repoName];
 };
 
-const replaceDataInFile = (pathname: fs.PathLike, data: SearchReplaceValuePair[]): void => {
-  const file = fs.readFileSync(pathname).toString();
+const replaceDataInFile = async (pathname: PathLike, data: SearchReplaceValuePair[]): Promise<void> => {
+  const file = await fs.readFile(pathname);
+  const content = file.toString();
 
   data.forEach(([searchValue, replaceValue]) => {
-    file.replace(searchValue, replaceValue);
+    content.replace(searchValue, replaceValue);
   });
 
-  fs.writeFileSync(pathname, file);
+  await fs.writeFile(pathname, content);
 };
 
-const replaceDataInFiles = (): void => {
+const replaceDataInFiles = async (): Promise<void> => {
   const filepathsToModify = [
     path.join(paths.github, 'dependabot.yml'),
     path.join(paths.github, 'ISSUE_TEMPLATE', 'bug_report.md'),
@@ -57,58 +59,54 @@ const replaceDataInFiles = (): void => {
     path.join(paths.gulp, 'index.ts'),
   ];
 
-  filepathsToModify.forEach((filepath) => {
+  const modificationPromises = filepathsToModify.map((filepath) =>
     replaceDataInFile(filepath, [
       [templateAuthorRegex, config.getString('MOD_AUTHOR')],
       [/\nexport \* from 'init';/, '\n'],
-    ]);
-  });
+    ])
+  );
+
+  await Promise.all(modificationPromises);
 };
 
-const replaceAuthorAndYearInLicense = (): void => {
-  const filepath = path.join(paths.root, 'LICENSE');
-  const file = fs.readFileSync(filepath).toString();
+const replacePackageJsonData = async (): Promise<void> => {
+  const [cleanModURL, repoName] = getReplaceData();
+  const filepath = path.join(paths.root, 'package.json');
+  const file = await fs.readFile(filepath);
+  const parsedFile = JSON.parse(file.toString()) as PackageJSON;
 
-  file
+  delete parsedFile.scripts.init;
+  parsedFile.author = config.getString('MOD_AUTHOR');
+  parsedFile.name = repoName;
+  parsedFile.homepage = `https://${cleanModURL}#readme`;
+  parsedFile.bugs.url = `https://${cleanModURL}/issues`;
+  parsedFile.repository.url = `git+https://${cleanModURL}.git`;
+
+  await fs.writeFile(filepath, JSON.stringify(parsedFile, undefined, 2));
+};
+
+const replaceAuthorAndYearInLicense = async (): Promise<void> => {
+  const filepath = path.join(paths.root, 'LICENSE');
+  const file = await fs.readFile(filepath);
+  const content = file.toString();
+
+  content
     .replace(templateAuthorRegex, config.getString('MOD_AUTHOR'))
     .replace(/2020/, new Date().getFullYear().toString());
 
-  fs.writeFileSync(filepath, file);
+  await fs.writeFile(filepath, content);
 };
 
-const replacePackageJsonData = (): void => {
-  const [cleanModURL, repoName] = getReplaceData();
-  const filepath = path.join(paths.root, 'package.json');
-  const file = JSON.parse(fs.readFileSync(filepath).toString()) as PackageJSON;
-
-  delete file.scripts.init;
-  file.author = config.getString('MOD_AUTHOR');
-  file.name = repoName;
-  file.homepage = `https://${cleanModURL}#readme`;
-  file.bugs.url = `https://${cleanModURL}/issues`;
-  file.repository.url = `git+https://${cleanModURL}.git`;
-
-  fs.writeFileSync(filepath, JSON.stringify(file, undefined, 2));
-};
-
-const deleteDirectories = (): void => {
+const deleteDirectories = async (): Promise<void> => {
   const directoriesToDelete = [path.join(paths.gulp, 'init')];
+  const deletePromises = directoriesToDelete.map((directory) => fs.rm(directory, { recursive: true, force: true }));
 
-  directoriesToDelete.forEach((directory) => {
-    fs.rmSync(directory, { recursive: true, force: true });
-  });
+  await Promise.all(deletePromises);
 };
 
-export default function init(): Promise<void> {
-  return new Promise((resolve, reject) => {
-    try {
-      replaceDataInFiles();
-      replacePackageJsonData();
-      replaceAuthorAndYearInLicense();
-      deleteDirectories();
-      resolve();
-    } catch (err) {
-      reject(err);
-    }
-  });
+export default async function init(): Promise<void> {
+  await replaceDataInFiles();
+  await replacePackageJsonData();
+  await replaceAuthorAndYearInLicense();
+  await deleteDirectories();
 }
