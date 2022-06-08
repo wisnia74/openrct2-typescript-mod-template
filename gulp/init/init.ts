@@ -4,7 +4,7 @@ import path from 'path';
 import config from '~/config';
 import { paths } from '~/utils';
 
-const templateAuthorRegex = /wisnia74(?!\/)/g;
+const templateAuthorRegex = /wisnia74/g;
 
 type SearchReplaceValuePair = [string | RegExp, string];
 
@@ -59,10 +59,12 @@ const replaceDataInFiles = async (): Promise<void> => {
     path.join(paths.gulp, 'index.ts'),
   ];
 
+  console.log('Replacing data in files: ', filepathsToModify);
+
   const modificationPromises = filepathsToModify.map((filepath) =>
     replaceDataInFile(filepath, [
       [templateAuthorRegex, config.getString('MOD_AUTHOR')],
-      [/\nexport \* from 'init';/, '\n'],
+      [/\nexport \* from '\.\/init';/, ''],
     ])
   );
 
@@ -74,6 +76,8 @@ const replacePackageJsonData = async (): Promise<void> => {
   const filepath = path.join(paths.root, 'package.json');
   const file = await fs.readFile(filepath);
   const parsedFile = JSON.parse(file.toString()) as PackageJSON;
+
+  console.log('Replacing data in package.json...');
 
   delete parsedFile.scripts.init;
   parsedFile.author = config.getString('MOD_AUTHOR');
@@ -90,6 +94,8 @@ const replaceAuthorAndYearInLicense = async (): Promise<void> => {
   const file = await fs.readFile(filepath);
   const content = file.toString();
 
+  console.log('Replacing author and year in LICENSE...');
+
   content
     .replace(templateAuthorRegex, config.getString('MOD_AUTHOR'))
     .replace(/2020/, new Date().getFullYear().toString());
@@ -100,6 +106,8 @@ const replaceAuthorAndYearInLicense = async (): Promise<void> => {
 const deleteDirectories = async (): Promise<void> => {
   const directoriesToDelete = [path.join(paths.gulp, 'init')];
   const deletePromises = directoriesToDelete.map((directory) => fs.rm(directory, { recursive: true, force: true }));
+
+  console.log('Deleting unneeded directories...');
 
   await Promise.all(deletePromises);
 };
