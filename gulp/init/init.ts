@@ -132,4 +132,6 @@ export default async function init(): Promise<void> {
   await replaceAuthorAndYearInLicense();
   await deleteDirectories();
   await runNpmInstall();
+
+  console.log('Successfully initialized mod template!');
 }
