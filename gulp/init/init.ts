@@ -99,9 +99,16 @@ const deleteDirectories = (): void => {
   });
 };
 
-export default function init(): void {
-  replaceDataInFiles();
-  replacePackageJsonData();
-  replaceAuthorAndYearInLicense();
-  deleteDirectories();
+export default function init(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    try {
+      replaceDataInFiles();
+      replacePackageJsonData();
+      replaceAuthorAndYearInLicense();
+      deleteDirectories();
+      resolve();
+    } catch (err) {
+      reject(err);
+    }
+  });
 }
