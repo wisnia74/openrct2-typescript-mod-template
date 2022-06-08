@@ -1,5 +1,7 @@
 import type { PathLike } from 'fs';
 import { promises as fs } from 'fs';
+import type { ChildProcess } from 'child_process';
+import { spawn } from 'child_process';
 import path from 'path';
 import config from '~/config';
 import { paths } from '~/utils';
@@ -112,9 +114,22 @@ const deleteDirectories = async (): Promise<void> => {
   await Promise.all(deletePromises);
 };
 
-export default async function init(): Promise<void> {
+const runNpmInstall = (): ChildProcess => {
+  console.log('Running npm install...');
+
+  const spawned = spawn('npm', ['install'], { shell: true });
+
+  spawned.stderr.pipe(process.stderr);
+  spawned.stdout.pipe(process.stdout);
+
+  return spawned;
+};
+
+export default async function init(): Promise<ChildProcess> {
   await replaceDataInFiles();
   await replacePackageJsonData();
   await replaceAuthorAndYearInLicense();
   await deleteDirectories();
+
+  return runNpmInstall();
 }
