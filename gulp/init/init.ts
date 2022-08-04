@@ -54,7 +54,6 @@ const replaceDataInFile = async (pathname: PathLike, data: SearchReplaceValuePai
 
 const replaceDataInFiles = async (): Promise<void> => {
   const filepathsToModify = [
-    path.join(paths.github, 'dependabot.yml'),
     path.join(paths.github, 'ISSUE_TEMPLATE', 'bug_report.md'),
     path.join(paths.github, 'ISSUE_TEMPLATE', 'feature_request.md'),
     path.join(paths.gulp, 'index.ts'),
