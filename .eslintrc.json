@@ -1,33 +1,68 @@
 {
   "env": {
-    "browser": true,
-    "es6": true,
+    "es2021": true,
     "node": true
   },
   "extends": [
-    "airbnb-base"
+    "airbnb-base",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "plugin:prettier/recommended",
+    "eslint:recommended"
   ],
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 11,
+    "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "plugins": ["@typescript-eslint", "prettier", "import", "jest"],
   "rules": {
-    "no-undef": 0,
-    "spaced-comment": 0,
-    "max-len": ["error", { "code": 120 }],
-    "import/extensions": ["error", "always", { "js": "never", "ts": "never" }]
+    "import/extensions": "off",
+    "max-len": [
+      "error",
+      {
+        "code": 120,
+        "tabWidth": 2,
+        "ignoreComments": true,
+        "ignoreUrls": true
+      }
+    ],
+    "prettier/prettier": "error",
+    "@typescript-eslint/explicit-function-return-type": ["error"],
+    "@typescript-eslint/consistent-type-imports": ["error"]
   },
+  "overrides": [
+    {
+      "files": ["rollup.*.ts", "gulpfile.ts", "gulp/**/*.ts", "config/**/*.ts"],
+      "rules": {
+        "import/no-extraneous-dependencies": 0
+      }
+    },
+    {
+      "files": ["*.ts"],
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+      ],
+
+      "parserOptions": {
+        "project": ["./tsconfig.json"]
+      }
+    },
+    {
+      "files": ["*.test.ts"],
+      "env": { "jest": true },
+      "extends": ["plugin:jest/all"],
+      "rules": {
+        "jest/prefer-expect-assertions": ["error", { "onlyFunctionsWithAsyncKeyword": true }],
+        "jest/require-hook": "off",
+        "jest/no-hooks": "off"
+      }
+    }
+  ],
   "settings": {
     "import/resolver": {
-      "node": { "extensions": [".js", ".ts"] }
+      "typescript": {}
     }
   }
 }

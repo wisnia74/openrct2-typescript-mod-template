@@ -1,0 +1,18 @@
+{
+  "projects": [
+    {
+      "preset": "ts-jest",
+      "displayName": "scaffolding",
+      "testMatch": ["<rootDir>/config/**/*.test.ts", "<rootDir>/utils/**/*.test.ts"]
+    },
+    {
+      "preset": "ts-jest",
+      "displayName": "mod",
+      "testMatch": ["<rootDir>/src/**/*.test.ts"],
+      "setupFilesAfterEnv": ["<rootDir>/jest.setup.ts"],
+      "moduleNameMapper": {
+        "^~/(.*)$": "<rootDir>/$1"
+      }
+    }
+  ]
+}

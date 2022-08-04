@@ -1,18 +1,12 @@
-import hello from './hello';
-import {
-  getPeeps,
-  getStaff,
-  getHandymen,
-  getMechanics,
-  getSecurity,
-  getEntertainers,
-} from './helpers';
+import { getHandymen, getMechanics, getSecurity, getEntertainers } from './utils';
 
 const main = (): void => {
-  console.log(`${hello()} Your plug-in has started!`);
+  console.log(`Hello stranger! Your plug-in has started!`);
 
-  console.log(`In your park, there are currently ${getPeeps().length} peeps`);
-  console.log(`${getStaff().length} of them is your staff.`);
+  console.log(
+    `In your park, there are currently ${map.getAllEntities('guest').length + map.getAllEntities('staff').length} peeps`
+  );
+  console.log(`${map.getAllEntities('staff').length} of them is your staff.`);
 
   console.log('Your staff consists of:');
   console.log(`- ${getHandymen().length} handymen`);
