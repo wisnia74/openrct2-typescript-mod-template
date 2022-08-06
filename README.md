@@ -39,7 +39,7 @@ This template repository comes with [TypeScript](https://www.typescriptlang.org/
 }
 ```
 
-- replace `PATH_TO_OPENRCT2` with correct path to OpenRCT2 folder on your machine
+- replace `PATH_TO_OPENRCT2` with correct path to OpenRCT2 folder on your machine (same path that in step 4)
 - make sure to replace any forward slashes (`/`) or backslashes (`\`) in your path, with escaped backslashes (`\\`)
 
 6. Run `npm run init` and wait for it to finish
