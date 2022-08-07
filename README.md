@@ -8,7 +8,6 @@ Template repository for OpenRCT2 mods written in TypeScript.
 - [Installation](#installation)
 - [Usage](#usage)
   - [How it works](#how-it-works)
-  - [npm scripts](#npm-scripts)
 - [Releasing your mod](#releasing-your-mod)
 - [Notes](#notes)
 - [Useful links](#useful-links)
