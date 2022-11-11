@@ -30,7 +30,7 @@ This template repository comes with:
 
 ## Installation
 
-1. Install desired version of [Node](https://nodejs.org/en/) (it comes with [npm](https://www.npmjs.com/get-npm) by default)
+1. Install [Node](https://nodejs.org/en/) `v.18.12.1` (it comes with [npm](https://www.npmjs.com/get-npm) by default)
 
 2. [Create your own repository using this one as a template](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) and clone it
 
@@ -51,7 +51,7 @@ This template repository comes with:
 - replace `PATH_TO_OPENRCT2` with correct path to OpenRCT2 folder on your PC (usually `C:\Users\<USER>\Documents\OpenRCT2` or `C:\Program Files\OpenRCT2`)
 - make sure to escape slashes (by adding `\` in front of them), JSON doesn't like some of those
 
-6. Run `npm install && npm run init`
+6. Run `nvm use && npm install && npm run init`
 
 If you want to alter plugin data, refer to [OpenRCT2 scripting guide](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md).
 
