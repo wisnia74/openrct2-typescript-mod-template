@@ -13,8 +13,6 @@ Template repository for OpenRCT2 mods written in TypeScript.
 - [Notes](#notes)
 - [Useful links](#useful-links)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 ## About
 
 This repository was created to serve as a template TypeScript mod repository for OpenRCT2.
@@ -30,7 +28,7 @@ This template repository comes with:
 
 ## Installation
 
-1. Install desired version of [Node](https://nodejs.org/en/) (it comes with [npm](https://www.npmjs.com/get-npm) by default)
+1. Install [Node](https://nodejs.org/en/) `v.18.12.1` (it comes with [npm](https://www.npmjs.com/get-npm) by default)
 
 2. [Create your own repository using this one as a template](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) and clone it
 
@@ -49,17 +47,13 @@ This template repository comes with:
 ```
 
 - replace `PATH_TO_OPENRCT2` with correct path to OpenRCT2 folder on your PC (usually `C:\Users\<USER>\Documents\OpenRCT2` or `C:\Program Files\OpenRCT2`)
-- make sure to replace any forward slashes (`/`) or backslashes (`\`) in your path, with escaped backslashes (`\\`)
+- make sure to escape slashes (by adding `\` in front of them), JSON doesn't like some of those
 
-5. Replace `openrct2.d.ts` file in `lib` folder with a copy of the same file from `{PATH_TO_OPENRCT2}/bin`
-
-- before copying it from `{PATH_TO_OPENRCT2}/bin`, run OpenRCT2 launcher (it will update your game files, including API declaration file, if there was a new release)
-- this whole is important, the template comes with its own `openrct.2.ts` for a couple of reasons, but this step ensures you will copy a reference file to the most recent version of OpenRCT2 API
-- symbolic link through command prompt/terminal on your OS (example: `mklink` on Windows) will not work, because `openrct2.d.ts` needs to be commited for any CI pipelines to work
-
-6. Run `npm install && npm run init`
+6. Run `nvm use && npm install && npm run init`
 
 If you want to alter plugin data, refer to [OpenRCT2 scripting guide](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md).
+
+Part of the `npm run init` is downloading the latest [OpenRCT2 TypeScript API declaration file](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/openrct2.d.ts) and saving it to `lib` folder (CI pipeline does the same to ensure build and tests passing). If you'll want to use previous API declaration files (e.g. you want to write a mod for some previous version of OpenRCT2), you will need to replace `openrct2.d.ts` file in `lib` with your own (e.g. coming from your current game folder, usually `C:\Users\<user>\Documents\OpenRCT2\bin` or `C:\Program Files\OpenRCT2\bin`).
 
 ## Usage
 
@@ -68,8 +62,8 @@ If you want to alter plugin data, refer to [OpenRCT2 scripting guide](https://gi
 1. Make sure you've enabled [OpenRCT2 hot reload feature](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md#writing-scripts)
 2. Run the project:
 
-- `npm run start:dev` if you want to generate a dev build (ouput code **won't** be minified and mangled)
-- `npm run start` if you want to generate a prod build (output code **will** be minified and mangled)
+- `npm run start:dev` if you want to generate a dev build
+- `npm run start` if you want to generate a prod build
 - both command bundle mod files to `dist` and to `{PATH_TO_OPENRCT2}/plugin`
 - dev builds are suffixed with `_dev`
 
