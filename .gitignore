@@ -1,6 +1,3 @@
-# lib directory
-lib/openrct2.d.ts
-
 # local config files
 config/local*.json
 
