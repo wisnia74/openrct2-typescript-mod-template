@@ -3,14 +3,15 @@
 Template repository for OpenRCT2 mods written in TypeScript.
 
 ## Table of contents
-  * [About](#about)
-  * [Installation](#installation)
-  * [Usage](#usage)
-    + [Hot reload](#hot-reload)
-    + [How it works](#how-it-works)
-  * [Releasing your mod](#releasing-your-mod)
-  * [Notes](#notes)
-  * [Useful links](#useful-links)
+
+- [About](#about)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Hot reload](#hot-reload)
+  - [How it works](#how-it-works)
+- [Releasing your mod](#releasing-your-mod)
+- [Notes](#notes)
+- [Useful links](#useful-links)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
@@ -20,6 +21,7 @@ This repository was created to serve as a template TypeScript mod repository for
 I wanted to leverage [OpenRCT2 hot reload feature](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md#writing-scripts) to make it even more painless to write and debug mods in real time.
 
 This template repository comes with:
+
 - [TypeScript](https://www.typescriptlang.org/)
 - [Rollup](https://rollupjs.org)
 - [ESLint](https://eslint.org/)
@@ -33,23 +35,27 @@ This template repository comes with:
 2. [Create your own repository using this one as a template](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) and clone it
 
 3. Open cloned repository and modify `./config/default.json`:
-  - `MOD_NAME` - self explanatory
-  - `MOD_AUTHOR` - self explanatory
-  - `MOD_URL` - this is supposed to be a link to your mod repository on GitHub
+
+- `MOD_NAME` - self explanatory
+- `MOD_AUTHOR` - self explanatory
+- `MOD_URL` - this is supposed to be a link to your mod repository on GitHub
 
 4. Create `local-dev.json` file inside `./config` folder, copy below code inside it:
+
 ```json
 {
   "OPENRCT2_PATH": "PATH_TO_OPENRCT2"
 }
 ```
-  - replace `PATH_TO_OPENRCT2` with correct path to OpenRCT2 folder on your PC (usually `C:\Users\<USER>\Documents\OpenRCT2` or `C:\Program Files\OpenRCT2`)
-  - make sure to replace any forward slashes (`/`) or backslashes (`\`) in your path, with escaped backslashes (`\\`)
+
+- replace `PATH_TO_OPENRCT2` with correct path to OpenRCT2 folder on your PC (usually `C:\Users\<USER>\Documents\OpenRCT2` or `C:\Program Files\OpenRCT2`)
+- make sure to replace any forward slashes (`/`) or backslashes (`\`) in your path, with escaped backslashes (`\\`)
 
 5. Replace `openrct2.d.ts` file in `lib` folder with a copy of the same file from `{PATH_TO_OPENRCT2}/bin`
-  - before copying it from `{PATH_TO_OPENRCT2}/bin`, run OpenRCT2 launcher (it will update your game files, including API declaration file, if there was a new release)
-  - this whole is important, the template comes with its own `openrct.2.ts` for a couple of reasons, but this step ensures you will copy a reference file to the most recent version of OpenRCT2 API
-  - symbolic link through command prompt/terminal on your OS (example: `mklink` on Windows) will not work, because `openrct2.d.ts` needs to be commited for any CI pipelines to work
+
+- before copying it from `{PATH_TO_OPENRCT2}/bin`, run OpenRCT2 launcher (it will update your game files, including API declaration file, if there was a new release)
+- this whole is important, the template comes with its own `openrct.2.ts` for a couple of reasons, but this step ensures you will copy a reference file to the most recent version of OpenRCT2 API
+- symbolic link through command prompt/terminal on your OS (example: `mklink` on Windows) will not work, because `openrct2.d.ts` needs to be commited for any CI pipelines to work
 
 6. Run `npm install && npm run init`
 
@@ -60,11 +66,12 @@ If you want to alter plugin data, refer to [OpenRCT2 scripting guide](https://gi
 ### Hot reload
 
 1. Make sure you've enabled [OpenRCT2 hot reload feature](https://github.com/OpenRCT2/OpenRCT2/blob/master/distribution/scripting.md#writing-scripts)
-3. Run the project:
-  - `npm run start:dev` if you want to generate a dev build (ouput code **won't** be minified and mangled)
-  - `npm run start` if you want to generate a prod build (output code **will** be minified and mangled)
-  - both command bundle mod files to `dist` and to `{PATH_TO_OPENRCT2}/plugin`
-  - dev builds are suffixed with `_dev`
+2. Run the project:
+
+- `npm run start:dev` if you want to generate a dev build (ouput code **won't** be minified and mangled)
+- `npm run start` if you want to generate a prod build (output code **will** be minified and mangled)
+- both command bundle mod files to `dist` and to `{PATH_TO_OPENRCT2}/plugin`
+- dev builds are suffixed with `_dev`
 
 ### How it works
 
@@ -83,7 +90,7 @@ From there, you can release it however you want.
 
 - Template comes with full Jest support however if you'll want to add tests that will be meaningful, you will need to mock a lot of things coming from the `openrct2.d.ts` - refer to `jest.setup.ts` I've created to see how it can be done
 
-- Template uses [config](https://www.npmjs.com/package/config) npm package to utilize different environments - new ones can be added simply adding a new `<env_name>.json` file to `config` folder and adding a corresponding `rollup.config.<env>.ts`, refer to [config documentation](https://github.com/node-config/node-config/wiki) for more details
+- Template uses [config](https://www.npmjs.com/package/config) npm package to utilize different environments - new ones can be added simply by adding a new `<env_name>.json` file to `config` folder and adding a corresponding `rollup.config.<env>.ts`, refer to [config documentation](https://github.com/node-config/node-config/wiki) for more details
 
 ## Useful links
 
