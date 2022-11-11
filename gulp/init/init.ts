@@ -57,8 +57,6 @@ const replaceDataInFiles = async (): Promise<void> => {
     path.join(paths.github, 'ISSUE_TEMPLATE', 'bug_report.md'),
     path.join(paths.github, 'ISSUE_TEMPLATE', 'feature_request.md'),
     path.join(paths.gulp, 'index.ts'),
-    path.join(paths.utils, 'paths.ts'),
-    path.join(paths.utils, '__test__', 'paths.test.ts'),
   ];
 
   console.log('Replacing data in files: ', filepathsToModify);
@@ -67,8 +65,6 @@ const replaceDataInFiles = async (): Promise<void> => {
     replaceDataInFile(filepath, [
       [templateAuthorRegex, config.getString('MOD_AUTHOR')],
       [/\nexport \* from '\.\/init';/, ''],
-      [/\nscript: path\.join\(rootDir, 'script'\),/, ''],
-      [/\nscript: path\.join\('FakeDisk:', 'FakeProjectFolder', 'script'\),/, ''],
     ])
   );
 
@@ -108,13 +104,24 @@ const replaceAuthorAndYearInLicense = async (): Promise<void> => {
 };
 
 const deleteDirectoriesAndFiles = async (): Promise<void> => {
-  const directoriesToDelete = [path.join(paths.gulp, 'init'), paths.script, path.join(paths.lib, 'README.md')];
+  const directoriesToDelete = [path.join(paths.gulp, 'init')];
   const deletePromises = directoriesToDelete.map((directory) => fs.rm(directory, { recursive: true, force: true }));
 
   console.log('Deleting unneeded directories and files...');
 
   await Promise.all(deletePromises);
 };
+
+const downloadAndSaveApiDeclarationFile = async (): Promise<void> =>
+  new Promise((resolve, reject) => {
+    const spawned = spawn('node', [`${path.join(paths.script, 'downloadAndSaveApiDeclarationFile.js')}`]);
+
+    spawned.stderr.pipe(process.stderr);
+    spawned.stdout.pipe(process.stdout);
+
+    spawned.on('error', reject);
+    spawned.on('close', resolve);
+  });
 
 const runNpmInstall = (): Promise<void> =>
   new Promise((resolve, reject) => {
@@ -134,6 +141,7 @@ export default async function init(): Promise<void> {
   await replacePackageJsonData();
   await replaceAuthorAndYearInLicense();
   await deleteDirectoriesAndFiles();
+  await downloadAndSaveApiDeclarationFile();
   await runNpmInstall();
 
   console.log('Successfully initialized mod template!');
