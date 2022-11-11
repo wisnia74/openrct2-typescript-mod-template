@@ -103,14 +103,25 @@ const replaceAuthorAndYearInLicense = async (): Promise<void> => {
   await fs.writeFile(filepath, content);
 };
 
-const deleteDirectories = async (): Promise<void> => {
+const deleteDirectoriesAndFiles = async (): Promise<void> => {
   const directoriesToDelete = [path.join(paths.gulp, 'init')];
   const deletePromises = directoriesToDelete.map((directory) => fs.rm(directory, { recursive: true, force: true }));
 
-  console.log('Deleting unneeded directories...');
+  console.log('Deleting unneeded directories and files...');
 
   await Promise.all(deletePromises);
 };
+
+const downloadAndSaveApiDeclarationFile = async (): Promise<void> =>
+  new Promise((resolve, reject) => {
+    const spawned = spawn('node', [`${path.join(paths.script, 'downloadAndSaveApiDeclarationFile.js')}`]);
+
+    spawned.stderr.pipe(process.stderr);
+    spawned.stdout.pipe(process.stdout);
+
+    spawned.on('error', reject);
+    spawned.on('close', resolve);
+  });
 
 const runNpmInstall = (): Promise<void> =>
   new Promise((resolve, reject) => {
@@ -129,7 +140,8 @@ export default async function init(): Promise<void> {
   await replaceDataInFiles();
   await replacePackageJsonData();
   await replaceAuthorAndYearInLicense();
-  await deleteDirectories();
+  await deleteDirectoriesAndFiles();
+  await downloadAndSaveApiDeclarationFile();
   await runNpmInstall();
 
   console.log('Successfully initialized mod template!');

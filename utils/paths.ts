@@ -10,4 +10,5 @@ export default {
   lib: path.join(rootDir, 'lib'),
   src: path.join(rootDir, 'src'),
   utils: path.join(rootDir, 'utils'),
+  script: path.join(rootDir, 'script'),
 };

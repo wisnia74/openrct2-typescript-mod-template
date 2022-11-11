@@ -1,18 +1,20 @@
+import path from 'path';
 import paths from '../paths';
 
-jest.mock('../rootDir', () => 'FakeDisk:\\FakeProjectFolder');
+jest.mock('../rootDir', () => path.join('FakeDisk:', 'FakeProjectFolder'));
 
 describe('paths', () => {
   it('returns paths to folders inside a project', () => {
     expect(paths).toStrictEqual({
-      root: 'FakeDisk:\\FakeProjectFolder',
-      github: 'FakeDisk:\\FakeProjectFolder\\.github',
-      config: 'FakeDisk:\\FakeProjectFolder\\config',
-      dist: 'FakeDisk:\\FakeProjectFolder\\dist',
-      gulp: 'FakeDisk:\\FakeProjectFolder\\gulp',
-      lib: 'FakeDisk:\\FakeProjectFolder\\lib',
-      src: 'FakeDisk:\\FakeProjectFolder\\src',
-      utils: 'FakeDisk:\\FakeProjectFolder\\utils',
+      root: path.join('FakeDisk:', 'FakeProjectFolder'),
+      github: path.join('FakeDisk:', 'FakeProjectFolder', '.github'),
+      config: path.join('FakeDisk:', 'FakeProjectFolder', 'config'),
+      dist: path.join('FakeDisk:', 'FakeProjectFolder', 'dist'),
+      gulp: path.join('FakeDisk:', 'FakeProjectFolder', 'gulp'),
+      lib: path.join('FakeDisk:', 'FakeProjectFolder', 'lib'),
+      src: path.join('FakeDisk:', 'FakeProjectFolder', 'src'),
+      utils: path.join('FakeDisk:', 'FakeProjectFolder', 'utils'),
+      script: path.join('FakeDisk:', 'FakeProjectFolder', 'script'),
     });
   });
 });
