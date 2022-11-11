@@ -1,9 +1,8 @@
 import path from 'path';
 import rootDir from '../rootDir';
 
-jest.mock('path', () => ({
-  ...jest.requireActual<typeof path>('path'),
-  dirname: (): string => path.join('FakeDisk:', 'FakeFolder'),
+jest.mock('process', () => ({
+  cwd: (): string => path.join('FakeDisk:', 'FakeFolder'),
 }));
 
 describe('rootDir', () => {

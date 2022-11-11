@@ -1,3 +1,3 @@
-import { dirname } from 'path';
+import process from 'process';
 
-export default dirname(require.main?.filename as string);
+export default process.cwd();
