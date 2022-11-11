@@ -14,6 +14,7 @@ describe('paths', () => {
       lib: path.join('FakeDisk:', 'FakeProjectFolder', 'lib'),
       src: path.join('FakeDisk:', 'FakeProjectFolder', 'src'),
       utils: path.join('FakeDisk:', 'FakeProjectFolder', 'utils'),
+      script: path.join('FakeDisk:', 'FakeProjectFolder', 'script'),
     });
   });
 });

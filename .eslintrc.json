@@ -33,6 +33,12 @@
   },
   "overrides": [
     {
+      "files": ["*.js"],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": "off"
+      }
+    },
+    {
       "files": ["rollup.*.ts", "gulpfile.ts", "gulp/**/*.ts", "config/**/*.ts"],
       "rules": {
         "import/no-extraneous-dependencies": 0

@@ -57,6 +57,8 @@ const replaceDataInFiles = async (): Promise<void> => {
     path.join(paths.github, 'ISSUE_TEMPLATE', 'bug_report.md'),
     path.join(paths.github, 'ISSUE_TEMPLATE', 'feature_request.md'),
     path.join(paths.gulp, 'index.ts'),
+    path.join(paths.utils, 'paths.ts'),
+    path.join(paths.utils, '__test__', 'paths.test.ts'),
   ];
 
   console.log('Replacing data in files: ', filepathsToModify);
@@ -65,6 +67,8 @@ const replaceDataInFiles = async (): Promise<void> => {
     replaceDataInFile(filepath, [
       [templateAuthorRegex, config.getString('MOD_AUTHOR')],
       [/\nexport \* from '\.\/init';/, ''],
+      [/\nscript: path\.join\(rootDir, 'script'\),/, ''],
+      [/\nscript: path\.join\('FakeDisk:', 'FakeProjectFolder', 'script'\),/, ''],
     ])
   );
 
@@ -103,11 +107,11 @@ const replaceAuthorAndYearInLicense = async (): Promise<void> => {
   await fs.writeFile(filepath, content);
 };
 
-const deleteDirectories = async (): Promise<void> => {
-  const directoriesToDelete = [path.join(paths.gulp, 'init')];
+const deleteDirectoriesAndFiles = async (): Promise<void> => {
+  const directoriesToDelete = [path.join(paths.gulp, 'init'), paths.script, path.join(paths.lib, 'README.md')];
   const deletePromises = directoriesToDelete.map((directory) => fs.rm(directory, { recursive: true, force: true }));
 
-  console.log('Deleting unneeded directories...');
+  console.log('Deleting unneeded directories and files...');
 
   await Promise.all(deletePromises);
 };
@@ -129,7 +133,7 @@ export default async function init(): Promise<void> {
   await replaceDataInFiles();
   await replacePackageJsonData();
   await replaceAuthorAndYearInLicense();
-  await deleteDirectories();
+  await deleteDirectoriesAndFiles();
   await runNpmInstall();
 
   console.log('Successfully initialized mod template!');
