@@ -24,7 +24,7 @@ jobs:
           cache: 'npm'
 
       - name: Download and save latest OpenRCT2 API declaration file
-        run: npx ts-node ./utils/downloadAndSaveApiDeclarationFile.ts
+        run: npm install -g typescript ts-node && ts-node ./utils/downloadAndSaveApiDeclarationFile.ts
 
       - name: Install dependencies
         run: npm ci
