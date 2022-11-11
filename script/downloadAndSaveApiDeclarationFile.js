@@ -1,5 +1,5 @@
-import { promises as fs } from 'fs';
-import path from 'path';
+const fs = require('fs/promises');
+const path = require('path');
 
 (async () => {
   const response = await fetch(
