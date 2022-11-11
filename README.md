@@ -13,8 +13,6 @@ Template repository for OpenRCT2 mods written in TypeScript.
 - [Notes](#notes)
 - [Useful links](#useful-links)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 ## About
 
 This repository was created to serve as a template TypeScript mod repository for OpenRCT2.
