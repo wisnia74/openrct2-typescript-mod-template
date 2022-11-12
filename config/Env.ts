@@ -1,4 +1,4 @@
-import { isString } from '../utils/typeCheckFunctions';
+import { isString } from '../utils';
 
 type EnvConfigObject = { [x: string]: unknown };
 
