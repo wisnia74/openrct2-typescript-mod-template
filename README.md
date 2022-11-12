@@ -47,7 +47,7 @@ This template repository comes with:
 ```
 
 - replace `PATH_TO_OPENRCT2` with correct path to OpenRCT2 folder on your PC (usually `C:\Users\<USER>\Documents\OpenRCT2` or `C:\Program Files\OpenRCT2`)
-- make sure to escape slashes (by adding `\` in front of them), JSON doesn't like some of those
+- make sure to use either escaped backslashes (`\\`) or forward slashes (`/`) in the path you're pasting
 
 6. Run `nvm use && npm install && npm run init`
 
