@@ -10,11 +10,10 @@
     "build:watch": "npm run build -- --watch",
     "build:dev": "cross-env NODE_ENV=dev ts-node ./script/build.ts",
     "build:dev:watch": "npm run build:dev -- --watch",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "ts-node ./script/test.ts",
+    "test:watch": "npm run test -- --watch",
     "lint": "ts-node ./script/lint",
     "init": "ts-node ./script/init",
-    "help": "gulp --tasks",
     "husky:prepare": "husky install"
   },
   "repository": {
