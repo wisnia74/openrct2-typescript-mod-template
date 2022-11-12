@@ -1,4 +1,5 @@
-import { isString } from '../utils';
+// DO NOT IMPORT FROM "../utils" this makes Rollup try to resolve core Node.js modules like path and process
+import { isString } from '../utils/typeCheckFunctions';
 
 type EnvConfigObject = { [x: string]: unknown };
 
