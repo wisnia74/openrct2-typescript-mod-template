@@ -1,5 +1,5 @@
-import paths from '../paths';
 import path from 'path';
+import paths from '../paths';
 
 jest.mock('../rootDir', () => path.join('FakeDisk:', 'FakeProjectFolder'));
 

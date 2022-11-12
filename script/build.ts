@@ -1,6 +1,6 @@
 import './registerCustomPaths';
-import config from '~/config';
 import { spawn } from 'child_process';
+import config from '~/config';
 
 ((): void => {
   const spawned = spawn(

@@ -1,5 +1,5 @@
-import rootDir from '../rootDir';
 import path from 'path';
+import rootDir from '../rootDir';
 
 jest.mock('process', () => ({
   cwd: (): string => path.join('FakeDisk:', 'FakeFolder'),

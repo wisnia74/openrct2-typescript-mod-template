@@ -33,7 +33,7 @@
     "import/order": [
       "error",
       {
-        "groups": ["index", "sibling", "parent", "internal", "external", "builtin", "object", "type"]
+        "groups": ["builtin", "index", "sibling", "parent", "internal", "external", "object", "type"]
       }
     ]
   },

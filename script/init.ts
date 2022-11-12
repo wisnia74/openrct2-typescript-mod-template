@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 
 import './registerCustomPaths';
-import config from '~/config';
-import { paths } from '~/utils';
 import { promises as fs } from 'fs';
 import { spawn } from 'child_process';
 import path from 'path';
+import { paths } from '~/utils';
+import config from '~/config';
 import type { PathLike } from 'fs';
 
 const templateAuthorRegex = /wisnia74/g;
