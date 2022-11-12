@@ -149,4 +149,5 @@ const runNpmInstall = (): Promise<void> =>
   await runNpmInstall();
 
   console.log('Successfully initialized mod template!');
+  console.log('\nYou can now commit all the edited files!');
 })();
