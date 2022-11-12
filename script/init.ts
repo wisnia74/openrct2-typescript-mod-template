@@ -1,3 +1,4 @@
+import './registerCustomPaths';
 import type { PathLike } from 'fs';
 import { promises as fs } from 'fs';
 import { spawn } from 'child_process';
@@ -56,16 +57,12 @@ const replaceDataInFiles = async (): Promise<void> => {
   const filepathsToModify = [
     path.join(paths.github, 'ISSUE_TEMPLATE', 'bug_report.md'),
     path.join(paths.github, 'ISSUE_TEMPLATE', 'feature_request.md'),
-    path.join(paths.gulp, 'index.ts'),
   ];
 
   console.log('Replacing data in files: ', filepathsToModify);
 
   const modificationPromises = filepathsToModify.map((filepath) =>
-    replaceDataInFile(filepath, [
-      [templateAuthorRegex, config.getString('MOD_AUTHOR')],
-      [/\nexport \* from '\.\/init';/, ''],
-    ])
+    replaceDataInFile(filepath, [[templateAuthorRegex, config.getString('MOD_AUTHOR')]])
   );
 
   await Promise.all(modificationPromises);
@@ -103,15 +100,6 @@ const replaceAuthorAndYearInLicense = async (): Promise<void> => {
   await fs.writeFile(filepath, content);
 };
 
-const deleteDirectoriesAndFiles = async (): Promise<void> => {
-  const directoriesToDelete = [path.join(paths.gulp, 'init')];
-  const deletePromises = directoriesToDelete.map((directory) => fs.rm(directory, { recursive: true, force: true }));
-
-  console.log('Deleting unneeded directories and files...');
-
-  await Promise.all(deletePromises);
-};
-
 const downloadAndSaveApiDeclarationFile = async (): Promise<void> =>
   new Promise((resolve, reject) => {
     const spawned = spawn('node', [`${path.join(paths.script, 'downloadAndSaveApiDeclarationFile.js')}`]);
@@ -122,6 +110,18 @@ const downloadAndSaveApiDeclarationFile = async (): Promise<void> =>
     spawned.on('error', reject);
     spawned.on('close', resolve);
   });
+
+const deleteDirectoriesAndFiles = async (): Promise<void> => {
+  const directoriesToDelete = [
+    path.join(paths.script, 'init.ts'),
+    path.join(paths.script, 'downloadAndSaveApiDeclarationFile.js'),
+  ];
+  const deletePromises = directoriesToDelete.map((directory) => fs.rm(directory, { recursive: true, force: true }));
+
+  console.log('Deleting unneeded directories and files...');
+
+  await Promise.all(deletePromises);
+};
 
 const runNpmInstall = (): Promise<void> =>
   new Promise((resolve, reject) => {
@@ -136,13 +136,14 @@ const runNpmInstall = (): Promise<void> =>
     spawned.on('close', resolve);
   });
 
-export default async function init(): Promise<void> {
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
+(async (): Promise<void> => {
   await replaceDataInFiles();
   await replacePackageJsonData();
   await replaceAuthorAndYearInLicense();
-  await deleteDirectoriesAndFiles();
   await downloadAndSaveApiDeclarationFile();
+  await deleteDirectoriesAndFiles();
   await runNpmInstall();
 
   console.log('Successfully initialized mod template!');
-}
+})();

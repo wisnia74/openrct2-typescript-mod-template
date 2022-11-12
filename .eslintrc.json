@@ -39,9 +39,9 @@
       }
     },
     {
-      "files": ["rollup.*.ts", "gulpfile.ts", "gulp/**/*.ts", "config/**/*.ts"],
+      "files": ["rollup.*.ts", "config/**/*.ts", "script/**/*.ts"],
       "rules": {
-        "import/no-extraneous-dependencies": 0
+        "import/no-extraneous-dependencies": "off"
       }
     },
     {

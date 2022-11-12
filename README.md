@@ -24,7 +24,6 @@ This template repository comes with:
 - [Rollup](https://rollupjs.org)
 - [ESLint](https://eslint.org/)
 - [Jest](https://jestjs.io/)
-- [gulp](https://gulpjs.com/)
 
 ## Installation
 
