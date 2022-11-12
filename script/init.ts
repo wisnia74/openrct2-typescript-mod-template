@@ -1,10 +1,12 @@
+/* eslint-disable no-console */
+
 import './registerCustomPaths';
-import type { PathLike } from 'fs';
+import config from '~/config';
+import { paths } from '~/utils';
 import { promises as fs } from 'fs';
 import { spawn } from 'child_process';
 import path from 'path';
-import config from '~/config';
-import { paths } from '~/utils';
+import type { PathLike } from 'fs';
 
 const templateAuthorRegex = /wisnia74/g;
 
@@ -34,6 +36,7 @@ const getReplaceData = (): string[] => {
 
   if (!match) throw new Error('Could not match any meaningful information from MOD_URL variable');
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [cleanModURL, _modAuthor, repoName] = match;
 
   if (!cleanModURL) throw new Error('Could not match mod URL from MOD_URL variable');

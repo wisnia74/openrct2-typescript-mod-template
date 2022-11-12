@@ -28,8 +28,14 @@
       }
     ],
     "prettier/prettier": "error",
-    "@typescript-eslint/explicit-function-return-type": ["error"],
-    "@typescript-eslint/consistent-type-imports": ["error"]
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/consistent-type-imports": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": ["index", "sibling", "parent", "internal", "external", "builtin", "object", "type"]
+      }
+    ]
   },
   "overrides": [
     {

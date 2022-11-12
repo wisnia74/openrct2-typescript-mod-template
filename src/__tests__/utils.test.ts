@@ -1,5 +1,5 @@
-import { createMockStaff } from '~/testUtils';
 import * as utils from '../utils';
+import { createMockStaff } from '~/testUtils';
 
 describe('utils', () => {
   describe('isHandyman', () => {

@@ -1,5 +1,5 @@
-import path from 'path';
 import rootDir from './rootDir';
+import path from 'path';
 
 export default {
   root: rootDir,

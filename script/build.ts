@@ -1,6 +1,6 @@
 import './registerCustomPaths';
-import { spawn } from 'child_process';
 import config from '~/config';
+import { spawn } from 'child_process';
 
 ((): void => {
   const spawned = spawn(
@@ -8,9 +8,9 @@ import config from '~/config';
     [
       '--config',
       `rollup.config.${config.getString('NODE_ENV')}.ts`,
+      process.argv.slice(2).join(' '),
       '--configPlugin',
       'typescript',
-      ...process.argv.slice(2),
     ],
     { shell: true }
   );
