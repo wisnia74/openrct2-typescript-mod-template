@@ -2,13 +2,15 @@ import './registerCustomPaths';
 import { Logger } from '~/utils';
 import { ESLint } from 'eslint';
 
-class Linter {
+const isFixModeEnabled = !!process.argv.find((flag) => flag === '--fix');
+
+class LintRunner {
   private eslintInstance: ESLint;
 
   private logger: Logger;
 
   constructor(logger: Logger) {
-    this.eslintInstance = new ESLint();
+    this.eslintInstance = new ESLint({ fix: isFixModeEnabled });
     this.logger = logger;
   }
 
@@ -18,6 +20,12 @@ class Linter {
     this.logger.timeStart('lint');
 
     const results = await this.eslintInstance.lintFiles(['**/*.ts']);
+
+    if (isFixModeEnabled) {
+      this.logger.info('Found "--fix" flag, attempting to fix lint errors...');
+      await ESLint.outputFixes(results);
+    }
+
     const formatter = await this.eslintInstance.loadFormatter('stylish');
     const formattedResults = formatter.format(results);
 
@@ -35,5 +43,5 @@ class Linter {
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async (): Promise<void> => {
-  await new Linter(new Logger({ name: 'ESLint', output: console })).run();
+  await new LintRunner(new Logger({ name: 'ESLint', output: console })).run();
 })();

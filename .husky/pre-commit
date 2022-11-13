@@ -9,6 +9,6 @@ export FORCE_COLOR=1
 
 echo "Running husky pre-commit hook..."
 
-npm run lint
+npm run lint -- --fix
 
 echo "All good, commiting!"
