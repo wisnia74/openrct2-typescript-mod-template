@@ -1,18 +1,17 @@
 import './registerCustomPaths';
 import { exec } from 'child_process';
-import { ESLint } from 'eslint';
 import { Logger } from '~/utils';
-
-const isFixModeEnabled = !!process.argv.find((flag) => flag === '--fix');
-let hasAutoFixBeenRun = false;
+import { ESLint } from 'eslint';
 
 class LintRunner {
   private eslintInstance: ESLint;
 
   private logger: Logger;
 
+  private isFixModeEnabled = !!process.argv.find((arg) => arg === '--fix');
+
   constructor(logger: Logger) {
-    this.eslintInstance = new ESLint({ fix: isFixModeEnabled });
+    this.eslintInstance = new ESLint({ fix: this.isFixModeEnabled });
     this.logger = logger;
   }
 
@@ -22,20 +21,8 @@ class LintRunner {
     this.logger.timeStart('lint');
 
     const results = await this.eslintInstance.lintFiles(['**/*.ts']);
-
-    if (results.some((result) => result.errorCount > 0) && isFixModeEnabled && !hasAutoFixBeenRun) {
-      this.logger.error('Found lint errros, attempting to auto-fix...');
-
-      await ESLint.outputFixes(results);
-
-      this.logger.success('Successfully fixed auto-fixable lint errros, re-running lint...');
-
-      hasAutoFixBeenRun = true;
-      exec('git add .');
-      await this.run();
-      return;
-    }
-
+    await ESLint.outputFixes(results);
+    exec('git add .');
     const formatter = await this.eslintInstance.loadFormatter('stylish');
     const formattedResults = formatter.format(results);
 
