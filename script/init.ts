@@ -95,7 +95,7 @@ class InitRunner {
   }
 
   async replaceAuthorAndYearInLicense(): Promise<void> {
-    this.logger.log('Replacing author and year in LICENSE...');
+    this.logger.info('Replacing author and year in LICENSE...');
 
     const filepath = path.join(paths.root, 'LICENSE');
     const file = await fs.readFile(filepath);
@@ -120,7 +120,7 @@ class InitRunner {
   }
 
   async deleteDirectoriesAndFiles(filepathsToDelete: string[]): Promise<void> {
-    this.logger.log('Deleting unneeded directories and files...');
+    this.logger.info('Deleting unneeded directories and files...');
 
     const deletePromises = filepathsToDelete.map((directory) => fs.rm(directory, { recursive: true, force: true }));
 
@@ -129,7 +129,7 @@ class InitRunner {
 
   async runNpmInstall(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.logger.log('Running npm install...');
+      this.logger.info('Running npm install...');
 
       const spawned = spawn('npm', ['install'], { shell: true });
 
