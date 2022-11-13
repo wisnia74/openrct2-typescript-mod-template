@@ -11,7 +11,6 @@ class TestRunner {
 
   async run(): Promise<void> {
     this.logger.info('Starting...');
-
     this.logger.timeStart('test');
 
     await jest.run(process.argv.slice(2));

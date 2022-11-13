@@ -37,27 +37,21 @@ class BuildRunner {
       return;
     }
 
-    if (Array.isArray(this.rollupConfig.output)) {
-      for (let i = 0; i < this.rollupConfig.output.length; i += 1) {
-        const outputBundleFilepath = this.rollupConfig.output[i].file;
+    const outputOptions = Array.isArray(this.rollupConfig.output)
+      ? this.rollupConfig.output
+      : [this.rollupConfig.output];
 
-        if (!outputBundleFilepath) {
-          throw new Error('Missing output bundle filepath/-s!');
-        }
+    for (let i = 0; i < outputOptions.length; i += 1) {
+      const outputOptionsEntry = outputOptions[i];
 
-        this.logger.info(`Generating "${outputBundleFilepath}" output bundle...`);
-
-        // eslint-disable-next-line no-await-in-loop
-        await this.saveOutput(bundle, this.rollupConfig.output[i]);
-      }
-    } else {
-      if (!this.rollupConfig.output.file) {
-        throw new Error('Missing output bundle filepath/-s!');
+      if (!outputOptionsEntry.file) {
+        throw new Error('Missing output/-s bundle filepath/-s!');
       }
 
-      this.logger.info(`Generating "${this.rollupConfig.output.file}" output bundle...`);
+      this.logger.info(`Generating "${outputOptionsEntry.file}" output bundle...`);
 
-      await this.saveOutput(bundle, this.rollupConfig.output);
+      // eslint-disable-next-line no-await-in-loop
+      await this.saveOutput(bundle, outputOptionsEntry);
     }
   }
 
@@ -76,7 +70,6 @@ class BuildRunner {
 
   async run(): Promise<void> {
     this.logger.info('Starting...');
-
     this.logger.timeStart('build');
 
     await this.runBuild();
