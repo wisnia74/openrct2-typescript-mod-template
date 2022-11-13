@@ -21,8 +21,10 @@ class LintRunner {
     this.logger.timeStart('lint');
 
     const results = await this.eslintInstance.lintFiles(['**/*.ts']);
+
     await ESLint.outputFixes(results);
     exec('git add .');
+
     const formatter = await this.eslintInstance.loadFormatter('stylish');
     const formattedResults = formatter.format(results);
 
