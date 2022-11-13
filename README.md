@@ -41,11 +41,17 @@ This template repository comes with:
 
 ```json
 {
-  "OPENRCT2_PATH": "PATH_TO_OPENRCT2"
+  "OPENRCT2_FOLDER_PATH": "PATH_TO_OPENRCT2",
+  "OPENRCT2_MS_DOS_EXECUTABLE_PATH": "PATH_TO_MS_DOS_OPERCT2_EXECUTABLE"
 }
 ```
 
-- replace `PATH_TO_OPENRCT2` with correct path to OpenRCT2 folder on your PC (usually `C:\Users\<USER>\Documents\OpenRCT2` or `C:\Program Files\OpenRCT2`)
+- replace:
+  - (required) `PATH_TO_OPENRCT2` with correct path to OpenRCT2 folder on your PC (usually `C:\Users\<USER>\Documents\OpenRCT2` or `C:\Program Files\OpenRCT2`)
+  - (optional) `OPENRCT2_MS_DOS_EXECUTABLE_PATH`
+    - useful only for Windows users, **don't include this variable in the config otherwise**
+    - it should be a path to `openrct2.com` located in `bin` folder of OpenRCT2
+    - if you populate this variable, upon running `npm start`, the script will launch Rollup in watch mode and OpenRCT2, piping their outputs to the same terminal
 - make sure to use either escaped backslashes (`\\`) or forward slashes (`/`) in the path you're pasting
 
 6. Run `nvm use && npm install && npm run init`

@@ -12,7 +12,7 @@ export default <RollupOptions>{
   output: [
     {
       file: path.join(
-        config.getString('OPENRCT2_PATH'),
+        config.getString('OPENRCT2_FOLDER_PATH'),
         'plugin',
         `${config.getString('MOD_NAME')}_${config.getString('NODE_ENV')}.js`
       ),
