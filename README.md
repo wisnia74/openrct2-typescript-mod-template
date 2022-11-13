@@ -47,8 +47,8 @@ This template repository comes with:
 ```
 
 - replace:
-  - (required) `PATH_TO_OPENRCT2` with correct path to OpenRCT2 folder on your PC (usually `C:\Users\<USER>\Documents\OpenRCT2` or `C:\Program Files\OpenRCT2`)
-  - (optional) `OPENRCT2_MS_DOS_EXECUTABLE_PATH`
+  - **(required)** `PATH_TO_OPENRCT2` with correct path to OpenRCT2 folder on your PC (usually `C:\Users\<USER>\Documents\OpenRCT2` or `C:\Program Files\OpenRCT2`)
+  - _(optional)_ `OPENRCT2_MS_DOS_EXECUTABLE_PATH`
     - useful only for Windows users, **don't include this variable in the config otherwise**
     - it should be a path to `openrct2.com` located in `bin` folder of OpenRCT2
     - if you populate this variable, upon running `npm start`, the script will launch Rollup in watch mode and OpenRCT2, piping their outputs to the same terminal
