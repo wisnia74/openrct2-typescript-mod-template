@@ -87,7 +87,7 @@ class BuildRunner {
   ).default;
 
   await new BuildRunner({
-    logger: new Logger({ name: 'Rollup', output: console }),
+    logger: new Logger({ name: 'rollup', output: console }),
     rollupConfig,
   }).run();
 })();

@@ -21,5 +21,5 @@ class TestRunner {
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async (): Promise<void> => {
-  await new TestRunner(new Logger({ name: 'Jest', output: console })).run();
+  await new TestRunner(new Logger({ name: 'jest', output: console })).run();
 })();

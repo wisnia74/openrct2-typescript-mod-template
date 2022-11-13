@@ -3,7 +3,7 @@
 import chalk from 'chalk';
 
 const seed = (): number => Math.floor(Math.random() * 255);
-const randomColor = chalk.rgb(seed(), seed(), seed());
+const getRandomColor = (): chalk.Chalk => chalk.rgb(seed(), seed(), seed());
 
 const formatTime = (time: [number, number]): string => `${time[0]}s ${Math.round(time[1] / 1000000)}ms`;
 
@@ -18,7 +18,15 @@ export default class Logger {
 
   private timeMeasures: Map<string, ReturnType<NodeJS.HRTime>>;
 
-  constructor({ name, color = randomColor, output = console }: { name: string; color?: chalk.Chalk; output: Console }) {
+  constructor({
+    name,
+    color = getRandomColor(),
+    output = console,
+  }: {
+    name: string;
+    color?: chalk.Chalk;
+    output: Console;
+  }) {
     this.name = name;
     this.color = color;
     this.output = output;

@@ -15,6 +15,8 @@ const main = (): void => {
   console.log(`- ${getMechanics().length} mechanics`);
   console.log(`- ${getSecurity().length} security`);
   console.log(`- ${getEntertainers().length} entertainers`);
+  const a = { a: 1, b: 2 };
+  console.log({ a });
 };
 
 export default main;

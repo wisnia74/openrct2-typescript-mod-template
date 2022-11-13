@@ -41,5 +41,5 @@ class LintRunner {
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async (): Promise<void> => {
-  await new LintRunner(new Logger({ name: 'ESLint', output: console })).run();
+  await new LintRunner(new Logger({ name: 'eslint', output: console })).run();
 })();
