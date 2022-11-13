@@ -143,6 +143,8 @@ class InitRunner {
 
     this.logger.timeStart('init');
 
+    await this.replacePackageJsonData();
+    await this.replaceAuthorAndYearInLicense();
     await this.replaceDataInFiles(
       [
         path.join(paths.github, 'ISSUE_TEMPLATE', 'bug_report.md'),
@@ -150,8 +152,6 @@ class InitRunner {
       ],
       [{ searchFor: templateAuthorRegex, replaceWith: config.getString('MOD_AUTHOR') }]
     );
-    await this.replacePackageJsonData();
-    await this.replaceAuthorAndYearInLicense();
     await this.downloadAndSaveApiDeclarationFile();
     await this.deleteDirectoriesAndFiles([
       path.join(paths.script, 'init.ts'),
