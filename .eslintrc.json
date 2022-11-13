@@ -51,6 +51,12 @@
       }
     },
     {
+      "files": ["script/**/*.ts"],
+      "rules": {
+        "no-console": "off"
+      }
+    },
+    {
       "files": ["*.ts"],
       "extends": [
         "plugin:@typescript-eslint/recommended",

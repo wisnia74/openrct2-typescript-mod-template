@@ -1,4 +1,5 @@
 {
+  "reporters": ["jest-progress-bar-reporter"],
   "projects": [
     {
       "preset": "ts-jest",

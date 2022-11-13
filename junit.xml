@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="21" failures="1" errors="0" time="3.329">
+  <testsuite name="class Env" errors="0" failures="0" skipped="0" timestamp="2022-11-13T11:29:30" time="2.357" tests="4">
+    <testcase classname="class Env has returns true if key was found in config object" name="class Env has returns true if key was found in config object" time="0.002">
+    </testcase>
+    <testcase classname="class Env getConfigObject returns config object" name="class Env getConfigObject returns config object" time="0.001">
+    </testcase>
+    <testcase classname="class Env getString returns string if key was found in config object" name="class Env getString returns string if key was found in config object" time="0">
+    </testcase>
+    <testcase classname="class Env getString throws error otherwise" name="class Env getString throws error otherwise" time="0.007">
+    </testcase>
+  </testsuite>
+  <testsuite name="rootDir" errors="0" failures="0" skipped="0" timestamp="2022-11-13T11:29:30" time="2.382" tests="1">
+    <testcase classname="rootDir returns root directory of the project" name="rootDir returns root directory of the project" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="utils" errors="0" failures="0" skipped="0" timestamp="2022-11-13T11:29:30" time="2.402" tests="8">
+    <testcase classname="utils isHandyman returns true if staff member is a handyman" name="utils isHandyman returns true if staff member is a handyman" time="0.002">
+    </testcase>
+    <testcase classname="utils isMechanic returns true if staff member is a mechanic" name="utils isMechanic returns true if staff member is a mechanic" time="0">
+    </testcase>
+    <testcase classname="utils isSecurity returns true if staff member is a security guard" name="utils isSecurity returns true if staff member is a security guard" time="0">
+    </testcase>
+    <testcase classname="utils isEntertainer returns true if staff member is an entertainer" name="utils isEntertainer returns true if staff member is an entertainer" time="0.001">
+    </testcase>
+    <testcase classname="utils getHandymen returns all handymen in the park" name="utils getHandymen returns all handymen in the park" time="0">
+    </testcase>
+    <testcase classname="utils getMechanics returns all mechanic in the park" name="utils getMechanics returns all mechanic in the park" time="0.001">
+    </testcase>
+    <testcase classname="utils getSecurity returns all security guards in the park" name="utils getSecurity returns all security guards in the park" time="0">
+    </testcase>
+    <testcase classname="utils getEntertainers returns all entertainers in the park" name="utils getEntertainers returns all entertainers in the park" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="isString" errors="0" failures="0" skipped="0" timestamp="2022-11-13T11:29:30" time="2.418" tests="7">
+    <testcase classname="isString returns true if variable is string" name="isString returns true if variable is string" time="0.002">
+    </testcase>
+    <testcase classname="isString return false if variable is 1" name="isString return false if variable is 1" time="0.001">
+    </testcase>
+    <testcase classname="isString return false if variable is NaN" name="isString return false if variable is NaN" time="0">
+    </testcase>
+    <testcase classname="isString return false if variable is null" name="isString return false if variable is null" time="0">
+    </testcase>
+    <testcase classname="isString return false if variable is undefined" name="isString return false if variable is undefined" time="0">
+    </testcase>
+    <testcase classname="isString return false if variable is {}" name="isString return false if variable is {}" time="0">
+    </testcase>
+    <testcase classname="isString return false if variable is [Function anonymous]" name="isString return false if variable is [Function anonymous]" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="paths" errors="0" failures="1" skipped="0" timestamp="2022-11-13T11:29:30" time="2.444" tests="1">
+    <testcase classname="paths returns paths to folders inside a project" name="paths returns paths to folders inside a project" time="0.008">
+      <failure>Error: expect(received).toStrictEqual(expected) // deep equality
+
+- Expected  - 1
++ Received  + 1
+
+@@ -1,7 +1,7 @@
+  Object {
+-   &quot;config&quot;: &quot;FakeDisk:\\FakeProjectFolder\\a&quot;,
++   &quot;config&quot;: &quot;FakeDisk:\\FakeProjectFolder\\config&quot;,
+    &quot;dist&quot;: &quot;FakeDisk:\\FakeProjectFolder\\dist&quot;,
+    &quot;github&quot;: &quot;FakeDisk:\\FakeProjectFolder\\.github&quot;,
+    &quot;lib&quot;: &quot;FakeDisk:\\FakeProjectFolder\\lib&quot;,
+    &quot;root&quot;: &quot;FakeDisk:\\FakeProjectFolder&quot;,
+    &quot;script&quot;: &quot;FakeDisk:\\FakeProjectFolder\\script&quot;,
+    at Object.&lt;anonymous&gt; (D:\IT\GitHub\openrct2-typescript-mod-template\utils\__test__\paths.test.ts:8:19)
+    at Promise.then.completed (D:\IT\GitHub\openrct2-typescript-mod-template\node_modules\jest-circus\build\utils.js:333:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (D:\IT\GitHub\openrct2-typescript-mod-template\node_modules\jest-circus\build\utils.js:259:10)
+    at _callCircusTest (D:\IT\GitHub\openrct2-typescript-mod-template\node_modules\jest-circus\build\run.js:277:40)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async _runTest (D:\IT\GitHub\openrct2-typescript-mod-template\node_modules\jest-circus\build\run.js:209:3)
+    at async _runTestsForDescribeBlock (D:\IT\GitHub\openrct2-typescript-mod-template\node_modules\jest-circus\build\run.js:97:9)
+    at async _runTestsForDescribeBlock (D:\IT\GitHub\openrct2-typescript-mod-template\node_modules\jest-circus\build\run.js:91:9)
+    at async run (D:\IT\GitHub\openrct2-typescript-mod-template\node_modules\jest-circus\build\run.js:31:3)</failure>
+    </testcase>
+  </testsuite>
+</testsuites>
