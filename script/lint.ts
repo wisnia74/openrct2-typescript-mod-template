@@ -1,4 +1,5 @@
 import './registerCustomPaths';
+import { exec } from 'child_process';
 import { Logger } from '~/utils';
 import { ESLint } from 'eslint';
 
@@ -24,6 +25,7 @@ class LintRunner {
     if (isFixModeEnabled) {
       this.logger.info('Found "--fix" flag, attempting to fix lint errors...');
       await ESLint.outputFixes(results);
+      exec('git add .');
     }
 
     const formatter = await this.eslintInstance.loadFormatter('stylish');
