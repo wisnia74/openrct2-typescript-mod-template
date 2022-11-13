@@ -57,7 +57,7 @@ export default class Logger {
 
     const elapsedTime = process.hrtime(this.timeMeasures.get(label));
 
-    this.output.log(this.prepend, ...data, formatTime(elapsedTime));
+    this.output.log(this.prepend, data.join(' '), formatTime(elapsedTime));
   }
 
   timeEnd(label: string): string {

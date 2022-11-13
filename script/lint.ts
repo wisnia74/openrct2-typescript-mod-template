@@ -13,6 +13,8 @@ class Linter {
   }
 
   async run(): Promise<void> {
+    this.logger.info('Starting...');
+
     this.logger.timeStart('lint');
 
     const results = await this.eslintInstance.lintFiles(['**/*.ts']);

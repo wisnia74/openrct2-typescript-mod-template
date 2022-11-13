@@ -8,7 +8,7 @@ describe('paths', () => {
     expect(paths).toStrictEqual({
       root: path.join('FakeDisk:', 'FakeProjectFolder'),
       github: path.join('FakeDisk:', 'FakeProjectFolder', '.github'),
-      config: path.join('FakeDisk:', 'FakeProjectFolder', 'a'),
+      config: path.join('FakeDisk:', 'FakeProjectFolder', 'config'),
       dist: path.join('FakeDisk:', 'FakeProjectFolder', 'dist'),
       lib: path.join('FakeDisk:', 'FakeProjectFolder', 'lib'),
       src: path.join('FakeDisk:', 'FakeProjectFolder', 'src'),

@@ -10,7 +10,7 @@ class TestRunner {
   }
 
   async run(): Promise<void> {
-    this.logger.info('Starting tests...');
+    this.logger.info('Starting...');
 
     this.logger.timeStart('test');
 

@@ -4,13 +4,16 @@ import './registerCustomPaths';
 import { promises as fs } from 'fs';
 import { spawn } from 'child_process';
 import path from 'path';
-import { paths } from '~/utils';
+import { paths, Logger } from '~/utils';
 import config from '~/config';
 import type { PathLike } from 'fs';
 
 const templateAuthorRegex = /wisnia74/g;
 
-type SearchReplaceValuePair = [string | RegExp, string];
+type SearchReplaceValuePair = {
+  searchFor: string | RegExp;
+  replaceWith: string;
+};
 
 type PackageJSON = {
   name: string;
@@ -31,123 +34,136 @@ type PackageJSON = {
   devDependencies: Record<string, string>;
 };
 
-const getReplaceData = (): string[] => {
-  const match = config.getString('MOD_URL').match(/github.com\/([^/]+)\/([^/]+)/);
+class InitRunner {
+  private logger: Logger;
 
-  if (!match) throw new Error('Could not match any meaningful information from MOD_URL variable');
+  constructor(logger: Logger) {
+    this.logger = logger;
+  }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [cleanModURL, _modAuthor, repoName] = match;
+  getReplaceData(): string[] {
+    this.logger.info('Getting replace data from config...');
 
-  if (!cleanModURL) throw new Error('Could not match mod URL from MOD_URL variable');
-  if (!repoName) throw new Error('Could not match repository name from MOD_URL variable');
+    const match = config.getString('MOD_URL').match(/github.com\/([^/]+)\/([^/]+)/);
 
-  return [cleanModURL, repoName];
-};
+    if (!match) throw new Error('Could not match any meaningful information from MOD_URL variable');
 
-const replaceDataInFile = async (pathname: PathLike, data: SearchReplaceValuePair[]): Promise<void> => {
-  const file = await fs.readFile(pathname);
-  let content = file.toString();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [cleanModURL, _modAuthor, repoName] = match;
 
-  data.forEach(([searchValue, replaceValue]) => {
-    content = content.replace(searchValue, replaceValue);
-  });
+    if (!cleanModURL) throw new Error('Could not match mod URL from MOD_URL variable');
+    if (!repoName) throw new Error('Could not match repository name from MOD_URL variable');
 
-  await fs.writeFile(pathname, content);
-};
+    return [cleanModURL, repoName];
+  }
 
-const replaceDataInFiles = async (): Promise<void> => {
-  const filepathsToModify = [
-    path.join(paths.github, 'ISSUE_TEMPLATE', 'bug_report.md'),
-    path.join(paths.github, 'ISSUE_TEMPLATE', 'feature_request.md'),
-  ];
+  async replaceDataInFile(pathname: PathLike, data: SearchReplaceValuePair[]): Promise<void> {
+    this.logger.info(`Replacing data in ${pathname.toString()}...`);
 
-  console.log('Replacing data in files: ', filepathsToModify);
+    const file = await fs.readFile(pathname);
+    let content = file.toString();
 
-  const modificationPromises = filepathsToModify.map((filepath) =>
-    replaceDataInFile(filepath, [[templateAuthorRegex, config.getString('MOD_AUTHOR')]])
-  );
+    data.forEach(({ searchFor, replaceWith }) => {
+      content = content.replace(searchFor, replaceWith);
+    });
 
-  await Promise.all(modificationPromises);
-};
+    await fs.writeFile(pathname, content);
+  }
 
-const replacePackageJsonData = async (): Promise<void> => {
-  const [cleanModURL, repoName] = getReplaceData();
-  const filepath = path.join(paths.root, 'package.json');
-  const file = await fs.readFile(filepath);
-  const parsedFile = JSON.parse(file.toString()) as PackageJSON;
+  async replaceDataInFiles(filepathsToModify: string[], data: SearchReplaceValuePair[]): Promise<void> {
+    const modificationPromises = filepathsToModify.map((filepath) => this.replaceDataInFile(filepath, data));
 
-  console.log('Replacing data in package.json...');
+    await Promise.all(modificationPromises);
+  }
 
-  delete parsedFile.scripts.init;
-  parsedFile.author = config.getString('MOD_AUTHOR');
-  parsedFile.name = repoName;
-  parsedFile.homepage = `https://${cleanModURL}#readme`;
-  parsedFile.bugs.url = `https://${cleanModURL}/issues`;
-  parsedFile.repository.url = `git+https://${cleanModURL}.git`;
+  async replacePackageJsonData(): Promise<void> {
+    this.logger.info('Replacing data in package.json...');
 
-  await fs.writeFile(filepath, JSON.stringify(parsedFile, undefined, 2));
-};
+    const [cleanModURL, repoName] = this.getReplaceData();
+    const filepath = path.join(paths.root, 'package.json');
+    const file = await fs.readFile(filepath);
+    const parsedFile = JSON.parse(file.toString()) as PackageJSON;
 
-const replaceAuthorAndYearInLicense = async (): Promise<void> => {
-  const filepath = path.join(paths.root, 'LICENSE');
-  const file = await fs.readFile(filepath);
-  let content = file.toString();
+    delete parsedFile.scripts.init;
+    parsedFile.author = config.getString('MOD_AUTHOR');
+    parsedFile.name = repoName;
+    parsedFile.homepage = `https://${cleanModURL}#readme`;
+    parsedFile.bugs.url = `https://${cleanModURL}/issues`;
+    parsedFile.repository.url = `git+https://${cleanModURL}.git`;
 
-  console.log('Replacing author and year in LICENSE...');
+    await fs.writeFile(filepath, JSON.stringify(parsedFile, undefined, 2));
+  }
 
-  content = content
-    .replace(templateAuthorRegex, config.getString('MOD_AUTHOR'))
-    .replace(/2020/, new Date().getFullYear().toString());
+  async replaceAuthorAndYearInLicense(): Promise<void> {
+    this.logger.log('Replacing author and year in LICENSE...');
 
-  await fs.writeFile(filepath, content);
-};
+    const filepath = path.join(paths.root, 'LICENSE');
+    const file = await fs.readFile(filepath);
+    let content = file.toString();
 
-const downloadAndSaveApiDeclarationFile = async (): Promise<void> =>
-  new Promise((resolve, reject) => {
-    const spawned = spawn('node', [`${path.join(paths.script, 'downloadAndSaveApiDeclarationFile.js')}`]);
+    content = content
+      .replace(templateAuthorRegex, config.getString('MOD_AUTHOR'))
+      .replace(/2020/, new Date().getFullYear().toString());
 
-    spawned.stderr.pipe(process.stderr);
-    spawned.stdout.pipe(process.stdout);
+    await fs.writeFile(filepath, content);
+  }
 
-    spawned.on('error', reject);
-    spawned.on('close', resolve);
-  });
+  async downloadAndSaveApiDeclarationFile(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.logger.info('Downloading latest OpenRCT2 TypeScript API declaration file...');
 
-const deleteDirectoriesAndFiles = async (): Promise<void> => {
-  const directoriesToDelete = [
-    path.join(paths.script, 'init.ts'),
-    path.join(paths.script, 'downloadAndSaveApiDeclarationFile.js'),
-  ];
-  const deletePromises = directoriesToDelete.map((directory) => fs.rm(directory, { recursive: true, force: true }));
+      const spawned = spawn('node', [`${path.join(paths.script, 'downloadAndSaveApiDeclarationFile.js')}`]);
 
-  console.log('Deleting unneeded directories and files...');
+      spawned.on('error', reject);
+      spawned.on('close', resolve);
+    });
+  }
 
-  await Promise.all(deletePromises);
-};
+  async deleteDirectoriesAndFiles(filepathsToDelete: string[]): Promise<void> {
+    this.logger.log('Deleting unneeded directories and files...');
 
-const runNpmInstall = (): Promise<void> =>
-  new Promise((resolve, reject) => {
-    console.log('Running npm install...');
+    const deletePromises = filepathsToDelete.map((directory) => fs.rm(directory, { recursive: true, force: true }));
 
-    const spawned = spawn('npm', ['install'], { shell: true });
+    await Promise.all(deletePromises);
+  }
 
-    spawned.stderr.pipe(process.stderr);
-    spawned.stdout.pipe(process.stdout);
+  async runNpmInstall(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.logger.log('Running npm install...');
 
-    spawned.on('error', reject);
-    spawned.on('close', resolve);
-  });
+      const spawned = spawn('npm', ['install'], { shell: true });
+
+      spawned.on('error', reject);
+      spawned.on('close', resolve);
+    });
+  }
+
+  async run(): Promise<void> {
+    this.logger.info('Starting...');
+
+    this.logger.timeStart('init');
+
+    await this.replaceDataInFiles(
+      [
+        path.join(paths.github, 'ISSUE_TEMPLATE', 'bug_report.md'),
+        path.join(paths.github, 'ISSUE_TEMPLATE', 'feature_request.md'),
+      ],
+      [{ searchFor: templateAuthorRegex, replaceWith: config.getString('MOD_AUTHOR') }]
+    );
+    await this.replacePackageJsonData();
+    await this.replaceAuthorAndYearInLicense();
+    await this.downloadAndSaveApiDeclarationFile();
+    await this.deleteDirectoriesAndFiles([
+      path.join(paths.script, 'init.ts'),
+      path.join(paths.script, 'downloadAndSaveApiDeclarationFile.js'),
+    ]);
+    await this.runNpmInstall();
+
+    this.logger.success(`Finished in: ${this.logger.timeEnd('init')}`);
+  }
+}
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async (): Promise<void> => {
-  await replaceDataInFiles();
-  await replacePackageJsonData();
-  await replaceAuthorAndYearInLicense();
-  await downloadAndSaveApiDeclarationFile();
-  await deleteDirectoriesAndFiles();
-  await runNpmInstall();
-
-  console.log('Successfully initialized mod template!');
-  console.log('\nYou can now commit all the edited files!');
+  await new InitRunner(new Logger({ name: 'init-script', output: console })).run();
 })();
