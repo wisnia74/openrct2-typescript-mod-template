@@ -41,8 +41,8 @@ class InitRunner {
     this.logger = logger;
   }
 
-  getReplaceData(): string[] {
-    this.logger.info('Getting replace data from config...');
+  getModData(): { cleanModURL: string; repoName: string } {
+    this.logger.info('Getting mod data from config...');
 
     const match = config.getString('MOD_URL').match(/github.com\/([^/]+)\/([^/]+)/);
 
@@ -54,7 +54,7 @@ class InitRunner {
     if (!cleanModURL) throw new Error('Could not match mod URL from MOD_URL variable');
     if (!repoName) throw new Error('Could not match repository name from MOD_URL variable');
 
-    return [cleanModURL, repoName];
+    return { cleanModURL, repoName };
   }
 
   async replaceDataInFile(pathname: PathLike, data: SearchReplaceValuePair[]): Promise<void> {
@@ -79,7 +79,7 @@ class InitRunner {
   async replacePackageJsonData(): Promise<void> {
     this.logger.info('Replacing data in package.json...');
 
-    const [cleanModURL, repoName] = this.getReplaceData();
+    const { cleanModURL, repoName } = this.getModData();
     const filepath = path.join(paths.root, 'package.json');
     const file = await fs.readFile(filepath);
     const parsedFile = JSON.parse(file.toString()) as PackageJSON;
