@@ -34,7 +34,7 @@ type PackageJSON = {
   devDependencies: Record<string, string>;
 };
 
-class InitRunner {
+class InitScriptRunner {
   private logger: Logger;
 
   constructor(logger: Logger) {
@@ -165,5 +165,5 @@ class InitRunner {
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async (): Promise<void> => {
-  await new InitRunner(new Logger({ name: 'init-script', output: console })).run();
+  await new InitScriptRunner(new Logger({ name: 'init-script', output: console })).run();
 })();

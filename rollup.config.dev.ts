@@ -8,7 +8,7 @@ import injectProcessEnv from 'rollup-plugin-inject-process-env';
 import type { RollupOptions } from 'rollup';
 
 export default <RollupOptions>{
-  input: path.join(paths.src, 'index.ts'),
+  input: [path.join(paths.src, 'index.ts')],
   output: [
     {
       file: path.join(
