@@ -24,7 +24,6 @@ This template repository comes with:
 - [Rollup](https://rollupjs.org)
 - [ESLint](https://eslint.org/)
 - [Jest](https://jestjs.io/)
-- [gulp](https://gulpjs.com/)
 
 ## Installation
 
@@ -42,12 +41,17 @@ This template repository comes with:
 
 ```json
 {
-  "OPENRCT2_PATH": "PATH_TO_OPENRCT2"
+  "OPENRCT2_FOLDER_PATH": "PATH_TO_OPENRCT2",
+  "OPENRCT2_MS_DOS_EXECUTABLE_PATH": "PATH_TO_MS_DOS_OPERCT2_EXECUTABLE"
 }
 ```
 
-- replace `PATH_TO_OPENRCT2` with correct path to OpenRCT2 folder on your PC (usually `C:\Users\<USER>\Documents\OpenRCT2` or `C:\Program Files\OpenRCT2`)
-- make sure to use either escaped backslashes (`\\`) or forward slashes (`/`) in the path you're pasting
+- replace:
+  - **(required)** `PATH_TO_OPENRCT2` with correct path to OpenRCT2 folder on your PC (usually `C:\Users\<USER>\Documents\OpenRCT2` or `C:\Program Files\OpenRCT2`)
+  - _(optional)_ `OPENRCT2_MS_DOS_EXECUTABLE_PATH` with correct path to `openrct2.com` MS-DOS executable, located inside OpenRCT2 `bin` folder
+    - useful only for Windows users, **remove this variable from the config otherwise**
+    - if you populate this variable, upon running `npm start`, the script will launch Rollup in watch mode and OpenRCT2 (yes, it will launch the actual game), piping their outputs to the same terminal
+- make sure to use either escaped backslashes (`\\`) or forward slashes (`/`) in all the paths you're pasting to JSON config file
 
 6. Run `nvm use && npm install && npm run init`
 

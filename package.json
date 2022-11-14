@@ -6,17 +6,15 @@
   "scripts": {
     "start": "npm run build:watch",
     "start:dev": "npm run build:dev:watch",
-    "build": "cross-env NODE_ENV=prod gulp build",
-    "build:watch": "cross-env NODE_ENV=prod gulp buildWatch",
-    "build:dev": "cross-env NODE_ENV=dev gulp build",
-    "build:dev:watch": "cross-env NODE_ENV=dev gulp buildWatch",
-    "test": "gulp test",
-    "test:coverage": "gulp testCoverage",
-    "test:watch": "gulp testWatch",
-    "lint": "gulp lint",
-    "lint:fix": "gulp lintFix",
-    "init": "gulp init",
-    "help": "gulp --tasks",
+    "build": "cross-env NODE_ENV=prod ts-node ./script/build.ts",
+    "build:watch": "cross-env NODE_ENV=prod ts-node ./script/watch.ts",
+    "build:dev": "cross-env NODE_ENV=dev ts-node ./script/build.ts",
+    "build:dev:watch": "cross-env NODE_ENV=dev ts-node ./script/watch.ts",
+    "test": "ts-node ./script/test.ts",
+    "test:ci": "npm run test -- --ci",
+    "test:watch": "npm run test -- --watch",
+    "lint": "ts-node ./script/lint",
+    "init": "ts-node ./script/init",
     "husky:prepare": "husky install"
   },
   "repository": {
@@ -29,6 +27,9 @@
     "url": "https://github.com/wisnia74/openrct2-typescript-mod-template/issues"
   },
   "homepage": "https://github.com/wisnia74/openrct2-typescript-mod-template#readme",
+  "dependencies": {
+    "chalk": "^4.1.2"
+  },
   "devDependencies": {
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-typescript": "^8.3.2",
@@ -48,9 +49,9 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.4.6",
     "eslint-plugin-prettier": "^4.0.0",
-    "gulp": "^4.0.2",
     "husky": "^8.0.1",
     "jest": "^28.1.0",
+    "jest-progress-bar-reporter": "^1.0.25",
     "prettier": "^2.6.2",
     "rollup": "^2.75.5",
     "rollup-plugin-inject-process-env": "^1.3.1",

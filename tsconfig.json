@@ -15,7 +15,6 @@
     "paths": {
       "~/*": ["./*"],
       "src/*": ["./src/*"],
-      "gulp": ["./node_modules/gulp"],
       "config": ["./node_modules/config"]
     },
     "esModuleInterop": true,

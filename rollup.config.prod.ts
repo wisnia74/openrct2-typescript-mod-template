@@ -1,14 +1,14 @@
 import path from 'path';
-import type { RollupOptions } from 'rollup';
+import config from './config';
+import { paths } from './utils';
 import typescript from '@rollup/plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
 import json from '@rollup/plugin-json';
 import injectProcessEnv from 'rollup-plugin-inject-process-env';
-import config from './config';
-import { paths } from './utils';
+import type { RollupOptions } from 'rollup';
 
 export default <RollupOptions>{
-  input: path.join(paths.src, 'index.ts'),
+  input: [path.join(paths.src, 'index.ts')],
   output: [
     {
       file: path.join(paths.dist, `${config.getString('MOD_NAME')}.js`),

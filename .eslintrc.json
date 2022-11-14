@@ -28,8 +28,14 @@
       }
     ],
     "prettier/prettier": "error",
-    "@typescript-eslint/explicit-function-return-type": ["error"],
-    "@typescript-eslint/consistent-type-imports": ["error"]
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/consistent-type-imports": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "index", "sibling", "parent", "internal", "external", "object", "type"]
+      }
+    ]
   },
   "overrides": [
     {
@@ -39,9 +45,15 @@
       }
     },
     {
-      "files": ["rollup.*.ts", "gulpfile.ts", "gulp/**/*.ts", "config/**/*.ts"],
+      "files": ["rollup.*.ts", "config/**/*.ts", "script/**/*.ts"],
       "rules": {
-        "import/no-extraneous-dependencies": 0
+        "import/no-extraneous-dependencies": "off"
+      }
+    },
+    {
+      "files": ["script/**/*.ts"],
+      "rules": {
+        "no-console": "off"
       }
     },
     {

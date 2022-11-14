@@ -1,3 +1,5 @@
+.vscode/
+
 # API declaration file
 lib/openrct2.d.ts
 

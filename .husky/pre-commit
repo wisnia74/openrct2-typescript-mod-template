@@ -1,10 +1,14 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+if [ -t 2 ]; then
+  exec >/dev/tty 2>&1
+fi
+
 export FORCE_COLOR=1
 
 echo "Running husky pre-commit hook..."
 
-npm run lint
+npm run lint -- --fix
 
 echo "All good, commiting!"

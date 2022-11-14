@@ -10,7 +10,6 @@ describe('paths', () => {
       github: path.join('FakeDisk:', 'FakeProjectFolder', '.github'),
       config: path.join('FakeDisk:', 'FakeProjectFolder', 'config'),
       dist: path.join('FakeDisk:', 'FakeProjectFolder', 'dist'),
-      gulp: path.join('FakeDisk:', 'FakeProjectFolder', 'gulp'),
       lib: path.join('FakeDisk:', 'FakeProjectFolder', 'lib'),
       src: path.join('FakeDisk:', 'FakeProjectFolder', 'src'),
       utils: path.join('FakeDisk:', 'FakeProjectFolder', 'utils'),

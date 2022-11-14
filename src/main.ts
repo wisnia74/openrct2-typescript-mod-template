@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { getHandymen, getMechanics, getSecurity, getEntertainers } from './utils';
 
 const main = (): void => {
