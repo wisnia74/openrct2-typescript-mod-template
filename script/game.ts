@@ -21,6 +21,7 @@ export default class GameRunner {
 
     this.logger.success('OpenRCT2 is running!');
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const pipeStdoutToConsole = (chunk: any): void => {
       if (chunk instanceof Buffer) {
         const formattedChunk = chunk
