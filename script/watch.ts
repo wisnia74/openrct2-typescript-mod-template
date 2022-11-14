@@ -41,10 +41,6 @@ class WatchRunner {
 
           break;
         case 'BUNDLE_END':
-          event.output.forEach((output) => {
-            this.logger.success(`Successfully generated "${output}" output bundle`);
-          });
-
           event.result.close().catch((err) => {
             throw err;
           });

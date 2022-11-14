@@ -21,17 +21,23 @@ export default class GameRunner {
 
     this.logger.success('OpenRCT2 is running!');
 
-    const pipeStdout = (chunk: any): void => {
+    const pipeStdoutToConsole = (chunk: any): void => {
       if (chunk instanceof Buffer) {
-        this.logger.log(chunk.toString().trim());
+        const formattedChunk = chunk
+          .toString()
+          .replace('\r\n\x1B[0m\r\n', '\x1B[0m')
+          .replace(/(?<=\n)(.)/g, `${this.logger.prepend} $1`)
+          .trim();
+
+        this.logger.log(formattedChunk);
       }
     };
 
     this.logger.info('Piping OpenRCT2 stdout to console...');
 
-    spawned.stdout.on('data', pipeStdout);
-    spawned.stdout.on('error', pipeStdout);
-    spawned.stderr.on('data', pipeStdout);
+    spawned.stdout.on('data', pipeStdoutToConsole);
+    spawned.stdout.on('error', pipeStdoutToConsole);
+    spawned.stderr.on('data', pipeStdoutToConsole);
 
     this.logger.success('OpenRCT2 stdout is now piped to console!');
   }

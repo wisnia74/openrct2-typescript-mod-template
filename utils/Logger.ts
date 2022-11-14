@@ -14,9 +14,11 @@ export default class Logger {
 
   private output: Console;
 
-  private prepend: string;
-
   private timeMeasures: Map<string, ReturnType<NodeJS.HRTime>>;
+
+  prepend: string;
+
+  characterOffset: number;
 
   constructor({
     name,
@@ -32,6 +34,7 @@ export default class Logger {
     this.output = output;
     this.prepend = `[${this.color(this.name)}]`;
     this.timeMeasures = new Map<string, ReturnType<NodeJS.HRTime>>();
+    this.characterOffset = this.name.length + 3;
   }
 
   log(...data: any[]): void {
