@@ -26,8 +26,9 @@ export default class GameRunner {
       if (chunk instanceof Buffer) {
         const formattedChunk = chunk
           .toString()
-          .replace('\r\n\x1B[0m\r\n', '\x1B[0m')
-          .replace(/(?<=\n)(.)/g, `${this.logger.prepend} $1`)
+          // eslint-disable-next-line no-control-regex
+          .replace(/(\n|\r\n)(\x1B\[0m)(\n|\r\n)$/, '$1')
+          .replace(/(?<=\r\n|\n)(.)/g, `${this.logger.prepend} $1`)
           .trim();
 
         this.logger.log(formattedChunk);
