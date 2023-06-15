@@ -1,3 +1,5 @@
+# DISCONTINUED, TREAT IT LIKE A MODDERS RESOURCE
+
 # 🎢 openrct2-typescript-mod-template
 
 Template repository for OpenRCT2 mods written in TypeScript.
